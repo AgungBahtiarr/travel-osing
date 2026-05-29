@@ -1,0 +1,56 @@
+---
+// Hero Component
+---
+
+<section class="py-15 md:py-25 bg-bg-main overflow-hidden" id="beranda">
+  <div class="max-w-7xl mx-auto px-6 relative grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 lg:gap-15 items-center">
+    <div class="max-w-none lg:max-w-[640px] text-center lg:text-left">
+      <div class="inline-flex items-center gap-2 bg-accent-light text-accent-hover px-4.5 py-2 rounded-full font-bold text-[0.85rem] tracking-wider mb-6 uppercase shadow-[0_2px_10px_rgba(217,119,6,0.05)]">
+        <span>☀️</span> Sunrise of Java
+      </div>
+      <h1 class="font-serif text-5xl md:text-[3.75rem] leading-[1.15] text-text-main mb-6 font-extrabold">
+        Jelajahi Pesona<br /><span class="text-primary relative">Ujung Timur Jawa</span>
+      </h1>
+      <p class="text-text-muted text-[1.15rem] leading-relaxed mb-10 max-w-[540px] mx-auto lg:mx-0">
+        Selamat datang di Banyuwangi, di mana fajar pertama menerangi bentang alam eksotis. Dari kobaran api biru mistis Kawah Ijen hingga keliaran sabana Baluran dan kemurnian budaya suku Osing.
+      </p>
+      <div class="flex items-center justify-center lg:justify-start gap-5">
+        <a href="#destinasi" class="group bg-gradient-to-br from-primary to-primary-hover text-white px-9 py-4 rounded-2xl font-bold text-[1.05rem] shadow-[0_10px_25px_-5px_rgba(54,167,226,0.35)] inline-flex items-center gap-2.5 cursor-pointer border border-primary/10 transition-all duration-300 hover:-translate-y-0.75 hover:shadow-[0_15px_30px_-5px_rgba(54,167,226,0.45)]" id="hero-cta-main">
+          Mulai Petualangan
+          <svg class="transition-transform duration-300 group-hover:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+        </a>
+        <a href="#budaya" class="group/sec inline-flex items-center gap-2.5 font-bold text-base text-text-main px-6 py-3.5 rounded-2xl hover:text-primary transition-colors" id="hero-cta-video">
+          <span class="flex items-center justify-center w-11 h-11 rounded-full bg-primary-light text-primary text-[1.2rem] transition-all group-hover/sec:bg-primary group-hover/sec:text-white group-hover/sec:scale-110">▶</span>
+          Tonton Video
+        </a>
+      </div>
+    </div>
+
+    <div class="relative h-[440px] md:h-[480px] lg:h-[520px] w-full max-w-[500px] lg:max-w-none mx-auto flex items-center justify-center group/images">
+      <!-- Base Background Image (Kawah Ijen Landscape) -->
+      <div class="absolute top-0 left-0 w-[82%] h-[82%] rounded-[32px] overflow-hidden shadow-overlap-bg border-[10px] border-white z-10 transition-all duration-300 group-hover/images:-translate-y-2 group-hover/images:scale-[0.98]">
+        <img class="w-full h-full object-cover transition-transform duration-[8000ms] ease-out group-hover/images:scale-105" src="/images/hero_bg.png" alt="Keindahan Danau Kawah Ijen Banyuwangi Saat Sunrise" loading="eager" />
+      </div>
+      
+      <!-- Overlapping Foreground Image (Traveler) -->
+      <div class="absolute bottom-0 right-0 w-[58%] h-[78%] rounded-[32px] overflow-hidden shadow-overlap-fg border-[10px] border-white z-20 transition-all duration-300 group-hover/images:-translate-y-4 group-hover/images:-translate-x-2 group-hover/images:scale-[1.02]">
+        <img class="w-full h-full object-cover transition-transform duration-[8000ms] ease-out group-hover/images:scale-105" src="/images/traveler.png" alt="Wisatawan beransel menatap lanskap Banyuwangi" loading="eager" />
+      </div>
+
+      <!-- Floating glass badge 1 -->
+      <div class="absolute top-[10%] -right-[5%] bg-white/85 backdrop-blur-xl border border-white/40 px-6 py-3 rounded-full shadow-lg z-30 flex items-center gap-2.5 animate-float">
+        <span class="text-[1.4rem]">🏝️</span>
+        <div class="text-left">
+          <h4 class="text-[0.9rem] font-extrabold text-text-main leading-tight">Banyuwangi</h4>
+          <p class="text-[0.75rem] text-text-light font-semibold leading-tight">Ujung Timur Jawa</p>
+        </div>
+      </div>
+
+      <!-- Floating glass badge 2 -->
+      <div class="absolute bottom-[12%] -left-[5%] bg-primary/95 backdrop-blur-md px-6 py-3 rounded-full shadow-lg z-30 text-white flex items-center gap-2 text-[0.9rem] font-bold animate-float-reverse">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+        <span>Top Rated Agent</span>
+      </div>
+    </div>
+  </div>
+</section>

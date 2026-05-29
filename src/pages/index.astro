@@ -1,17 +1,37 @@
 ---
-
+// Travel Osing Landing Page
+// Refactored to use modular components, TailwindCSS, and Layout.astro.
+import Layout from '../layouts/Layout.astro';
+import Navbar from '../components/Navbar.astro';
+import Hero from '../components/Hero.astro';
+import IntroStats from '../components/IntroStats.astro';
+import TopDestinations from '../components/TopDestinations.astro';
+import CulturalBanner from '../components/CulturalBanner.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Footer from '../components/Footer.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout>
+	<!-- Navigation Header -->
+	<Navbar />
+
+	<main>
+		<!-- Hero Section -->
+		<Hero />
+
+		<!-- Intro & Statistik Section -->
+		<IntroStats />
+
+		<!-- Top Destinasi Section -->
+		<TopDestinations />
+
+		<!-- Feature Banner (Cultural Experience) -->
+		<CulturalBanner />
+
+		<!-- Testimoni Section -->
+		<Testimonials />
+	</main>
+
+	<!-- Footer Section -->
+	<Footer />
+</Layout>

@@ -1,0 +1,105 @@
+---
+// TopDestinations Component
+---
+
+<section class="py-25 px-6 bg-bg-main" id="destinasi">
+  <div class="max-w-7xl mx-auto px-6 relative">
+    <div class="text-center max-w-[650px] mx-auto mb-15">
+      <span class="inline-block text-[0.875rem] font-bold uppercase tracking-[0.15em] text-primary mb-3 bg-primary-light px-4 py-1.5 rounded-full">
+        Eksplorasi Terbaik
+      </span>
+      <h2 class="font-serif text-4xl md:text-[2.5rem] text-text-main mb-4 leading-tight font-extrabold">
+        Destinasi Unggulan
+      </h2>
+      <p class="text-text-muted text-[1.125rem]">
+        Pilihan petualangan menakjubkan yang dirancang khusus untuk memenuhi impian perjalanan Anda di Banyuwangi.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[480px] md:max-w-none mx-auto">
+      <!-- Destination 1: Kawah Ijen -->
+      <article class="group bg-bg-main rounded-3xl overflow-hidden shadow-md transition-all duration-300 border border-slate-100/80 flex flex-col h-full hover:-translate-y-2.5 hover:shadow-lg hover:border-primary-light">
+        <div class="relative h-[260px] overflow-hidden">
+          <span class="absolute top-5 left-5 bg-white/90 backdrop-blur-sm text-text-main px-3.5 py-1.5 rounded-full font-bold text-[0.8rem] shadow-subtle z-10 uppercase tracking-wider border border-white/50">
+            Petualangan
+          </span>
+          <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108" src="/images/ijen_blue_fire.png" alt="Fenomena Alam Blue Fire di Kawah Ijen" loading="lazy" />
+        </div>
+        <div class="p-[30px] flex flex-col flex-grow">
+          <h3 class="font-serif text-2xl text-text-main mb-3 font-bold">Kawah Ijen (Blue Fire)</h3>
+          <p class="text-text-muted text-[0.95rem] leading-relaxed mb-6 flex-grow">
+            Saksikan keajaiban api biru elektrik yang langka di dunia di dalam kawah kawah asam terbesar. Nikmati keindahan danau toska berselimut kabut belerang emas saat matahari terbit.
+          </p>
+          <div class="flex items-center justify-between pt-5 border-t border-border-color">
+            <div class="flex flex-col">
+              <span class="text-[0.75rem] text-text-light uppercase font-bold tracking-wider">Mulai Dari</span>
+              <span class="text-[1.15rem] font-extrabold text-primary">
+                Rp 350.000 <small class="text-[0.7rem] text-text-light font-normal">/pax</small>
+              </span>
+            </div>
+            <a href="#kontak" class="inline-flex items-center gap-2 text-primary font-bold text-[0.95rem] px-4.5 py-2.5 rounded-lg transition-all hover:bg-primary-light hover:translate-x-1 group/explore" id="explore-ijen-btn">
+              Explore
+              <svg class="transition-transform duration-300 group-hover/explore:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Destination 2: Baluran -->
+      <article class="group bg-bg-main rounded-3xl overflow-hidden shadow-md transition-all duration-300 border border-slate-100/80 flex flex-col h-full hover:-translate-y-2.5 hover:shadow-lg hover:border-primary-light">
+        <div class="relative h-[260px] overflow-hidden">
+          <span class="absolute top-5 left-5 bg-white/90 backdrop-blur-sm text-text-main px-3.5 py-1.5 rounded-full font-bold text-[0.8rem] shadow-subtle z-10 uppercase tracking-wider border border-white/50">
+            Margasatwa
+          </span>
+          <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108" src="/images/baluran.png" alt="Sabana Emas Taman Nasional Baluran" loading="lazy" />
+        </div>
+        <div class="p-[30px] flex flex-col flex-grow">
+          <h3 class="font-serif text-2xl text-text-main mb-3 font-bold">Taman Nasional Baluran</h3>
+          <p class="text-text-muted text-[0.95rem] leading-relaxed mb-6 flex-grow">
+            Rasakan sensasi berkelana di tengah sabana emas luas yang dihuni kawanan rusa, banteng liar, dan merak eksotis, membentang megah di bawah bayang-bayang Gunung Baluran.
+          </p>
+          <div class="flex items-center justify-between pt-5 border-t border-border-color">
+            <div class="flex flex-col">
+              <span class="text-[0.75rem] text-text-light uppercase font-bold tracking-wider">Mulai Dari</span>
+              <span class="text-[1.15rem] font-extrabold text-primary">
+                Rp 450.000 <small class="text-[0.7rem] text-text-light font-normal">/pax</small>
+              </span>
+            </div>
+            <a href="#kontak" class="inline-flex items-center gap-2 text-primary font-bold text-[0.95rem] px-4.5 py-2.5 rounded-lg transition-all hover:bg-primary-light hover:translate-x-1 group/explore" id="explore-baluran-btn">
+              Explore
+              <svg class="transition-transform duration-300 group-hover/explore:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Destination 3: Pulau Merah -->
+      <article class="group bg-bg-main rounded-3xl overflow-hidden shadow-md transition-all duration-300 border border-slate-100/80 flex flex-col h-full hover:-translate-y-2.5 hover:shadow-lg hover:border-primary-light">
+        <div class="relative h-[260px] overflow-hidden">
+          <span class="absolute top-5 left-5 bg-white/90 backdrop-blur-sm text-text-main px-3.5 py-1.5 rounded-full font-bold text-[0.8rem] shadow-subtle z-10 uppercase tracking-wider border border-white/50">
+            Pantai & Relaksasi
+          </span>
+          <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108" src="/images/pulau_merah.png" alt="Sunset Indah di Pantai Pulau Merah" loading="lazy" />
+        </div>
+        <div class="p-[30px] flex flex-col flex-grow">
+          <h3 class="font-serif text-2xl text-text-main mb-3 font-bold">Pantai Pulau Merah</h3>
+          <p class="text-text-muted text-[0.95rem] leading-relaxed mb-6 flex-grow">
+            Nikmati salah satu pemandangan matahari terbenam paling dramatis di Indonesia dengan bukit merah berselimut hijau di bibir samudra dan pasir pantai yang berkilau keemasan.
+          </p>
+          <div class="flex items-center justify-between pt-5 border-t border-border-color">
+            <div class="flex flex-col">
+              <span class="text-[0.75rem] text-text-light uppercase font-bold tracking-wider">Mulai Dari</span>
+              <span class="text-[1.15rem] font-extrabold text-primary">
+                Rp 300.000 <small class="text-[0.7rem] text-text-light font-normal">/pax</small>
+              </span>
+            </div>
+            <a href="#kontak" class="inline-flex items-center gap-2 text-primary font-bold text-[0.95rem] px-4.5 py-2.5 rounded-lg transition-all hover:bg-primary-light hover:translate-x-1 group/explore" id="explore-pm-btn">
+              Explore
+              <svg class="transition-transform duration-300 group-hover/explore:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>

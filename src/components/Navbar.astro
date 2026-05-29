@@ -1,0 +1,80 @@
+---
+// Navbar Component
+---
+
+<header class="sticky top-0 left-0 w-full z-[100] bg-white/80 backdrop-blur-md border-b border-border-color/60 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-6 relative flex items-center justify-between h-20">
+    <a href="#" class="font-serif text-[1.625rem] font-extrabold text-text-main flex items-center gap-2" id="main-logo">
+      Travel<span class="text-primary">Osing</span><span class="text-accent text-[2.2rem] leading-none -ml-0.5">.</span>
+    </a>
+    
+    <ul class="nav-menu hidden md:flex list-none gap-8">
+      <li>
+        <a href="#beranda" class="text-[0.95rem] font-semibold text-text-muted hover:text-primary relative py-2 transition-colors after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">
+          Beranda
+        </a>
+      </li>
+      <li>
+        <a href="#destinasi" class="text-[0.95rem] font-semibold text-text-muted hover:text-primary relative py-2 transition-colors after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">
+          Destinasi
+        </a>
+      </li>
+      <li>
+        <a href="#budaya" class="text-[0.95rem] font-semibold text-text-muted hover:text-primary relative py-2 transition-colors after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">
+          Budaya
+        </a>
+      </li>
+      <li>
+        <a href="#testimoni" class="text-[0.95rem] font-semibold text-text-muted hover:text-primary relative py-2 transition-colors after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">
+          Testimoni
+        </a>
+      </li>
+      <li>
+        <a href="#kontak" class="text-[0.95rem] font-semibold text-text-muted hover:text-primary relative py-2 transition-colors after:content-[''] after:absolute after:bottom-0 after:left-1/2 after:-translate-x-1/2 after:w-0 after:h-0.5 after:bg-primary after:transition-all hover:after:w-full">
+          Kontak
+        </a>
+      </li>
+    </ul>
+
+    <div class="hidden md:block">
+      <a href="#kontak" class="bg-primary text-white px-5.5 py-2.5 rounded-2xl text-[0.9rem] font-bold shadow-[0_4px_14px_rgba(54,167,226,0.2)] transition-all hover:bg-primary-hover hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(54,167,226,0.3)]" id="nav-cta-btn">
+        Hubungi Kami
+      </a>
+    </div>
+
+    <div class="flex md:hidden flex-col gap-1.25 cursor-pointer" id="mobile-menu-toggle" aria-label="Menu navigasi">
+      <span class="block w-[25px] h-[3px] bg-text-main rounded-[3px] transition-all"></span>
+      <span class="block w-[25px] h-[3px] bg-text-main rounded-[3px] transition-all"></span>
+      <span class="block w-[25px] h-[3px] bg-text-main rounded-[3px] transition-all"></span>
+    </div>
+  </div>
+</header>
+
+<!-- Simple responsive mobile menu helper -->
+<script>
+  const menuToggle = document.getElementById('mobile-menu-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+
+  if (menuToggle && navMenu) {
+    menuToggle.addEventListener('click', () => {
+      // Toggle standard Tailwind classes for mobile menu
+      const isMobileOpen = navMenu.classList.contains('flex') && !navMenu.classList.contains('hidden');
+      
+      if (isMobileOpen) {
+        navMenu.classList.add('hidden');
+        navMenu.classList.remove('flex', 'flex-col', 'absolute', 'top-20', 'left-0', 'w-full', 'bg-white', 'p-5', 'border-b', 'border-border-color/60', 'z-[99]', 'gap-4', 'items-center', 'shadow-md');
+      } else {
+        navMenu.classList.remove('hidden');
+        navMenu.classList.add('flex', 'flex-col', 'absolute', 'top-20', 'left-0', 'w-full', 'bg-white', 'p-5', 'border-b', 'border-border-color/60', 'z-[99]', 'gap-4', 'items-center', 'shadow-md');
+      }
+    });
+
+    // Auto hide menu on window resize
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 768) {
+        navMenu.classList.remove('flex', 'flex-col', 'absolute', 'top-20', 'left-0', 'w-full', 'bg-white', 'p-5', 'border-b', 'border-border-color/60', 'z-[99]', 'gap-4', 'items-center', 'shadow-md');
+        navMenu.classList.add('hidden');
+      }
+    });
+  }
+</script>
