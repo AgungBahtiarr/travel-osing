@@ -1,5 +1,21 @@
 @import "tailwindcss";
 
+/* Premium Self-Hosted Fonts via Fontsource */
+/* Plus Jakarta Sans (Sans-Serif Brand Font) */
+@import "@fontsource/plus-jakarta-sans/300.css";
+@import "@fontsource/plus-jakarta-sans/400.css";
+@import "@fontsource/plus-jakarta-sans/500.css";
+@import "@fontsource/plus-jakarta-sans/600.css";
+@import "@fontsource/plus-jakarta-sans/700.css";
+@import "@fontsource/plus-jakarta-sans/800.css";
+
+/* Playfair Display (Serif Editorial Font) */
+@import "@fontsource/playfair-display/400.css";
+@import "@fontsource/playfair-display/600.css";
+@import "@fontsource/playfair-display/700.css";
+@import "@fontsource/playfair-display/800.css";
+@import "@fontsource/playfair-display/400-italic.css";
+
 @theme {
   --color-primary: #0a73aa; /* High-contrast premium ocean blue (4.97:1 contrast on white) */
   --color-primary-hover: #075f8c;
