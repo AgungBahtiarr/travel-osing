@@ -2,6 +2,10 @@
 // IntroStats Component
 // TripAdvisor-style clean editorial and statistics showcase.
 import { ShieldCheck, Compass, Heart } from '@lucide/astro';
+import { useTranslations } from '../utils/i18n';
+
+const locale = Astro.currentLocale;
+const t = useTranslations(locale);
 ---
 
 <section class="bg-bg-secondary py-20 border-b border-border-color relative">
@@ -9,11 +13,14 @@ import { ShieldCheck, Compass, Heart } from '@lucide/astro';
     
     <!-- Left text editorial -->
     <div class="text-center lg:text-left">
-      <h3 class="font-sans text-3xl md:text-4xl text-text-main font-black tracking-tight mb-5">
-        Perjalanan Aman,<br />Kenangan Berharga.
+      <span class="inline-block text-[0.75rem] font-bold uppercase tracking-[0.2em] text-primary mb-2.5">
+        {t('stats.badge')}
+      </span>
+      <h3 class="font-sans text-3xl md:text-4xl text-text-main font-black tracking-tight mb-5 leading-tight">
+        {t('stats.title')}
       </h3>
       <p class="text-text-muted text-base leading-relaxed font-medium">
-        Kami berkomitmen menyajikan keindahan otentik Banyuwangi dengan standar kualitas premium. Bersama pemandu lokal berlisensi dari suku adat Osing asli, setiap langkah petualangan Anda terjamin aman dan menyenangkan.
+        {t('stats.subtitle')}
       </p>
     </div>
 
@@ -25,9 +32,9 @@ import { ShieldCheck, Compass, Heart } from '@lucide/astro';
         <div class="w-12 h-12 rounded-full bg-primary-light flex items-center justify-center mx-auto mb-4 text-primary shrink-0">
           <ShieldCheck class="w-6 h-6" />
         </div>
-        <span class="text-3xl font-black text-text-main mb-1.5 block tracking-tight">10+</span>
-        <span class="text-xs font-extrabold text-text-main mb-1 block uppercase tracking-wider">Tahun Pengalaman</span>
-        <span class="text-xs text-text-muted font-medium">Mengantarkan kebahagiaan petualang</span>
+        <span class="text-3xl font-black text-text-main mb-1.5 block tracking-tight">{t('stats.1.num')}</span>
+        <span class="text-xs font-extrabold text-text-main mb-1 block uppercase tracking-wider">{t('stats.1.title')}</span>
+        <span class="text-xs text-text-muted font-medium">{t('stats.1.desc')}</span>
       </div>
       
       <!-- Card 2 -->
@@ -35,9 +42,9 @@ import { ShieldCheck, Compass, Heart } from '@lucide/astro';
         <div class="w-12 h-12 rounded-full bg-accent-light flex items-center justify-center mx-auto mb-4 text-accent shrink-0">
           <Compass class="w-6 h-6" />
         </div>
-        <span class="text-3xl font-black text-accent mb-1.5 block tracking-tight">50+</span>
-        <span class="text-xs font-extrabold text-text-main mb-1 block uppercase tracking-wider">Pemandu Lokal</span>
-        <span class="text-xs text-text-muted font-medium">Asli suku Osing dan bersertifikat</span>
+        <span class="text-3xl font-black text-accent mb-1.5 block tracking-tight">{t('stats.2.num')}</span>
+        <span class="text-xs font-extrabold text-text-main mb-1 block uppercase tracking-wider">{t('stats.2.title')}</span>
+        <span class="text-xs text-text-muted font-medium">{t('stats.2.desc')}</span>
       </div>
 
       <!-- Card 3 -->
@@ -45,9 +52,9 @@ import { ShieldCheck, Compass, Heart } from '@lucide/astro';
         <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4 text-red-500 shrink-0">
           <Heart class="w-6 h-6 fill-current" />
         </div>
-        <span class="text-3xl font-black text-red-500 mb-1.5 block tracking-tight">15k+</span>
-        <span class="text-xs font-extrabold text-text-main mb-1 block uppercase tracking-wider">Petualang Puas</span>
-        <span class="text-xs text-text-muted font-medium">Dari nusantara hingga mancanegara</span>
+        <span class="text-3xl font-black text-red-500 mb-1.5 block tracking-tight">{t('stats.3.num')}</span>
+        <span class="text-xs font-extrabold text-text-main mb-1 block uppercase tracking-wider">{t('stats.3.title')}</span>
+        <span class="text-xs text-text-muted font-medium">{t('stats.3.desc')}</span>
       </div>
       
     </div>

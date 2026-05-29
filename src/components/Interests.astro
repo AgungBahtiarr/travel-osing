@@ -3,9 +3,16 @@
 // TripAdvisor-style "Find things to do by interest" section using Content Collections.
 import { getCollection } from 'astro:content';
 import { ChevronRight } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import { useTranslations } from '../utils/i18n';
+
+const locale = Astro.currentLocale || 'id';
+const t = useTranslations(locale);
 
 const interests = await getCollection('interests');
-const sortedInterests = interests.sort((a, b) => a.data.sortOrder - b.data.sortOrder);
+// Filter based on locale folder prefix (e.g. id/ or en/)
+const filteredInterests = interests.filter(item => item.id.startsWith(`${locale}/`));
+const sortedInterests = filteredInterests.sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 ---
 
 <section class="py-20 px-6 bg-bg-secondary border-t border-b border-border-color" id="minat">
@@ -14,13 +21,13 @@ const sortedInterests = interests.sort((a, b) => a.data.sortOrder - b.data.sortO
     <!-- TripAdvisor style Section Header -->
     <div class="text-left mb-10 max-w-[650px]">
       <span class="inline-block text-[0.75rem] font-bold uppercase tracking-[0.2em] text-primary mb-2.5">
-        Temukan Pengalaman
+        {t('interests.badge')}
       </span>
       <h2 class="font-sans text-3xl md:text-4xl text-text-main mb-3 font-black tracking-tight leading-tight">
-        Cari Aktivitas Sesuai Minat Anda
+        {t('interests.title')}
       </h2>
       <p class="text-text-muted text-base font-semibold">
-        Apa pun hobi atau kegemaran Anda, kami merancang petualangan yang tepat untuk Anda.
+        {t('interests.subtitle')}
       </p>
     </div>
 
@@ -30,7 +37,7 @@ const sortedInterests = interests.sort((a, b) => a.data.sortOrder - b.data.sortO
       {sortedInterests.map((interest) => (
         <a href={interest.data.link} class="w-[180px] sm:w-[220px] shrink-0 snap-start group text-center block">
           <div class="aspect-square rounded-2xl overflow-hidden border border-border-color shadow-sm bg-slate-100 mb-3.5 transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-1">
-            <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103" src={interest.data.image} alt={interest.data.title} loading="lazy" />
+            <Image class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103" src={interest.data.image} alt={interest.data.title} width={300} height={300} loading="lazy" />
           </div>
           <span class="text-sm font-black text-text-main tracking-tight group-hover:text-primary transition-colors flex items-center justify-center gap-1">
             {interest.data.title}
@@ -42,14 +49,3 @@ const sortedInterests = interests.sort((a, b) => a.data.sortOrder - b.data.sortO
     </div>
   </div>
 </section>
-
-<!-- Hide Scrollbar Utility -->
-<style>
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-  .no-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-</style>

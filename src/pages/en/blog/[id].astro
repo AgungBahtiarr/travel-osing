@@ -1,18 +1,18 @@
 ---
 import { getCollection, render } from 'astro:content';
-import Layout from '../../layouts/Layout.astro';
-import Navbar from '../../components/Navbar.astro';
-import Footer from '../../components/Footer.astro';
-import WhatsAppWidget from '../../components/WhatsAppWidget.astro';
+import Layout from '../../../layouts/Layout.astro';
+import Navbar from '../../../components/Navbar.astro';
+import Footer from '../../../components/Footer.astro';
+import WhatsAppWidget from '../../../components/WhatsAppWidget.astro';
 import { Calendar, User, Clock, ChevronLeft, ArrowRight, Share2, MessageCircle } from '@lucide/astro';
 import { Image } from 'astro:assets';
 
-// 1. Generate paths for each blog entry
+// 1. Generate paths for each English blog entry
 export async function getStaticPaths() {
   const posts = await getCollection('blog');
-  const idPosts = posts.filter(p => p.id.startsWith('id/'));
-  return idPosts.map(post => ({
-    params: { id: post.id.replace(/^id\//, '') },
+  const enPosts = posts.filter(p => p.id.startsWith('en/'));
+  return enPosts.map(post => ({
+    params: { id: post.id.replace(/^en\//, '') },
     props: { post },
   }));
 }
@@ -21,13 +21,12 @@ export async function getStaticPaths() {
 const { post } = Astro.props;
 const { Content } = await render(post);
 
-// 3. Get related articles (exclude current, find common tags, or get latest)
+// 3. Get related English articles (exclude current, find common tags, or get latest)
 const allPosts = await getCollection('blog');
-const idPosts = allPosts.filter(p => p.id.startsWith('id/'));
-const relatedPosts = idPosts
+const enPosts = allPosts.filter(p => p.id.startsWith('en/'));
+const relatedPosts = enPosts
   .filter(p => p.id !== post.id)
   .map(p => {
-    // Count common tags for sorting relevancy
     const commonTags = p.data.tags.filter(t => post.data.tags.includes(t)).length;
     return { post: p, commonTags };
   })
@@ -37,7 +36,7 @@ const relatedPosts = idPosts
 
 // Format date helper
 const formatDate = (date: Date) => {
-  return new Intl.DateTimeFormat('id-ID', {
+  return new Intl.DateTimeFormat('en-US', {
     day: 'numeric',
     month: 'long',
     year: 'numeric'
@@ -46,7 +45,7 @@ const formatDate = (date: Date) => {
 ---
 
 <Layout 
-  title={`${post.data.title} - Blog Travel Osing`} 
+  title={`${post.data.title} - Travel Osing Blog`} 
   description={post.data.excerpt}
   image={post.data.image}
 >
@@ -55,7 +54,6 @@ const formatDate = (date: Date) => {
 
   <main class="bg-bg-main min-h-screen pb-24">
     
-    <!-- Floating Article Progress Bar or Top Nav -->
     <article class="relative">
       
       <!-- Premium Hero Header -->
@@ -64,11 +62,11 @@ const formatDate = (date: Date) => {
           
           <!-- Back button -->
           <a 
-            href="/blog" 
+            href="/en/blog" 
             class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-text-light hover:text-primary transition-all mb-8 group"
           >
             <ChevronLeft class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
-            Kembali ke Blog
+            Back to Blog
           </a>
 
           <!-- Category Tags -->
@@ -93,7 +91,7 @@ const formatDate = (date: Date) => {
                 <User class="w-3.5 h-3.5 text-text-muted" />
               </div>
               <div>
-                <span class="text-text-muted font-bold text-xs">Penulis</span>
+                <span class="text-text-muted font-bold text-xs">Author</span>
                 <p class="font-semibold text-text-main text-xs">{post.data.author}</p>
               </div>
             </div>
@@ -104,7 +102,7 @@ const formatDate = (date: Date) => {
                 <Calendar class="w-3.5 h-3.5 text-text-muted" />
               </div>
               <div>
-                <span class="text-text-muted font-bold text-xs">Tanggal Rilis</span>
+                <span class="text-text-muted font-bold text-xs">Publish Date</span>
                 <p class="font-semibold text-text-main text-xs">{formatDate(post.data.pubDate)}</p>
               </div>
             </div>
@@ -115,8 +113,8 @@ const formatDate = (date: Date) => {
                 <Clock class="w-3.5 h-3.5 text-text-muted" />
               </div>
               <div>
-                <span class="text-text-muted font-bold text-xs">Durasi Baca</span>
-                <p class="font-semibold text-text-main text-xs">{post.data.readTime} Baca</p>
+                <span class="text-text-muted font-bold text-xs">Reading Time</span>
+                <p class="font-semibold text-text-main text-xs">{post.data.readTime} read</p>
               </div>
             </div>
           </div>
@@ -140,14 +138,14 @@ const formatDate = (date: Date) => {
       <!-- Main Article Body -->
       <div class="max-w-4xl mx-auto px-6 mt-12 flex flex-col lg:flex-row gap-12 relative">
         
-        <!-- Social Share Sidebar (sticky desktop) -->
+        <!-- Social Share Sidebar -->
         <aside class="lg:w-16 shrink-0 flex lg:flex-col items-center justify-start gap-3 py-2 border-b lg:border-b-0 lg:border-r border-border-color lg:pr-6 self-start lg:sticky lg:top-28">
-          <span class="text-[0.65rem] font-bold uppercase tracking-wider text-text-light lg:mb-2 whitespace-nowrap">Bagikan</span>
+          <span class="text-[0.65rem] font-bold uppercase tracking-wider text-text-light lg:mb-2 whitespace-nowrap">Share</span>
           <button 
             type="button" 
-            onclick="navigator.clipboard.writeText(window.location.href); alert('Tautan artikel berhasil disalin!');"
+            onclick="navigator.clipboard.writeText(window.location.href); alert('Article link copied to clipboard!');"
             class="w-10 h-10 rounded-full border border-border-color hover:bg-slate-50 flex items-center justify-center text-text-muted hover:text-primary transition-all cursor-pointer shadow-subtle active:scale-95"
-            title="Salin Tautan"
+            title="Copy Link"
           >
             <Share2 class="w-4 h-4" />
           </button>
@@ -156,7 +154,7 @@ const formatDate = (date: Date) => {
             id="whatsapp-share-btn"
             target="_blank"
             class="w-10 h-10 rounded-full border border-border-color hover:bg-slate-50 flex items-center justify-center text-text-muted hover:text-accent transition-all cursor-pointer shadow-subtle active:scale-95"
-            title="Bagikan ke WhatsApp"
+            title="Share to WhatsApp"
           >
             <MessageCircle class="w-4 h-4" />
           </a>
@@ -169,18 +167,18 @@ const formatDate = (date: Date) => {
           <!-- Conversion Banner Box -->
           <div class="mt-16 p-8 rounded-2xl border border-border-color bg-bg-secondary flex flex-col sm:flex-row items-center gap-6 shadow-subtle">
             <div class="text-left flex-grow">
-              <span class="inline-block text-[0.65rem] font-extrabold text-primary uppercase tracking-[0.2em] mb-1">Eksplorasi Bersama Kami</span>
-              <h4 class="font-sans text-lg font-black text-text-main mb-2">Ingin merencanakan liburan ke Banyuwangi?</h4>
+              <span class="inline-block text-[0.65rem] font-extrabold text-primary uppercase tracking-[0.2em] mb-1">Explore with Us</span>
+              <h4 class="font-sans text-lg font-black text-text-main mb-2">Want to plan your vacation to Banyuwangi?</h4>
               <p class="text-text-muted text-xs leading-relaxed max-w-md">
-                Hubungi kami sekarang untuk berkonsultasi gratis dan dapatkan penawaran itinerary premium khusus untuk Anda dan keluarga.
+                Contact us now for a free consultation and receive exclusive, customized itinerary packages tailored to you and your family.
               </p>
             </div>
             <a 
-              href="https://wa.me/628123456789?text=Halo%20Travel%20Osing,%20saya%20tertarik%20dengan%20info%20dari%20artikel%20blog%20Anda."
+              href="https://wa.me/628123456789?text=Hello%20Travel%20Osing,%20I%20am%20interested%20in%20customized%20vacation%20packages%20based%20on%20your%20articles."
               target="_blank"
               class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-accent hover:bg-accent-hover text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm shrink-0 whitespace-nowrap active:scale-95 cursor-pointer"
             >
-              Hubungi WhatsApp
+              Contact WhatsApp
               <ArrowRight class="w-4 h-4" />
             </a>
           </div>
@@ -194,16 +192,16 @@ const formatDate = (date: Date) => {
       <section class="mt-24 py-16 bg-bg-secondary border-t border-b border-border-color px-6">
         <div class="max-w-4xl mx-auto">
           <div class="flex items-center justify-between mb-8">
-            <h3 class="font-sans text-xl md:text-2xl font-black text-text-main tracking-tight">Artikel Terkait</h3>
-            <a href="/blog" class="text-xs font-bold text-primary hover:underline flex items-center gap-1">
-              Lihat semua <ArrowRight class="w-3.5 h-3.5" />
+            <h3 class="font-sans text-xl md:text-2xl font-black text-text-main tracking-tight">Related Articles</h3>
+            <a href="/en/blog" class="text-xs font-bold text-primary hover:underline flex items-center gap-1">
+              View all <ArrowRight class="w-3.5 h-3.5" />
             </a>
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {relatedPosts.map((rPost) => (
               <a 
-                href={`/blog/${rPost.id.replace(/^id\//, '')}`}
+                href={`/en/blog/${rPost.id.replace(/^en\//, '')}`}
                 class="group bg-white rounded-xl overflow-hidden border border-border-color hover:border-slate-300 hover:shadow-md transition-all duration-300 flex flex-col"
               >
                 <div class="aspect-[16/9] w-full overflow-hidden bg-slate-100 border-b border-border-color">

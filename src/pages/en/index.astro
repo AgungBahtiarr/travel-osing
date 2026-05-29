@@ -1,0 +1,63 @@
+---
+// Travel Osing Landing Page (English Version)
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Hero from '../../components/Hero.astro';
+import IntroStats from '../../components/IntroStats.astro';
+import Interests from '../../components/Interests.astro';
+import TopDestinations from '../../components/TopDestinations.astro';
+import EventCalendar from '../../components/EventCalendar.astro';
+import TripPlanner from '../../components/TripPlanner.astro';
+import CulturalBanner from '../../components/CulturalBanner.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import BlogSection from '../../components/BlogSection.astro';
+import FAQ from '../../components/FAQ.astro';
+import Footer from '../../components/Footer.astro';
+import WhatsAppWidget from '../../components/WhatsAppWidget.astro';
+---
+
+<Layout 
+  title="Travel Osing - Explore the Beauty of Banyuwangi | Sunrise of Java"
+  description="Travel Osing is a premium travel agency in Banyuwangi. Discover the stunning Mount Ijen Blue Fire, Baluran Savanna, Red Island Beach, and Kemiren traditional Osing village with our certified local guides."
+>
+	<!-- Navigation Header -->
+	<Navbar />
+
+	<main>
+		<!-- Hero Section -->
+		<Hero />
+
+		<!-- Intro & Statistik Section -->
+		<IntroStats />
+
+		<!-- Find Things to do by Interest Section -->
+		<Interests />
+
+		<!-- Top Destinasi Section -->
+		<TopDestinations />
+
+		<!-- Kalender Event & Festival Banyuwangi -->
+		<EventCalendar />
+
+		<!-- Trip Planner (Custom Trip Spec Planner) -->
+		<TripPlanner />
+
+		<!-- Feature Banner (Cultural Experience) -->
+		<CulturalBanner />
+
+		<!-- Testimoni Section -->
+		<Testimonials />
+
+		<!-- Blog & Inspirasi Section -->
+		<BlogSection />
+
+		<!-- FAQ Accordion Section -->
+		<FAQ />
+	</main>
+
+	<!-- Footer Section -->
+	<Footer />
+
+	<!-- Floating Live WhatsApp Booking Widget -->
+	<WhatsAppWidget />
+</Layout>

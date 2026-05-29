@@ -2,6 +2,11 @@
 // Testimonials Component
 // TripAdvisor-style clean user reviews section with bubble ratings.
 import { Check } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import { useTranslations } from '../utils/i18n';
+
+const locale = Astro.currentLocale || 'id';
+const t = useTranslations(locale);
 ---
 
 <section class="py-20 px-6 bg-bg-secondary border-t border-b border-border-color" id="testimoni">
@@ -10,13 +15,13 @@ import { Check } from '@lucide/astro';
     <!-- Section Header -->
     <div class="text-center max-w-[650px] mx-auto mb-16">
       <span class="inline-block text-[0.8rem] font-extrabold uppercase tracking-widest text-primary mb-3 bg-primary-light px-3.5 py-1.5 rounded-full">
-        Ulasan Pengunjung
+        {t('testi.badge')}
       </span>
       <h2 class="font-sans text-3xl md:text-4xl text-text-main mb-4 leading-tight font-black tracking-tight">
-        Kisah Perjalanan Nyata
+        {t('testi.title')}
       </h2>
       <p class="text-text-muted text-base md:text-lg font-medium">
-        Berikut adalah ulasan asli yang ditulis langsung oleh para petualang yang telah mempercayakan liburan mereka kepada kami.
+        {t('testi.subtitle')}
       </p>
     </div>
 
@@ -35,27 +40,33 @@ import { Check } from '@lucide/astro';
               <span class="w-3 h-3 rounded-full bg-accent inline-block"></span>
               <span class="w-3 h-3 rounded-full bg-accent inline-block"></span>
             </div>
-            <span class="text-xs font-bold text-text-main">"Sangat Profesional & Mengesankan!"</span>
+            <span class="text-xs font-bold text-text-main">
+              {locale === 'en' ? '"Highly Professional & Impressive!"' : '"Sangat Profesional & Mengesankan!"'}
+            </span>
           </div>
 
           <p class="text-text-muted text-sm leading-relaxed mb-6 font-medium">
-            Perjalanan kami ke Kawah Ijen sangat berkesan berkat Travel Osing! Pemandu lokal kami, Mas Haris, tahu persis rute terbaik agar kami terhindar dari antrean panjang dan mengarahkan ke spot foto Blue Fire tercantik. Benar-benar layanan kelas premium!
+            {locale === 'en' 
+              ? 'Our trip to Mount Ijen was unforgettable thanks to Travel Osing! Our local guide, Haris, knew exactly the best paths to avoid queues and directed us to the most stunning spots to photograph the Blue Fire. Truly a premium class service!'
+              : 'Perjalanan kami ke Kawah Ijen sangat berkesan berkat Travel Osing! Pemandu lokal kami, Mas Haris, tahu persis rute terbaik agar kami terhindar dari antrean panjang dan mengarahkan ke spot foto Blue Fire tercantik. Benar-benar layanan kelas premium!'}
           </p>
         </div>
 
         <!-- User profile -->
         <div class="flex items-center gap-4 pt-5 border-t border-border-color mt-auto">
           <div class="w-12 h-12 rounded-full overflow-hidden border border-border-color shrink-0">
-            <img class="w-full h-full object-cover" src="/images/avatar1.png" alt="Foto Client Ardelia Maharani" loading="lazy" />
+            <Image class="w-full h-full object-cover" src="/images/avatar1.png" alt="Foto Client Ardelia Maharani" width={48} height={48} loading="lazy" />
           </div>
           <div>
             <div class="flex items-center gap-1.5">
               <h4 class="text-sm font-extrabold text-text-main">Ardelia Maharani</h4>
-              <span class="inline-flex items-center justify-center w-4 h-4 bg-accent/15 text-accent rounded-full shrink-0" title="Ulasan Terverifikasi">
+              <span class="inline-flex items-center justify-center w-4 h-4 bg-accent/15 text-accent rounded-full shrink-0" title={t('testi.verified')}>
                 <Check class="w-2.5 h-2.5 stroke-[3]" />
               </span>
             </div>
-            <p class="text-[0.7rem] text-text-light font-bold">Trip Kawah Ijen • Surabaya, Indonesia</p>
+            <p class="text-[0.7rem] text-text-light font-bold">
+              {locale === 'en' ? 'Mount Ijen Trip • Surabaya, Indonesia' : 'Trip Kawah Ijen • Surabaya, Indonesia'}
+            </p>
           </div>
         </div>
       </div>
@@ -72,27 +83,33 @@ import { Check } from '@lucide/astro';
               <span class="w-3 h-3 rounded-full bg-accent inline-block"></span>
               <span class="w-3 h-3 rounded-full bg-accent inline-block"></span>
             </div>
-            <span class="text-xs font-bold text-text-main">"Pengalaman Adat Osing yang Otentik"</span>
+            <span class="text-xs font-bold text-text-main">
+              {locale === 'en' ? '"Authentic Osing Village Experience"' : '"Pengalaman Adat Osing yang Otentik"'}
+            </span>
           </div>
 
           <p class="text-text-muted text-sm leading-relaxed mb-6 font-medium">
-            Pengalaman budaya di Kemiren sungguh luar biasa hangat. Kami diajak menyeduh kopi di rumah warga adat dan diajari memainkan Angklung Paglak secara langsung. Rasanya seperti berkunjung ke rumah keluarga sendiri. Pemandunya ramah sekali!
+            {locale === 'en'
+              ? 'The cultural experience in Kemiren village was incredibly warm. We were invited to brew coffee in the traditional wooden houses and were taught how to play raw Angklung Paglak. It felt like visiting family. Excellent guide!'
+              : 'Pengalaman budaya di Kemiren sungguh luar biasa hangat. Kami diajak menyeduh kopi di rumah warga adat dan diajari memainkan Angklung Paglak secara langsung. Rasanya seperti berkunjung ke rumah keluarga sendiri. Pemandunya ramah sekali!'}
           </p>
         </div>
 
         <!-- User profile -->
         <div class="flex items-center gap-4 pt-5 border-t border-border-color mt-auto">
           <div class="w-12 h-12 rounded-full overflow-hidden border border-border-color shrink-0">
-            <img class="w-full h-full object-cover" src="/images/avatar2.png" alt="Foto Client Gede Wirawan" loading="lazy" />
+            <Image class="w-full h-full object-cover" src="/images/avatar2.png" alt="Foto Client Gede Wirawan" width={48} height={48} loading="lazy" />
           </div>
           <div>
             <div class="flex items-center gap-1.5">
               <h4 class="text-sm font-extrabold text-text-main">Gede Wirawan</h4>
-              <span class="inline-flex items-center justify-center w-4 h-4 bg-accent/15 text-accent rounded-full shrink-0" title="Ulasan Terverifikasi">
+              <span class="inline-flex items-center justify-center w-4 h-4 bg-accent/15 text-accent rounded-full shrink-0" title={t('testi.verified')}>
                 <Check class="w-2.5 h-2.5 stroke-[3]" />
               </span>
             </div>
-            <p class="text-[0.7rem] text-text-light font-bold">Trip Safari Budaya • Denpasar, Indonesia</p>
+            <p class="text-[0.7rem] text-text-light font-bold">
+              {locale === 'en' ? 'Culture Safari Trip • Denpasar, Indonesia' : 'Trip Safari Budaya • Denpasar, Indonesia'}
+            </p>
           </div>
         </div>
       </div>

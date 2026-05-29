@@ -1,13 +1,16 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import Navbar from '../../components/Navbar.astro';
-import Footer from '../../components/Footer.astro';
-import WhatsAppWidget from '../../components/WhatsAppWidget.astro';
+import Layout from '../../../layouts/Layout.astro';
+import Navbar from '../../../components/Navbar.astro';
+import Footer from '../../../components/Footer.astro';
+import WhatsAppWidget from '../../../components/WhatsAppWidget.astro';
 import { getCollection } from 'astro:content';
 import { Calendar, User, Clock, Search, ArrowRight, Tag } from '@lucide/astro';
 import { Image } from 'astro:assets';
+import { useTranslations } from '../../../utils/i18n';
 
-const locale = Astro.currentLocale || 'id';
+const locale = Astro.currentLocale || 'en';
+const t = useTranslations(locale);
+
 const allPosts = await getCollection('blog');
 // Filter based on locale folder prefix
 const filteredPosts = allPosts.filter(item => item.id.startsWith(`${locale}/`));
@@ -15,11 +18,11 @@ const filteredPosts = allPosts.filter(item => item.id.startsWith(`${locale}/`));
 const sortedPosts = filteredPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
 
 // Collect all unique tags
-const allTags = ['Semua', ...new Set(filteredPosts.flatMap(post => post.data.tags))];
+const allTags = ['All', ...new Set(filteredPosts.flatMap(post => post.data.tags))];
 
 // Format date helper
 const formatDate = (date: Date) => {
-  return new Intl.DateTimeFormat('id-ID', {
+  return new Intl.DateTimeFormat('en-US', {
     day: 'numeric',
     month: 'long',
     year: 'numeric'
@@ -28,8 +31,8 @@ const formatDate = (date: Date) => {
 ---
 
 <Layout 
-  title="Blog Travel Osing - Panduan, Tips & Cerita Liburan Banyuwangi" 
-  description="Temukan informasi terlengkap seputar destinasi Banyuwangi. Mulai dari panduan mendaki Kawah Ijen, kuliner khas Osing, hingga itinerary safari terbaik."
+  title="Travel Osing Blog - Banyuwangi Travel Guides, Tips & Stories" 
+  description="Discover the ultimate Banyuwangi travel guide. From climbing Mount Ijen, exploring local culinary highlights, to booking Baluran safari itineraries."
 >
   <!-- Navigation Header -->
   <Navbar />
@@ -43,10 +46,10 @@ const formatDate = (date: Date) => {
           Travel Osing Journal
         </span>
         <h1 class="font-sans text-4xl md:text-5xl lg:text-6xl text-text-main font-black tracking-tight leading-tight max-w-3xl mx-auto">
-          Cerita & Inspirasi dari Banyuwangi
+          Stories & Inspirations from Banyuwangi
         </h1>
         <p class="mt-4 text-text-muted text-lg max-w-xl mx-auto leading-relaxed">
-          Temukan panduan praktis, kisah budaya suku Osing, rekomendasi kuliner, dan tips perjalanan otentik dari pemandu lokal terpercaya.
+          Find practical hiking guides, cultural tales of the Osing tribe, local culinary recommendations, and authentic travel tips from our certified guides.
         </p>
       </div>
     </section>
@@ -80,7 +83,7 @@ const formatDate = (date: Date) => {
             <input 
               type="text" 
               id="blog-search-input" 
-              placeholder="Cari artikel..." 
+              placeholder="Search articles..." 
               class="w-full pl-10 pr-4 py-2.5 rounded-full border border-border-color bg-white text-sm text-text-main placeholder-text-light focus:outline-none focus:border-primary transition-all shadow-subtle font-medium"
             />
           </div>
@@ -97,7 +100,7 @@ const formatDate = (date: Date) => {
                 data-excerpt={post.data.excerpt.toLowerCase()}
                 data-tags={dataTags}
               >
-                 <!-- Thumbnail image -->
+                <!-- Thumbnail image -->
                 <div class="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 border-b border-border-color">
                   <Image 
                     src={post.data.image} 
@@ -121,12 +124,12 @@ const formatDate = (date: Date) => {
                   <!-- Time and Reading time -->
                   <div class="flex items-center gap-1.5 text-[0.75rem] font-bold text-primary uppercase tracking-wider mb-2.5">
                     <Clock class="w-3.5 h-3.5 shrink-0" />
-                    {post.data.readTime} Baca
+                    {post.data.readTime} {t('blog.read')}
                   </div>
 
                   <!-- Title -->
                   <h2 class="font-sans text-lg md:text-xl font-extrabold text-text-main leading-snug mb-3 hover:text-primary transition-colors">
-                    <a href={`/blog/${post.id.replace(/^id\//, '')}`} class="focus:outline-none">
+                    <a href={`/en/blog/${post.id.replace(/^en\//, '')}`} class="focus:outline-none">
                       {post.data.title}
                     </a>
                   </h2>
@@ -160,14 +163,14 @@ const formatDate = (date: Date) => {
 
         <!-- No Results fallback -->
         <div id="no-results-message" class="hidden py-16 text-center border border-dashed border-border-color rounded-2xl max-w-md mx-auto">
-          <p class="text-text-muted font-bold text-lg mb-2">Artikel Tidak Ditemukan</p>
-          <p class="text-text-light text-sm">Coba masukkan kata kunci pencarian lain atau pilih kategori yang berbeda.</p>
+          <p class="text-text-muted font-bold text-lg mb-2">Articles Not Found</p>
+          <p class="text-text-light text-sm">Try entering different search terms or choosing another category.</p>
           <button 
             type="button" 
             id="reset-filter-btn" 
             class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline cursor-pointer"
           >
-            Reset Semua Filter
+            Reset All Filters
           </button>
         </div>
 
@@ -177,23 +180,23 @@ const formatDate = (date: Date) => {
     <!-- Elegant TripAdvisor-style newsletter sign-up -->
     <section class="py-16 px-6 bg-bg-secondary border-t border-border-color">
       <div class="max-w-3xl mx-auto text-center px-4">
-        <h3 class="font-sans text-2xl font-black text-text-main mb-3">Dapatkan Tips Perjalanan Terbaik Langsung ke Email Anda</h3>
+        <h3 class="font-sans text-2xl font-black text-text-main mb-3">Get the Best Travel Tips Directly in Your Inbox</h3>
         <p class="text-text-muted text-sm mb-6 max-w-lg mx-auto">
-          Berlangganan newsletter bulanan kami untuk menerima rekomendasi perjalanan, promo paket wisata eksklusif, dan update cerita menarik lainnya.
+          Subscribe to our monthly newsletter to receive exclusive travel recommendations, special tour package deals, and interesting updates.
         </p>
         
-        <form class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto" onsubmit="event.preventDefault(); alert('Terima kasih! Anda berhasil berlangganan.'); this.reset();">
+        <form class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto" onsubmit="event.preventDefault(); alert('Thank you! You have successfully subscribed.'); this.reset();">
           <input 
             type="email" 
             required 
-            placeholder="Masukkan alamat email Anda" 
+            placeholder="Enter your email address" 
             class="flex-grow px-5 py-3 rounded-full border border-border-color bg-white text-sm focus:outline-none focus:border-primary text-text-main placeholder-text-light font-medium" 
           />
           <button 
             type="submit" 
             class="bg-accent hover:bg-accent-hover text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all shadow-sm cursor-pointer whitespace-nowrap active:scale-95"
           >
-            Berlangganan
+            Subscribe
           </button>
         </form>
       </div>
@@ -217,10 +220,10 @@ const formatDate = (date: Date) => {
     const noResults = document.getElementById('no-results-message');
     const resetButton = document.getElementById('reset-filter-btn');
 
-    let activeTag = 'Semua';
+    let activeTag = 'All';
     let searchQuery = '';
 
-    // Initialize 'Semua' as active
+    // Initialize 'All' as active
     updateButtonStates();
 
     function updateButtonStates() {
@@ -252,7 +255,7 @@ const formatDate = (date: Date) => {
         const matchesSearch = title.includes(searchQuery) || 
                               excerpt.includes(searchQuery) ||
                               tags.some(t => t.toLowerCase().includes(searchQuery));
-        const matchesTag = activeTag === 'Semua' || tags.includes(activeTag);
+        const matchesTag = activeTag === 'All' || tags.includes(activeTag);
 
         if (matchesSearch && matchesTag) {
           (card as HTMLElement).style.display = 'flex';
@@ -274,7 +277,7 @@ const formatDate = (date: Date) => {
     // Filter Buttons click handler
     filterButtons.forEach(btn => {
       btn.addEventListener('click', () => {
-        const btnTag = btn.getAttribute('data-tag') || 'Semua';
+        const btnTag = btn.getAttribute('data-tag') || 'All';
         activeTag = btnTag;
         updateButtonStates();
         filterPosts();
@@ -292,7 +295,7 @@ const formatDate = (date: Date) => {
     // Reset button handler
     if (resetButton) {
       resetButton.addEventListener('click', () => {
-        activeTag = 'Semua';
+        activeTag = 'All';
         searchQuery = '';
         if (searchInput) searchInput.value = '';
         updateButtonStates();

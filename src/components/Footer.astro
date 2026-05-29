@@ -1,5 +1,10 @@
 ---
 // Footer Component
+import { useTranslations } from '../utils/i18n';
+
+const locale = Astro.currentLocale || 'id';
+const t = useTranslations(locale);
+const prefix = locale === 'en' ? '/en' : '';
 ---
 
 <footer class="bg-bg-dark text-[#cbd5e1] py-20 px-6 text-[0.95rem] relative overflow-hidden before:content-[''] before:absolute before:bottom-0 before:right-0 before:w-[400px] before:h-[400px] before:bg-[radial-gradient(circle,rgba(54,167,226,0.05)_0%,transparent_70%)] before:pointer-events-none" id="kontak">
@@ -7,11 +12,11 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1.2fr] gap-10 lg:gap-12 mb-15">
       <!-- Column 1: Brand and Bio -->
       <div class="text-left">
-        <a href="#" class="font-serif text-[1.85rem] font-extrabold text-white mb-5 flex items-center gap-1.5">
+        <a href={prefix === '' ? '/' : prefix} class="font-serif text-[1.85rem] font-extrabold text-white mb-5 flex items-center gap-1.5">
           Travel<span class="text-primary">Osing</span><span class="text-accent text-[2.2rem] leading-none -ml-0.5">.</span>
         </a>
         <p class="text-[#94a3b8] leading-relaxed mb-6 max-w-[320px]">
-          Membuka gerbang petualangan tak terlupakan di Banyuwangi, Ujung Timur Pulau Jawa. Kami menyatukan alam liar, budaya mistis, dan kenyamanan perjalanan mewah.
+          {t('footer.desc')}
         </p>
         <div class="flex gap-4">
           <a href="#" class="w-10 h-10 rounded-full bg-white/5 text-white flex items-center justify-center transition-all hover:bg-primary hover:-translate-y-0.75" aria-label="Facebook">
@@ -28,39 +33,38 @@
 
       <!-- Column 2: Quick Links -->
       <div class="text-left">
-        <h3 class="font-sans text-[1.1rem] font-bold text-white mb-6 relative pb-2.5 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-[30px] after:h-0.5 after:bg-primary">Tautan Cepat</h3>
+        <h3 class="font-sans text-[1.1rem] font-bold text-white mb-6 relative pb-2.5 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-[30px] after:h-0.5 after:bg-primary">{t('footer.links.explore')}</h3>
         <ul class="list-none flex flex-col gap-3.5">
-          <li><a href="#beranda" class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">Beranda</a></li>
-          <li><a href="#destinasi" class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">Destinasi Populer</a></li>
-          <li><a href="#budaya" class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">Budaya Osing</a></li>
-          <li><a href="#testimoni" class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">Testimoni Klien</a></li>
-          <li><a href="#kontak" class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">Hubungi Kami</a></li>
+          <li><a href={`${prefix}/`} class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">{t('nav.home')}</a></li>
+          <li><a href={`${prefix}/#destinasi`} class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">{t('nav.destinations')}</a></li>
+          <li><a href={`${prefix}/#kalender-event`} class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">{t('nav.festivals')}</a></li>
+          <li><a href={`${prefix}/#budaya`} class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">{t('nav.culture')}</a></li>
+          <li><a href={`${prefix}/blog`} class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">{t('nav.blog')}</a></li>
         </ul>
       </div>
 
       <!-- Column 3: Destination Links -->
       <div class="text-left">
-        <h3 class="font-sans text-[1.1rem] font-bold text-white mb-6 relative pb-2.5 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-[30px] after:h-0.5 after:bg-primary">Paket Tour</h3>
+        <h3 class="font-sans text-[1.1rem] font-bold text-white mb-6 relative pb-2.5 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-[30px] after:h-0.5 after:bg-primary">{t('footer.links.company')}</h3>
         <ul class="list-none flex flex-col gap-3.5">
-          <li><a href="#destinasi" class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">Kawah Ijen Midnight</a></li>
-          <li><a href="#destinasi" class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">Baluran Africa Safari</a></li>
-          <li><a href="#destinasi" class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">Surfing Pulau Merah</a></li>
-          <li><a href="#budaya" class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">Adat Desa Kemiren</a></li>
-          <li><a href="#" class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">Custom Executive Trip</a></li>
+          <li><a href={`${prefix}/#destinasi`} class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">Kawah Ijen Midnight</a></li>
+          <li><a href={`${prefix}/#destinasi`} class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">Baluran Africa Safari</a></li>
+          <li><a href={`${prefix}/#destinasi`} class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">Surfing Pulau Merah</a></li>
+          <li><a href={`${prefix}/#budaya`} class="text-[#94a3b8] transition-all hover:text-white hover:pl-1.5">Adat Desa Kemiren</a></li>
         </ul>
       </div>
 
       <!-- Column 4: Newsletter & Contact Info -->
       <div class="text-left">
-        <h3 class="font-sans text-[1.1rem] font-bold text-white mb-6 relative pb-2.5 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-[30px] after:h-0.5 after:bg-primary">Kontak & Berita</h3>
-        <p class="text-[#94a3b8] mb-4.5">Dapatkan diskon paket perjalanan menarik langsung di inbox email Anda.</p>
+        <h3 class="font-sans text-[1.1rem] font-bold text-white mb-6 relative pb-2.5 after:content-[''] after:absolute after:bottom-0 after:left-0 after:w-[30px] after:h-0.5 after:bg-primary">{t('footer.links.contact')}</h3>
+        <p class="text-[#94a3b8] mb-4.5">{locale === 'en' ? 'Get interesting travel discounts right in your inbox.' : 'Dapatkan diskon paket perjalanan menarik langsung di inbox email Anda.'}</p>
         
         <!-- Newsletter Form -->
-        <form class="flex flex-col gap-2.5" onsubmit="event.preventDefault(); alert('Terima kasih! Anda berhasil berlangganan newsletter kami.');">
+        <form class="flex flex-col gap-2.5" onsubmit="event.preventDefault(); alert('Thank you! You have successfully subscribed to our newsletter.');">
           <div class="relative w-full">
-            <input type="email" placeholder="Masukkan alamat email" class="w-full bg-white/5 border border-white/10 px-5 py-3.5 rounded-2xl text-white text-[0.9rem] transition-all focus:border-primary focus:bg-white/8 outline-none" required id="newsletter-email-input" />
+            <input type="email" placeholder={locale === 'en' ? "Enter email address" : "Masukkan alamat email"} class="w-full bg-white/5 border border-white/10 px-5 py-3.5 rounded-2xl text-white text-[0.9rem] transition-all focus:border-primary focus:bg-white/8 outline-none" required id="newsletter-email-input" />
           </div>
-          <button type="submit" class="bg-primary text-white font-bold text-[0.95rem] px-6 py-3.5 rounded-2xl cursor-pointer transition-all shadow-[0_4px_14px_rgba(54,167,226,0.2)] text-center hover:bg-primary-hover hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(54,167,226,0.3)]" id="newsletter-submit-btn">Berlangganan</button>
+          <button type="submit" class="bg-primary text-white font-bold text-[0.95rem] px-6 py-3.5 rounded-2xl cursor-pointer transition-all shadow-[0_4px_14px_rgba(54,167,226,0.2)] text-center hover:bg-primary-hover hover:-translate-y-0.5 hover:shadow-[0_6px_20px_rgba(54,167,226,0.3)]" id="newsletter-submit-btn">{locale === 'en' ? 'Subscribe' : 'Berlangganan'}</button>
         </form>
 
         <div class="flex flex-col gap-4 mt-6">
@@ -79,10 +83,10 @@
 
     <!-- Copyright Bar -->
     <div class="border-t border-white/5 pt-7.5 flex flex-col md:flex-row items-center justify-between text-[#64748b] text-[0.85rem] gap-4 text-center md:text-left">
-      <p>&copy; 2026 Travel Osing. Seluruh Hak Cipta Dilindungi Undang-Undang.</p>
+      <p>&copy; 2026 Travel Osing. {locale === 'en' ? 'All Rights Reserved.' : 'Seluruh Hak Cipta Dilindungi Undang-Undang.'}</p>
       <div class="flex gap-5">
-        <a href="#" class="hover:text-white transition-colors">Kebijakan Privasi</a>
-        <a href="#" class="hover:text-white transition-colors">Syarat & Ketentuan</a>
+        <a href="#" class="hover:text-white transition-colors">{locale === 'en' ? 'Privacy Policy' : 'Kebijakan Privasi'}</a>
+        <a href="#" class="hover:text-white transition-colors">{locale === 'en' ? 'Terms & Conditions' : 'Syarat & Ketentuan'}</a>
       </div>
     </div>
   </div>

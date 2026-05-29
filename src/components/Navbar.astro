@@ -1,58 +1,97 @@
 ---
 // Navbar Component
 // TripAdvisor-style super clean minimalist navbar.
+import { useTranslations } from '../utils/i18n';
+
+const locale = Astro.currentLocale;
+const t = useTranslations(locale);
+const prefix = locale === 'en' ? '/en' : '';
+const currentPath = Astro.url.pathname;
+
+// Switch path helper
+let targetLangPath = '';
+if (locale === 'en') {
+  targetLangPath = currentPath.startsWith('/en') ? currentPath.replace(/^\/en/, '') : '/';
+  if (targetLangPath === '') targetLangPath = '/';
+} else {
+  targetLangPath = `/en${currentPath === '/' ? '' : currentPath}`;
+}
 ---
 
 <header class="sticky top-0 left-0 w-full z-[100] bg-white border-b border-border-color transition-all duration-200">
   <div class="max-w-7xl mx-auto px-6 relative flex items-center justify-between h-20">
     <!-- Clean Off-Black Logo -->
-    <a href="/" class="font-sans text-[1.4rem] font-black text-text-main flex items-center gap-1.5 tracking-tight" id="main-logo">
+    <a href={prefix === '' ? '/' : prefix} class="font-sans text-[1.4rem] font-black text-text-main flex items-center gap-1.5 tracking-tight" id="main-logo">
       Travel<span class="text-primary font-black">Osing</span><span class="text-accent text-2xl leading-none -ml-0.5 font-black">.</span>
     </a>
     
     <!-- Clean Flat Menu -->
     <ul class="nav-menu hidden md:flex list-none gap-2 font-bold text-sm text-text-muted">
       <li>
-        <a href="/" class="hover:text-text-main hover:bg-slate-50 px-4 py-2.5 rounded-full transition-all duration-150">
-          Beranda
+        <a href={`${prefix}/`} class="hover:text-text-main hover:bg-slate-50 px-4 py-2.5 rounded-full transition-all duration-150">
+          {t('nav.home')}
         </a>
       </li>
       <li>
-        <a href="/#destinasi" class="hover:text-text-main hover:bg-slate-50 px-4 py-2.5 rounded-full transition-all duration-150">
-          Destinasi
+        <a href={`${prefix}/#destinasi`} class="hover:text-text-main hover:bg-slate-50 px-4 py-2.5 rounded-full transition-all duration-150">
+          {t('nav.destinations')}
         </a>
       </li>
       <li>
-        <a href="/#kalender-event" class="hover:text-text-main hover:bg-slate-50 px-4 py-2.5 rounded-full transition-all duration-150">
-          Festival
+        <a href={`${prefix}/#kalender-event`} class="hover:text-text-main hover:bg-slate-50 px-4 py-2.5 rounded-full transition-all duration-150">
+          {t('nav.festivals')}
         </a>
       </li>
       <li>
-        <a href="/#budaya" class="hover:text-text-main hover:bg-slate-50 px-4 py-2.5 rounded-full transition-all duration-150">
-          Budaya
+        <a href={`${prefix}/#budaya`} class="hover:text-text-main hover:bg-slate-50 px-4 py-2.5 rounded-full transition-all duration-150">
+          {t('nav.culture')}
         </a>
       </li>
       <li>
-        <a href="/#testimoni" class="hover:text-text-main hover:bg-slate-50 px-4 py-2.5 rounded-full transition-all duration-150">
+        <a href={`${prefix}/#testimoni`} class="hover:text-text-main hover:bg-slate-50 px-4 py-2.5 rounded-full transition-all duration-150">
           Testimoni
         </a>
       </li>
       <li>
-        <a href="/blog" class="hover:text-text-main hover:bg-slate-50 px-4 py-2.5 rounded-full transition-all duration-150">
-          Blog
+        <a href={`${prefix}/blog`} class="hover:text-text-main hover:bg-slate-50 px-4 py-2.5 rounded-full transition-all duration-150">
+          {t('nav.blog')}
         </a>
       </li>
       <li>
-        <a href="/#faq" class="hover:text-text-main hover:bg-slate-50 px-4 py-2.5 rounded-full transition-all duration-150">
-          F.A.Q.
+        <a href={`${prefix}/#faq`} class="hover:text-text-main hover:bg-slate-50 px-4 py-2.5 rounded-full transition-all duration-150">
+          {t('nav.faq')}
+        </a>
+      </li>
+      
+      <!-- Mobile Language Switcher link inside menu -->
+      <li class="md:hidden pt-4 border-t border-border-color mt-2 flex justify-center">
+        <a 
+          href={targetLangPath} 
+          class="flex items-center gap-2 px-4 py-2 rounded-full border border-border-color bg-slate-50 text-xs font-bold uppercase tracking-wider text-text-main"
+        >
+          <span>Language:</span>
+          <span class={locale === 'id' || !locale ? "text-primary font-black" : "text-text-light"}>ID</span>
+          <span class="text-text-light">/</span>
+          <span class={locale === 'en' ? "text-primary font-black" : "text-text-light"}>EN</span>
         </a>
       </li>
     </ul>
 
-    <!-- Pill-shaped Clean CTA -->
-    <div class="hidden md:block">
-      <a href="#kontak" class="bg-text-main text-white hover:bg-text-muted px-6 py-3 rounded-full text-xs font-extrabold tracking-wide uppercase transition-all duration-150 shadow-sm" id="nav-cta-btn">
-        Hubungi Kami
+    <!-- Pill-shaped Clean CTA & Language Switcher -->
+    <div class="hidden md:flex items-center gap-3">
+      <!-- Language Switcher -->
+      <a 
+        href={targetLangPath}
+        class="flex items-center gap-1.5 px-3.5 py-2.5 rounded-full border border-border-color hover:bg-slate-50 text-xs font-extrabold tracking-wide uppercase transition-all duration-150 text-text-muted hover:text-text-main shrink-0"
+        title={locale === 'en' ? "Switch to Indonesian" : "Ubah ke Bahasa Inggris"}
+      >
+        <span class={locale === 'id' || !locale ? "text-primary font-black" : "text-text-light font-medium"}>ID</span>
+        <span class="text-text-light">/</span>
+        <span class={locale === 'en' ? "text-primary font-black" : "text-text-light font-medium"}>EN</span>
+      </a>
+
+      <a href="#kontak" class="bg-text-main text-white hover:bg-text-muted px-6 py-3 rounded-full text-xs font-extrabold tracking-wide uppercase transition-all duration-150 shadow-sm whitespace-nowrap" id="nav-cta-btn">
+        {t('nav.contact')}
       </a>
     </div>
 

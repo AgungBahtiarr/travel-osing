@@ -3,16 +3,24 @@
 // TripAdvisor-style clean article highlights grid from Content Collections.
 import { getCollection } from 'astro:content';
 import { Calendar, User, Clock, ArrowRight } from '@lucide/astro';
+import { Image } from 'astro:assets';
+import { useTranslations } from '../utils/i18n';
+
+const locale = Astro.currentLocale || 'id';
+const t = useTranslations(locale);
+const prefix = locale === 'en' ? '/en' : '';
 
 const allPosts = await getCollection('blog');
+// Filter based on locale folder prefix
+const filteredPosts = allPosts.filter(item => item.id.startsWith(`${locale}/`));
 // Sort by date descending (latest first) and take the top 3
-const latestPosts = allPosts
+const latestPosts = filteredPosts
   .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
   .slice(0, 3);
 
 // Format date helper
 const formatDate = (date: Date) => {
-  return new Intl.DateTimeFormat('id-ID', {
+  return new Intl.DateTimeFormat(locale === 'en' ? 'en-US' : 'id-ID', {
     day: 'numeric',
     month: 'long',
     year: 'numeric'
@@ -27,22 +35,22 @@ const formatDate = (date: Date) => {
     <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
       <div class="text-left max-w-[580px]">
         <span class="inline-block text-[0.75rem] font-bold uppercase tracking-[0.2em] text-primary mb-2.5">
-          Inspirasi Perjalanan
+          {t('blog.badge')}
         </span>
         <h2 class="font-sans text-3xl md:text-4xl text-text-main font-black tracking-tight leading-tight">
-          Cerita & Panduan Liburan Banyuwangi
+          {t('blog.title')}
         </h2>
         <p class="mt-3 text-text-muted text-base leading-relaxed">
-          Temukan tips perjalanan terbaik, rekomendasi kuliner lezat, dan panduan eksplorasi seru dari tim lokal kami.
+          {t('blog.subtitle')}
         </p>
       </div>
       
       <!-- Premium clean link button -->
       <a 
-        href="/blog" 
+        href={`${prefix}/blog`} 
         class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white hover:bg-slate-50 border border-border-color text-text-main font-semibold text-sm transition-all duration-200 shadow-subtle shrink-0 group self-start md:self-end"
       >
-        Lihat Semua Artikel
+        {t('blog.btn.all')}
         <ArrowRight class="w-4 h-4 text-text-muted group-hover:text-primary group-hover:translate-x-1 transition-all" />
       </a>
     </div>
@@ -53,9 +61,11 @@ const formatDate = (date: Date) => {
         <article class="group bg-white rounded-2xl overflow-hidden border border-border-color shadow-subtle hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
           <!-- Thumbnail Image container -->
           <div class="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 border-b border-border-color">
-            <img 
+            <Image 
               src={post.data.image} 
               alt={post.data.title}
+              width={400}
+              height={300}
               class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />
@@ -74,12 +84,12 @@ const formatDate = (date: Date) => {
             <!-- Time to Read -->
             <div class="flex items-center gap-1.5 text-[0.75rem] font-bold text-primary uppercase tracking-wider mb-2.5">
               <Clock class="w-3.5 h-3.5 shrink-0" />
-              {post.data.readTime} Baca
+              {post.data.readTime} {t('blog.read')}
             </div>
 
             <!-- Title -->
             <h3 class="font-sans text-lg md:text-xl font-extrabold text-text-main leading-snug mb-3 hover:text-primary transition-colors">
-              <a href={`/blog/${post.id}`} class="focus:outline-none">
+              <a href={`${prefix}/blog/${post.id.replace(/^(id|en)\//, '')}`} class="focus:outline-none">
                 {post.data.title}
               </a>
             </h3>
@@ -113,10 +123,10 @@ const formatDate = (date: Date) => {
     <!-- Small Mobile Navigation link at bottom if screen is narrow -->
     <div class="mt-8 text-center md:hidden">
       <a 
-        href="/blog" 
+        href={`${prefix}/blog`} 
         class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white border border-border-color text-text-main font-semibold text-sm w-full justify-center shadow-subtle"
       >
-        Lihat Semua Artikel
+        {t('blog.btn.all')}
         <ArrowRight class="w-4 h-4 text-text-muted" />
       </a>
     </div>
