@@ -1,0 +1,297 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import WhatsAppWidget from '../../components/WhatsAppWidget.astro';
+import { getCollection } from 'astro:content';
+import { Calendar, User, Clock, Search, ArrowRight, Tag } from '@lucide/astro';
+
+const allPosts = await getCollection('blog');
+// Sort by date descending (latest first)
+const sortedPosts = allPosts.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime());
+
+// Collect all unique tags
+const allTags = ['Semua', ...new Set(allPosts.flatMap(post => post.data.tags))];
+
+// Format date helper
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(date);
+};
+---
+
+<Layout 
+  title="Blog Travel Osing - Panduan, Tips & Cerita Liburan Banyuwangi" 
+  description="Temukan informasi terlengkap seputar destinasi Banyuwangi. Mulai dari panduan mendaki Kawah Ijen, kuliner khas Osing, hingga itinerary safari terbaik."
+>
+  <!-- Navigation Header -->
+  <Navbar />
+
+  <main class="bg-bg-main min-h-screen">
+    
+    <!-- Hero / Header Section -->
+    <section class="py-16 md:py-20 border-b border-border-color bg-bg-secondary">
+      <div class="max-w-7xl mx-auto px-6 text-center">
+        <span class="inline-block text-[0.75rem] font-bold uppercase tracking-[0.25em] text-primary mb-3">
+          Travel Osing Journal
+        </span>
+        <h1 class="font-sans text-4xl md:text-5xl lg:text-6xl text-text-main font-black tracking-tight leading-tight max-w-3xl mx-auto">
+          Cerita & Inspirasi dari Banyuwangi
+        </h1>
+        <p class="mt-4 text-text-muted text-lg max-w-xl mx-auto leading-relaxed">
+          Temukan panduan praktis, kisah budaya suku Osing, rekomendasi kuliner, dan tips perjalanan otentik dari pemandu lokal terpercaya.
+        </p>
+      </div>
+    </section>
+
+    <!-- Content & Filter Section -->
+    <section class="py-12 px-6">
+      <div class="max-w-7xl mx-auto">
+        
+        <!-- Filter Tabs / Tags and Search Bar -->
+        <div class="flex flex-col md:flex-row gap-6 justify-between items-center mb-12 pb-6 border-b border-border-color/60">
+          
+          <!-- Interactive Tags (client-side dynamic filter) -->
+          <div class="flex flex-wrap items-center gap-2 w-full md:w-auto overflow-x-auto no-scrollbar py-1">
+            <span class="text-xs font-bold text-text-light uppercase tracking-wider flex items-center gap-1.5 mr-2">
+              <Tag class="w-3.5 h-3.5" /> Filter:
+            </span>
+            {allTags.map((tag) => (
+              <button
+                type="button"
+                class="tag-filter-btn text-xs font-bold px-4 py-2 rounded-full border border-border-color bg-white text-text-muted hover:text-text-main hover:bg-slate-50 transition-all cursor-pointer whitespace-nowrap active:scale-95"
+                data-tag={tag}
+              >
+                {tag}
+              </button>
+            ))}
+          </div>
+
+          <!-- Quick Search Bar -->
+          <div class="relative w-full md:w-80 shrink-0">
+            <Search class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-light" />
+            <input 
+              type="text" 
+              id="blog-search-input" 
+              placeholder="Cari artikel..." 
+              class="w-full pl-10 pr-4 py-2.5 rounded-full border border-border-color bg-white text-sm text-text-main placeholder-text-light focus:outline-none focus:border-primary transition-all shadow-subtle font-medium"
+            />
+          </div>
+        </div>
+
+        <!-- Blog Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="blog-grid-container">
+          {sortedPosts.map((post) => {
+            const dataTags = JSON.stringify(post.data.tags);
+            return (
+              <article 
+                class="group blog-card-item bg-white rounded-2xl overflow-hidden border border-border-color shadow-subtle hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full"
+                data-title={post.data.title.toLowerCase()}
+                data-excerpt={post.data.excerpt.toLowerCase()}
+                data-tags={dataTags}
+              >
+                <!-- Thumbnail image -->
+                <div class="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 border-b border-border-color">
+                  <img 
+                    src={post.data.image} 
+                    alt={post.data.title}
+                    class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <!-- Category pills -->
+                  <div class="absolute top-4 left-4 flex flex-wrap gap-1.5 z-10">
+                    {post.data.tags.slice(0, 2).map((tag) => (
+                      <span class="inline-block bg-white/95 backdrop-blur-[2px] text-text-main font-semibold text-[0.7rem] px-2.5 py-1 rounded-full border border-border-color/60 shadow-sm">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <!-- Card Body -->
+                <div class="p-6 flex flex-col flex-grow">
+                  <!-- Time and Reading time -->
+                  <div class="flex items-center gap-1.5 text-[0.75rem] font-bold text-primary uppercase tracking-wider mb-2.5">
+                    <Clock class="w-3.5 h-3.5 shrink-0" />
+                    {post.data.readTime} Baca
+                  </div>
+
+                  <!-- Title -->
+                  <h2 class="font-sans text-lg md:text-xl font-extrabold text-text-main leading-snug mb-3 hover:text-primary transition-colors">
+                    <a href={`/blog/${post.id}`} class="focus:outline-none">
+                      {post.data.title}
+                    </a>
+                  </h2>
+
+                  <!-- Excerpt -->
+                  <p class="text-text-muted text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">
+                    {post.data.excerpt}
+                  </p>
+
+                  <!-- Bottom author/date divider -->
+                  <div class="pt-4 border-t border-border-color/60 flex items-center justify-between text-xs text-text-light mt-auto">
+                    <!-- Author -->
+                    <div class="flex items-center gap-1.5">
+                      <div class="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center border border-border-color shrink-0">
+                        <User class="w-3 h-3 text-text-muted" />
+                      </div>
+                      <span class="font-medium truncate max-w-[100px]">{post.data.author}</span>
+                    </div>
+                    
+                    <!-- Date -->
+                    <div class="flex items-center gap-1.5 font-medium shrink-0">
+                      <Calendar class="w-3.5 h-3.5 shrink-0" />
+                      <span>{formatDate(post.data.pubDate)}</span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+
+        <!-- No Results fallback -->
+        <div id="no-results-message" class="hidden py-16 text-center border border-dashed border-border-color rounded-2xl max-w-md mx-auto">
+          <p class="text-text-muted font-bold text-lg mb-2">Artikel Tidak Ditemukan</p>
+          <p class="text-text-light text-sm">Coba masukkan kata kunci pencarian lain atau pilih kategori yang berbeda.</p>
+          <button 
+            type="button" 
+            id="reset-filter-btn" 
+            class="mt-4 inline-flex items-center gap-1.5 text-xs font-bold text-primary hover:underline cursor-pointer"
+          >
+            Reset Semua Filter
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Elegant TripAdvisor-style newsletter sign-up -->
+    <section class="py-16 px-6 bg-bg-secondary border-t border-border-color">
+      <div class="max-w-3xl mx-auto text-center px-4">
+        <h3 class="font-sans text-2xl font-black text-text-main mb-3">Dapatkan Tips Perjalanan Terbaik Langsung ke Email Anda</h3>
+        <p class="text-text-muted text-sm mb-6 max-w-lg mx-auto">
+          Berlangganan newsletter bulanan kami untuk menerima rekomendasi perjalanan, promo paket wisata eksklusif, dan update cerita menarik lainnya.
+        </p>
+        
+        <form class="flex flex-col sm:flex-row gap-2 max-w-md mx-auto" onsubmit="event.preventDefault(); alert('Terima kasih! Anda berhasil berlangganan.'); this.reset();">
+          <input 
+            type="email" 
+            required 
+            placeholder="Masukkan alamat email Anda" 
+            class="flex-grow px-5 py-3 rounded-full border border-border-color bg-white text-sm focus:outline-none focus:border-primary text-text-main placeholder-text-light font-medium" 
+          />
+          <button 
+            type="submit" 
+            class="bg-accent hover:bg-accent-hover text-white px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all shadow-sm cursor-pointer whitespace-nowrap active:scale-95"
+          >
+            Berlangganan
+          </button>
+        </form>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer Section -->
+  <Footer />
+
+  <!-- Floating WhatsApp Widget -->
+  <WhatsAppWidget />
+</Layout>
+
+<script>
+  // Simple, instant vanilla JS filtering logic for maximum speed and premium feel
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.tag-filter-btn');
+    const searchInput = document.getElementById('blog-search-input') as HTMLInputElement;
+    const cards = document.querySelectorAll('.blog-card-item');
+    const noResults = document.getElementById('no-results-message');
+    const resetButton = document.getElementById('reset-filter-btn');
+
+    let activeTag = 'Semua';
+    let searchQuery = '';
+
+    // Initialize 'Semua' as active
+    updateButtonStates();
+
+    function updateButtonStates() {
+      filterButtons.forEach(btn => {
+        const btnTag = btn.getAttribute('data-tag');
+        if (btnTag === activeTag) {
+          btn.classList.add('bg-text-main', 'text-white', 'border-text-main');
+          btn.classList.remove('bg-white', 'text-text-muted', 'border-border-color');
+        } else {
+          btn.classList.remove('bg-text-main', 'text-white', 'border-text-main');
+          btn.classList.add('bg-white', 'text-text-muted', 'border-border-color');
+        }
+      });
+    }
+
+    function filterPosts() {
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const title = card.getAttribute('data-title') || '';
+        const excerpt = card.getAttribute('data-excerpt') || '';
+        const rawTags = card.getAttribute('data-tags') || '[]';
+        
+        let tags: string[] = [];
+        try {
+          tags = JSON.parse(rawTags);
+        } catch(e) {}
+
+        const matchesSearch = title.includes(searchQuery) || 
+                              excerpt.includes(searchQuery) ||
+                              tags.some(t => t.toLowerCase().includes(searchQuery));
+        const matchesTag = activeTag === 'Semua' || tags.includes(activeTag);
+
+        if (matchesSearch && matchesTag) {
+          (card as HTMLElement).style.display = 'flex';
+          visibleCount++;
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+
+      if (noResults) {
+        if (visibleCount === 0) {
+          noResults.classList.remove('hidden');
+        } else {
+          noResults.classList.add('hidden');
+        }
+      }
+    }
+
+    // Filter Buttons click handler
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const btnTag = btn.getAttribute('data-tag') || 'Semua';
+        activeTag = btnTag;
+        updateButtonStates();
+        filterPosts();
+      });
+    });
+
+    // Search input handler
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        searchQuery = (e.target as HTMLInputElement).value.toLowerCase().trim();
+        filterPosts();
+      });
+    }
+
+    // Reset button handler
+    if (resetButton) {
+      resetButton.addEventListener('click', () => {
+        activeTag = 'Semua';
+        searchQuery = '';
+        if (searchInput) searchInput.value = '';
+        updateButtonStates();
+        filterPosts();
+      });
+    }
+  });
+</script>

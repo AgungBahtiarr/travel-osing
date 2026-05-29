@@ -1,0 +1,197 @@
+---
+// EventCalendar Component
+// TripAdvisor-style premium Annual Event Calendar using Content Collections.
+// Consolidated to load all events from a single yearly file container for easy updates.
+import { getCollection } from 'astro:content';
+import { Calendar, MapPin, Sparkles, SlidersHorizontal } from '@lucide/astro';
+
+const calendars = await getCollection('events');
+// Sort calendars by year descending and take the latest one (e.g. 2026)
+const latestCalendar = calendars.sort((a, b) => b.data.year - a.data.year)[0];
+
+const year = latestCalendar ? latestCalendar.data.year : 2026;
+const sortedEvents = latestCalendar 
+  ? latestCalendar.data.events.sort((a, b) => a.startDate.getTime() - b.startDate.getTime())
+  : [];
+
+// Collect all unique categories from the sorted events
+const categories = ['Semua', ...new Set(sortedEvents.map(event => event.category))];
+
+// Month abbreviation mapper for calendar badges
+const getMonthAbbr = (date: Date) => {
+  const months = ['JAN', 'FEB', 'MAR', 'APR', 'MEI', 'JUN', 'JUL', 'AGU', 'SEP', 'OKT', 'NOV', 'DES'];
+  return months[date.getMonth()];
+};
+---
+
+<section class="py-20 px-6 bg-bg-secondary border-t border-b border-border-color" id="kalender-event">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <!-- TripAdvisor-style Premium Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div class="text-left max-w-[620px]">
+        <span class="inline-block text-[0.75rem] font-bold uppercase tracking-[0.2em] text-primary mb-2.5">
+          Banyuwangi Festival {year} (B-Fest)
+        </span>
+        <h2 class="font-sans text-3xl md:text-4xl text-text-main font-black tracking-tight leading-tight">
+          Kalender Event & Festival Tahunan
+        </h2>
+        <p class="mt-3 text-text-muted text-base leading-relaxed">
+          Bumi Blambangan selalu semarak sepanjang tahun. Rencanakan liburan Anda bertepatan dengan kemeriahan perhelatan budaya berskala internasional ini.
+        </p>
+      </div>
+
+      <!-- Quick category filter label for desktop -->
+      <div class="hidden lg:flex items-center gap-2 text-xs font-bold text-text-light uppercase tracking-wider shrink-0 self-end mb-1">
+        <SlidersHorizontal class="w-4 h-4 text-text-muted" />
+        Filter Kalender
+      </div>
+    </div>
+
+    <!-- Category Filter Tabs -->
+    <div class="flex flex-wrap items-center gap-2 mb-10 pb-4 border-b border-border-color/60 overflow-x-auto no-scrollbar py-1">
+      {categories.map((cat) => (
+        <button
+          type="button"
+          class="event-filter-btn text-xs font-bold px-5 py-2.5 rounded-full border border-border-color bg-white text-text-muted hover:text-text-main hover:bg-slate-50 transition-all cursor-pointer whitespace-nowrap active:scale-95"
+          data-category={cat}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
+
+    <!-- Events Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="events-grid-container">
+      {sortedEvents.map((event) => {
+        const monthAbbr = getMonthAbbr(event.startDate);
+        return (
+          <div 
+            class="event-card-item group bg-white rounded-2xl overflow-hidden border border-border-color shadow-subtle hover:shadow-lg transition-all duration-300 flex flex-col sm:flex-row h-full"
+            data-cat={event.category}
+          >
+            <!-- Image & Badge Container -->
+            <div class="relative w-full sm:w-[220px] aspect-[4/3] sm:aspect-auto overflow-hidden shrink-0 bg-slate-100 border-b sm:border-b-0 sm:border-r border-border-color">
+              <img 
+                src={event.image} 
+                alt={event.title}
+                class="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-500"
+                loading="lazy"
+              />
+              
+              <!-- Clean Minimalist TripAdvisor-style Calendar Badge -->
+              <div class="absolute top-4 left-4 w-[52px] rounded-lg overflow-hidden border border-border-color/60 shadow-md bg-white flex flex-col items-center justify-center text-center z-10 select-none">
+                <div class="w-full bg-accent text-white py-1 text-[0.6rem] font-black uppercase tracking-wider leading-none">
+                  {monthAbbr}
+                </div>
+                <div class="w-full py-1.5 text-text-main text-sm font-extrabold leading-none bg-white">
+                  {event.dateString}
+                </div>
+              </div>
+
+              <!-- Highlight Indicator overlay if highlighted -->
+              {event.highlight && (
+                <div class="absolute bottom-4 left-4 bg-white/95 backdrop-blur-[2px] border border-border-color/60 text-text-main font-bold text-[0.65rem] px-2.5 py-1 rounded-full flex items-center gap-1 shadow-sm uppercase tracking-wider">
+                  <Sparkles class="w-3 h-3 text-primary animate-pulse" />
+                  Unggulan
+                </div>
+              )}
+            </div>
+
+            <!-- Content Area -->
+            <div class="p-6 flex flex-col flex-grow justify-between">
+              <div>
+                <!-- Category Tag -->
+                <span class="inline-block text-[0.65rem] font-bold text-primary uppercase tracking-wider mb-2">
+                  {event.category}
+                </span>
+
+                <!-- Event Title -->
+                <h3 class="font-sans text-xl font-extrabold text-text-main leading-snug mb-3 group-hover:text-primary transition-colors">
+                  {event.title}
+                </h3>
+
+                <!-- Description -->
+                <p class="text-text-muted text-xs leading-relaxed mb-4 line-clamp-3">
+                  {event.description}
+                </p>
+              </div>
+
+              <!-- Location Details -->
+              <div class="pt-3 border-t border-border-color/60 flex items-center gap-2 text-xs text-text-light mt-auto">
+                <MapPin class="w-3.5 h-3.5 text-text-light shrink-0" />
+                <span class="font-medium truncate" title={event.location}>{event.location}</span>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+
+    <!-- Empty State Fallback -->
+    <div id="no-events-message" class="hidden py-16 text-center border border-dashed border-border-color rounded-2xl max-w-md mx-auto">
+      <p class="text-text-muted font-bold text-lg mb-1">Event Tidak Ditemukan</p>
+      <p class="text-text-light text-xs">Pilih kategori event lain untuk mencari perayaan.</p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  // Instant dynamic filter for annual event calendar
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.event-filter-btn');
+    const cards = document.querySelectorAll('.event-card-item');
+    const noEvents = document.getElementById('no-events-message');
+
+    let activeCategory = 'Semua';
+
+    // Initialize Active Button State
+    updateFilterButtons();
+
+    function updateFilterButtons() {
+      filterButtons.forEach(btn => {
+        const cat = btn.getAttribute('data-category');
+        if (cat === activeCategory) {
+          btn.classList.add('bg-text-main', 'text-white', 'border-text-main');
+          btn.classList.remove('bg-white', 'text-text-muted', 'border-border-color');
+        } else {
+          btn.classList.remove('bg-text-main', 'text-white', 'border-text-main');
+          btn.classList.add('bg-white', 'text-text-muted', 'border-border-color');
+        }
+      });
+    }
+
+    function filterEvents() {
+      let visibleCount = 0;
+
+      cards.forEach(card => {
+        const cardCat = card.getAttribute('data-cat') || '';
+        
+        if (activeCategory === 'Semua' || cardCat === activeCategory) {
+          (card as HTMLElement).style.display = 'flex';
+          visibleCount++;
+        } else {
+          (card as HTMLElement).style.display = 'none';
+        }
+      });
+
+      if (noEvents) {
+        if (visibleCount === 0) {
+          noEvents.classList.remove('hidden');
+        } else {
+          noEvents.classList.add('hidden');
+        }
+      }
+    }
+
+    filterButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const cat = btn.getAttribute('data-category') || 'Semua';
+        activeCategory = cat;
+        updateFilterButtons();
+        filterEvents();
+      });
+    });
+  });
+</script>

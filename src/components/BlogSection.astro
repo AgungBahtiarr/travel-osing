@@ -1,0 +1,124 @@
+---
+// BlogSection Component
+// TripAdvisor-style clean article highlights grid from Content Collections.
+import { getCollection } from 'astro:content';
+import { Calendar, User, Clock, ArrowRight } from '@lucide/astro';
+
+const allPosts = await getCollection('blog');
+// Sort by date descending (latest first) and take the top 3
+const latestPosts = allPosts
+  .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+  .slice(0, 3);
+
+// Format date helper
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat('id-ID', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  }).format(date);
+};
+---
+
+<section class="py-20 px-6 bg-bg-secondary border-t border-b border-border-color" id="blog-section">
+  <div class="max-w-7xl mx-auto px-6">
+    
+    <!-- TripAdvisor-style Section Header -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+      <div class="text-left max-w-[580px]">
+        <span class="inline-block text-[0.75rem] font-bold uppercase tracking-[0.2em] text-primary mb-2.5">
+          Inspirasi Perjalanan
+        </span>
+        <h2 class="font-sans text-3xl md:text-4xl text-text-main font-black tracking-tight leading-tight">
+          Cerita & Panduan Liburan Banyuwangi
+        </h2>
+        <p class="mt-3 text-text-muted text-base leading-relaxed">
+          Temukan tips perjalanan terbaik, rekomendasi kuliner lezat, dan panduan eksplorasi seru dari tim lokal kami.
+        </p>
+      </div>
+      
+      <!-- Premium clean link button -->
+      <a 
+        href="/blog" 
+        class="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-white hover:bg-slate-50 border border-border-color text-text-main font-semibold text-sm transition-all duration-200 shadow-subtle shrink-0 group self-start md:self-end"
+      >
+        Lihat Semua Artikel
+        <ArrowRight class="w-4 h-4 text-text-muted group-hover:text-primary group-hover:translate-x-1 transition-all" />
+      </a>
+    </div>
+
+    <!-- Blog Posts Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {latestPosts.map((post) => (
+        <article class="group bg-white rounded-2xl overflow-hidden border border-border-color shadow-subtle hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col h-full">
+          <!-- Thumbnail Image container -->
+          <div class="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 border-b border-border-color">
+            <img 
+              src={post.data.image} 
+              alt={post.data.title}
+              class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            <!-- Tag pills absolute at top-left -->
+            <div class="absolute top-4 left-4 flex flex-wrap gap-1.5 z-10">
+              {post.data.tags.slice(0, 2).map((tag) => (
+                <span class="inline-block bg-white/95 backdrop-blur-[2px] text-text-main font-semibold text-[0.7rem] px-2.5 py-1 rounded-full border border-border-color/60 shadow-sm">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <!-- Card Content Body -->
+          <div class="p-6 flex flex-col flex-grow">
+            <!-- Time to Read -->
+            <div class="flex items-center gap-1.5 text-[0.75rem] font-bold text-primary uppercase tracking-wider mb-2.5">
+              <Clock class="w-3.5 h-3.5 shrink-0" />
+              {post.data.readTime} Baca
+            </div>
+
+            <!-- Title -->
+            <h3 class="font-sans text-lg md:text-xl font-extrabold text-text-main leading-snug mb-3 hover:text-primary transition-colors">
+              <a href={`/blog/${post.id}`} class="focus:outline-none">
+                {post.data.title}
+              </a>
+            </h3>
+
+            <!-- Excerpt description -->
+            <p class="text-text-muted text-sm leading-relaxed mb-6 line-clamp-3 flex-grow">
+              {post.data.excerpt}
+            </p>
+
+            <!-- Bottom author/date divider -->
+            <div class="pt-4 border-t border-border-color/60 flex items-center justify-between text-xs text-text-light">
+              <!-- Author -->
+              <div class="flex items-center gap-1.5">
+                <div class="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center border border-border-color shrink-0">
+                  <User class="w-3 h-3 text-text-muted" />
+                </div>
+                <span class="font-medium truncate max-w-[100px]">{post.data.author}</span>
+              </div>
+              
+              <!-- Date -->
+              <div class="flex items-center gap-1.5 font-medium shrink-0">
+                <Calendar class="w-3.5 h-3.5 shrink-0" />
+                <span>{formatDate(post.data.pubDate)}</span>
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+
+    <!-- Small Mobile Navigation link at bottom if screen is narrow -->
+    <div class="mt-8 text-center md:hidden">
+      <a 
+        href="/blog" 
+        class="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white border border-border-color text-text-main font-semibold text-sm w-full justify-center shadow-subtle"
+      >
+        Lihat Semua Artikel
+        <ArrowRight class="w-4 h-4 text-text-muted" />
+      </a>
+    </div>
+  </div>
+</section>

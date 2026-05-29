@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+const destinations = await getCollection('destinations');
+const interests = await getCollection('interests');
+---
+<html>
+<head><title>Diagnostic</title></head>
+<body>
+  <h1>Destinations count: {destinations.length}</h1>
+  <ul>
+    {destinations.map(d => <li>{d.id} - {d.data.title}</li>)}
+  </ul>
+
+  <h1>Interests count: {interests.length}</h1>
+  <ul>
+    {interests.map(i => <li>{i.id} - {i.data.title}</li>)}
+  </ul>
+</body>
+</html>

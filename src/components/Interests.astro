@@ -1,7 +1,11 @@
 ---
 // Interests Component
-// TripAdvisor-style "Find things to do by interest" section.
+// TripAdvisor-style "Find things to do by interest" section using Content Collections.
+import { getCollection } from 'astro:content';
 import { ChevronRight } from '@lucide/astro';
+
+const interests = await getCollection('interests');
+const sortedInterests = interests.sort((a, b) => a.data.sortOrder - b.data.sortOrder);
 ---
 
 <section class="py-20 px-6 bg-bg-secondary border-t border-b border-border-color" id="minat">
@@ -23,60 +27,17 @@ import { ChevronRight } from '@lucide/astro';
     <!-- Horizontal Scrollable Row (Clean 1:1 Aspect TripAdvisor Squares) -->
     <div class="flex gap-6 overflow-x-auto no-scrollbar snap-x snap-mandatory py-4 px-1 scroll-smooth">
       
-      <!-- Category 1: Outdoors -->
-      <a href="#destinasi" class="w-[180px] sm:w-[220px] shrink-0 snap-start group text-center block">
-        <div class="aspect-square rounded-2xl overflow-hidden border border-border-color shadow-sm bg-slate-100 mb-3.5 transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-1">
-          <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103" src="/images/outdoors_interest.png" alt="Petualangan Alam Banyuwangi" loading="lazy" />
-        </div>
-        <span class="text-sm font-black text-text-main tracking-tight group-hover:text-primary transition-colors flex items-center justify-center gap-1">
-          Petualangan Alam
-          <ChevronRight class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all shrink-0" />
-        </span>
-      </a>
-
-      <!-- Category 2: Beaches -->
-      <a href="#destinasi" class="w-[180px] sm:w-[220px] shrink-0 snap-start group text-center block">
-        <div class="aspect-square rounded-2xl overflow-hidden border border-border-color shadow-sm bg-slate-100 mb-3.5 transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-1">
-          <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103" src="/images/beaches_interest.png" alt="Pantai & Surfing Banyuwangi" loading="lazy" />
-        </div>
-        <span class="text-sm font-black text-text-main tracking-tight group-hover:text-primary transition-colors flex items-center justify-center gap-1">
-          Pantai & Surfing
-          <ChevronRight class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all shrink-0" />
-        </span>
-      </a>
-
-      <!-- Category 3: Culture -->
-      <a href="#budaya" class="w-[180px] sm:w-[220px] shrink-0 snap-start group text-center block">
-        <div class="aspect-square rounded-2xl overflow-hidden border border-border-color shadow-sm bg-slate-100 mb-3.5 transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-1">
-          <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103" src="/images/cultural_interest.png" alt="Seni & Budaya Osing" loading="lazy" />
-        </div>
-        <span class="text-sm font-black text-text-main tracking-tight group-hover:text-primary transition-colors flex items-center justify-center gap-1">
-          Seni & Budaya
-          <ChevronRight class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all shrink-0" />
-        </span>
-      </a>
-
-      <!-- Category 4: Wildlife Safari -->
-      <a href="#destinasi" class="w-[180px] sm:w-[220px] shrink-0 snap-start group text-center block">
-        <div class="aspect-square rounded-2xl overflow-hidden border border-border-color shadow-sm bg-slate-100 mb-3.5 transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-1">
-          <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103" src="/images/wildlife_interest.png" alt="Margasatwa & Safari Baluran" loading="lazy" />
-        </div>
-        <span class="text-sm font-black text-text-main tracking-tight group-hover:text-primary transition-colors flex items-center justify-center gap-1">
-          Margasatwa & Safari
-          <ChevronRight class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all shrink-0" />
-        </span>
-      </a>
-
-      <!-- Category 5: Food & Coffee -->
-      <a href="#budaya" class="w-[180px] sm:w-[220px] shrink-0 snap-start group text-center block">
-        <div class="aspect-square rounded-2xl overflow-hidden border border-border-color shadow-sm bg-slate-100 mb-3.5 transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-1">
-          <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103" src="/images/culinary_interest.png" alt="Kuliner Khas Banyuwangi" loading="lazy" />
-        </div>
-        <span class="text-sm font-black text-text-main tracking-tight group-hover:text-primary transition-colors flex items-center justify-center gap-1">
-          Kuliner Khas Osing
-          <ChevronRight class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all shrink-0" />
-        </span>
-      </a>
+      {sortedInterests.map((interest) => (
+        <a href={interest.data.link} class="w-[180px] sm:w-[220px] shrink-0 snap-start group text-center block">
+          <div class="aspect-square rounded-2xl overflow-hidden border border-border-color shadow-sm bg-slate-100 mb-3.5 transition-all duration-300 group-hover:shadow-md group-hover:-translate-y-1">
+            <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103" src={interest.data.image} alt={interest.data.title} loading="lazy" />
+          </div>
+          <span class="text-sm font-black text-text-main tracking-tight group-hover:text-primary transition-colors flex items-center justify-center gap-1">
+            {interest.data.title}
+            <ChevronRight class="w-3.5 h-3.5 opacity-0 group-hover:opacity-100 transition-all shrink-0" />
+          </span>
+        </a>
+      ))}
 
     </div>
   </div>
