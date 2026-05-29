@@ -53,12 +53,12 @@ const sortedDestinations = filteredDestinations.sort((a, b) => a.data.sortOrder 
     <!-- Horizontal Scrollable Row (Clean Aspect Ratio Cards) -->
     <div 
       id="destinations-carousel" 
-      class="flex gap-6 overflow-x-auto no-scrollbar snap-x snap-mandatory py-4 px-1 scroll-smooth"
+      class="flex items-stretch gap-6 overflow-x-auto no-scrollbar snap-x snap-mandatory py-4 px-1 scroll-smooth"
     >
       
       {sortedDestinations.map((dest) => (
-        <article class="carousel-card w-[280px] sm:w-[320px] shrink-0 snap-start bg-white rounded-2xl overflow-hidden border border-border-color shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-full group">
-          <div class="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 border-b border-border-color">
+        <article class="carousel-card w-[280px] sm:w-[320px] shrink-0 snap-start bg-white rounded-2xl overflow-hidden border border-border-color shadow-sm hover:shadow-md transition-all duration-300 flex flex-col h-[465px] sm:h-[495px] group">
+          <div class="relative w-full h-[200px] sm:h-[230px] overflow-hidden bg-slate-100 border-b border-border-color">
             <!-- TripAdvisor-style heart save button -->
             <button 
               type="button" 
@@ -101,7 +101,9 @@ const sortedDestinations = filteredDestinations.sort((a, b) => a.data.sortOrder 
               </div>
               
               <a 
-                href={dest.data.exploreLink} 
+                href={locale === 'en' 
+                  ? `/en/destinations/${dest.id.replace(/^en\//, '')}` 
+                  : `/destinasi/${dest.id.replace(/^id\//, '')}`}
                 class="inline-flex items-center gap-1.5 bg-primary-light text-primary hover:bg-primary hover:text-white font-extrabold text-[0.7rem] uppercase tracking-wider px-4 py-2.5 rounded-full transition-all cursor-pointer"
               >
                 {t('dest.btn.explore')}
@@ -128,7 +130,7 @@ const sortedDestinations = filteredDestinations.sort((a, b) => a.data.sortOrder 
 
 <!-- Carousel Script Interactivity -->
 <script>
-  const track = document.getElementById('carousel-track');
+  const track = document.getElementById('destinations-carousel');
   const prevBtn = document.getElementById('carousel-prev');
   const nextBtn = document.getElementById('carousel-next');
 

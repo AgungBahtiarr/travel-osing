@@ -7,17 +7,19 @@ interface Props {
 	title?: string;
 	description?: string;
 	image?: string;
+	lang?: string;
 }
 
 const {
 	title = "Travel Osing - Jelajahi Pesona Banyuwangi | Sunrise of Java",
 	description = "Travel Osing adalah agensi perjalanan premium di Banyuwangi. Temukan keindahan Kawah Ijen Blue Fire, Sabana Baluran, Pantai Pulau Merah, dan otentisitas kebudayaan suku Osing bersama pemandu lokal profesional.",
-	image = "/images/hero_bg.png"
+	image = "/images/hero_bg.png",
+	lang = Astro.currentLocale || "id"
 } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="id">
+<html lang={lang}>
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />

@@ -1,0 +1,520 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Navbar from '../../components/Navbar.astro';
+import Footer from '../../components/Footer.astro';
+import WhatsAppWidget from '../../components/WhatsAppWidget.astro';
+import { 
+  ChevronLeft, 
+  MapPin, 
+  Star, 
+  CheckCircle2, 
+  Info, 
+  ShieldCheck, 
+  ArrowRight, 
+  Briefcase, 
+  Share2, 
+  MessageCircle,
+  Clock,
+  Compass
+} from '@lucide/astro';
+import { Image } from 'astro:assets';
+import { useTranslations } from '../../utils/i18n';
+
+// 1. Generate paths for Indonesian destinations
+export async function getStaticPaths() {
+  const destinations = await getCollection('destinations');
+  const idDestinations = destinations.filter(d => d.id.startsWith('id/'));
+  return idDestinations.map(dest => ({
+    params: { id: dest.id.replace(/^id\//, '') },
+    props: { dest },
+  }));
+}
+
+const { dest } = Astro.props;
+const { Content } = await render(dest);
+const locale = 'id';
+const t = useTranslations(locale);
+
+// Curated premium structured data for Banyuwangi destinations
+const destinationDetails: Record<string, { highlights: string[], itinerary: { time: string, activity: string }[], tips: string[] }> = {
+  'kawah-ijen': {
+    highlights: [
+      "Menyaksikan fenomena Blue Fire (Api Biru) elektrik yang langka di dunia.",
+      "Melihat danau kawah asam terbesar di dunia dengan air berwarna hijau toska.",
+      "Menikmati pemandangan matahari terbit magis dari puncak Gunung Ijen.",
+      "Melihat secara dekat perjuangan luar biasa para penambang belerang tradisional."
+    ],
+    itinerary: [
+      { time: "23:30 - 00:30", activity: "Penjemputan di hotel/stasiun Banyuwangi dan perjalanan ke Pos Paltuding." },
+      { time: "00:30 - 02:00", activity: "Tiba di Paltuding, pengarahan keselamatan, pembagian masker gas & headlamp." },
+      { time: "02:00 - 03:30", activity: "Pendakian ke bibir Kawah Ijen sepanjang 3 km dipandu guide lokal berlisensi." },
+      { time: "03:30 - 05:00", activity: "Turun ke dasar kawah untuk menyaksikan Blue Fire & aktivitas tambang belerang." },
+      { time: "05:00 - 06:30", activity: "Kembali ke bibir kawah untuk menikmati sunrise dan panorama danau asam toska." },
+      { time: "06:30 - 08:00", activity: "Perjalanan turun kembali ke Pos Paltuding." },
+      { time: "08:00 - 09:00", activity: "Perjalanan kembali dan pengantaran pulang ke hotel di Banyuwangi." }
+    ],
+    tips: [
+      "Kenakan jaket tebal, sarung tangan, dan penutup kepala karena suhu puncak dingin (5-10°C).",
+      "Gunakan sepatu gunung atau sepatu olahraga dengan sol karet bergerigi yang anti-slip.",
+      "Bawa air minum secukupnya dan camilan penambah energi instan.",
+      "Penderita asma atau penyakit pernapasan berat dilarang turun ke dasar kawah belerang."
+    ]
+  },
+  'de-djawatan': {
+    highlights: [
+      "Berfoto di tengah hutan pohon Trembesi purba raksasa berlumur yang mirip dengan hutan fantasi film Lord of the Rings.",
+      "Menikmati kesejukan udara bersih alami yang bebas polusi di bawah kanopi hijau raksasa.",
+      "Mengeksplorasi jembatan kayu estetik dan spot foto rumah pohon ikonik.",
+      "Mencoba aktivitas opsional berkeliling hutan dengan menunggang kuda atau delman tradisional."
+    ],
+    itinerary: [
+      { time: "08:30 - 09:30", activity: "Penjemputan di penginapan area Banyuwangi kota dan perjalanan ke daerah Benculuk." },
+      { time: "09:30 - 10:00", activity: "Tiba di De Djawatan, pengurusan tiket premium, dan persiapan kamera." },
+      { time: "10:00 - 12:00", activity: "Menyusuri jalan setapak hutan trembesi purba didampingi pemandu lokal kami." },
+      { time: "12:00 - 13:00", activity: "Makan siang kuliner lokal legendaris Banyuwangi (Sego Tempong)." },
+      { time: "13:00 - 14:00", activity: "Perjalanan santai kembali ke penginapan awal." }
+    ],
+    tips: [
+      "Waktu foto terbaik adalah pukul 09:00-11:00 atau 15:30-16:30 untuk mendapat sorotan cahaya matahari yang dramatis.",
+      "Kenakan pakaian berwarna kontras (seperti putih atau kuning) agar terlihat stand-out di antara pepohonan hijau tua.",
+      "Gunakan losion antinyamuk karena kelembapan hutan trembesi cukup tinggi.",
+      "Hindari memanjat atau merusak dahan pohon purba demi kelestarian cagar alam."
+    ]
+  },
+  'pulau-merah': {
+    highlights: [
+      "Menyaksikan salah satu sunset berlatar siluet bukit pulau terindah di Pulau Jawa.",
+      "Bermain air atau belajar selancar pantai (surfing) pemula karena ombaknya bersahabat.",
+      "Menjelajah menyeberangi pasir pantai ke bukit Pulau Merah saat air laut sedang surut.",
+      "Bersantai di bawah payung pantai merah khas menikmati es kelapa muda segar."
+    ],
+    itinerary: [
+      { time: "13:00 - 14:30", activity: "Penjemputan di akomodasi Banyuwangi dan perjalanan darat ke Pesanggaran." },
+      { time: "14:30 - 15:00", activity: "Tiba di Pantai Pulau Merah, pembagian spot payung pantai bersantai." },
+      { time: "15:00 - 17:00", activity: "Aktivitas bebas: berenang aman, hunting foto estetik, atau belajar surfing ringan." },
+      { time: "17:00 - 18:00", activity: "Menikmati dan mengabadikan momen matahari terbenam emas yang magis." },
+      { time: "18:00 - 19:30", activity: "Perjalanan pulang kembali ke hotel tujuan asal." }
+    ],
+    tips: [
+      "Bawa pakaian ganti cadangan kering, handuk, dan tas anti-air untuk gadget.",
+      "Gunakan tabir surya berkadar tinggi (sunblock) dan kacamata hitam pelindung matahari pantai.",
+      "Sewa papan selancar bersertifikat langsung melalui rekomendasi pemandu kami demi keamanan.",
+      "Perhatikan batas zona aman bendera merah yang terpasang di pesisir pantai."
+    ]
+  },
+  'taman-baluran': {
+    highlights: [
+      "Eksplorasi padang Sabana Bekol alami terluas di Pulau Jawa yang berjuluk 'Africa van Java'.",
+      "Mengamati kawanan rusa, merak hijau, monyet abu-abu, dan Banteng Jawa secara liar.",
+      "Mengunjungi Pantai Bama yang tenang dikelilingi cagar alam hutan mangrove purba.",
+      "Berfoto di gerbang pohon kering eksotis khas iklim semi-arid tropis."
+    ],
+    itinerary: [
+      { time: "07:30 - 08:30", activity: "Penjemputan di hotel dan perjalanan berkendara menuju Wongsorejo di perbatasan utara." },
+      { time: "08:30 - 09:30", activity: "Memasuki gerbang Baluran, menyusuri jalan aspal teduh di tengah Hutan Evergreen." },
+      { time: "09:30 - 11:30", activity: "Eksplorasi Sabana Bekol, menaiki menara pandang, dan sesi foto lanskap padang rumput." },
+      { time: "11:30 - 13:30", activity: "Berkunjung ke Pantai Bama, istirahat makan siang, dan susur jembatan mangrove rindang." },
+      { time: "13:30 - 15:00", activity: "Perjalanan santai kembali ke Banyuwangi kota." }
+    ],
+    tips: [
+      "Pilihlah pakaian berbahan katun ringan dan menyerap keringat karena suhu padang rumput cukup terik.",
+      "Bawa binokular atau kamera dengan lensa tele panjang jika ingin memotret fauna liar lebih dekat.",
+      "Jangan menenteng kantong plastik berwarna merah/terang karena monyet di Pantai Bama sangat agresif terhadap makanan.",
+      "Wajib mematuhi instruksi pemandu untuk tidak membunyikan klakson keras di dalam suaka margasatwa."
+    ]
+  }
+};
+
+const currentSlug = dest.id.replace(/^id\//, '');
+const details = destinationDetails[currentSlug] || {
+  highlights: [
+    "Eksplorasi pemandangan alam Banyuwangi yang otentik.",
+    "Didampingi oleh pemandu wisata lokal asli suku Osing yang berlisensi resmi.",
+    "Transportasi premium ber-AC yang bersih dan nyaman selama perjalanan.",
+    "Rencana perjalanan kustom yang fleksibel sesuai kebutuhan Anda."
+  ],
+  itinerary: [
+    { time: "08:00 - 09:00", activity: "Penjemputan di hotel/stasiun Banyuwangi." },
+    { time: "09:00 - 12:00", activity: "Eksplorasi destinasi dan aktivitas berpemandu." },
+    { time: "12:00 - 13:00", activity: "Makan siang kuliner lokal." },
+    { time: "13:00 - 15:00", activity: "Melanjutkan eksplorasi spot wisata pilihan." },
+    { time: "15:00 - 16:00", activity: "Kembali ke akomodasi asal." }
+  ],
+  tips: [
+    "Gunakan pakaian yang nyaman sesuai destinasi tujuan.",
+    "Siapkan kamera untuk mengabadikan momen petualangan Anda.",
+    "Selalu ikuti arahan keselamatan dari pemandu kami."
+  ]
+};
+
+// 3. Fetch other destinations for internal linking suggestion
+const allDestinations = await getCollection('destinations');
+const otherDestinations = allDestinations
+  .filter(d => d.id.startsWith('id/') && d.id !== dest.id)
+  .slice(0, 3);
+
+// WhatsApp Direct Booking Text Formatter
+const waText = encodeURIComponent(
+  `Halo Travel Osing!\nSaya tertarik memesan paket wisata premium ke:\n` +
+  `📍 Destinasi: ${dest.data.title}\n` +
+  `💰 Mulai: Rp ${dest.data.price.toLocaleString('id-ID')} / ${dest.data.priceUnit === 'pax' ? t('dest.price.unit') : dest.data.priceUnit}\n\n` +
+  `Mohon dibantu informasi ketersediaan pemandu lokal untuk keberangkatan kami. Terima kasih!`
+);
+---
+
+<Layout 
+  title={`${dest.data.title} - Jelajahi Banyuwangi | Travel Osing`} 
+  description={dest.data.description}
+  image={dest.data.image}
+>
+  <!-- Navigation Header -->
+  <Navbar />
+
+  <main class="bg-bg-main min-h-screen pb-24">
+    <article>
+      <!-- TripAdvisor Premium Hero Header -->
+      <header class="py-12 md:py-16 bg-bg-secondary border-b border-border-color">
+        <div class="max-w-7xl mx-auto px-6">
+          
+          <!-- Back button -->
+          <a 
+            href="/#destinasi" 
+            class="inline-flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider text-text-light hover:text-primary transition-all mb-8 group"
+          >
+            <ChevronLeft class="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+            Kembali ke Beranda
+          </a>
+
+          <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
+            <div class="text-left max-w-3xl">
+              <!-- Category badge -->
+              <span class="inline-block bg-primary-light text-primary font-extrabold text-[0.65rem] px-3 py-1 rounded-full uppercase tracking-wider mb-4 border border-primary/10 select-none">
+                {dest.data.category}
+              </span>
+              
+              <!-- Title -->
+              <h1 class="font-sans text-3xl md:text-4xl lg:text-5xl font-black text-text-main tracking-tight leading-tight mb-4">
+                {dest.data.title}
+              </h1>
+
+              <!-- TripAdvisor Bubble Rating & Reviews -->
+              <div class="flex items-center gap-3">
+                <div class="flex gap-0.5" aria-label={`Rating ${dest.data.rating} dari 5`}>
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span class={`w-3.5 h-3.5 rounded-full inline-block ${i < Math.round(dest.data.rating) ? 'bg-[#00aa6c]' : 'bg-[#00aa6c]/20 border border-[#00aa6c]/10'}`}></span>
+                  ))}
+                </div>
+                <span class="text-sm font-bold text-text-main">{dest.data.rating}</span>
+                <span class="text-text-light text-sm font-medium">({dest.data.reviewsCount} Ulasan Wisatawan)</span>
+              </div>
+            </div>
+
+            <!-- Header Price block for mobile responsiveness -->
+            <div class="lg:text-right shrink-0 border-t lg:border-t-0 border-border-color pt-6 lg:pt-0">
+              <span class="text-xs text-text-light font-bold uppercase tracking-wider block mb-1">{t('dest.price.from')}</span>
+              <p class="text-2xl md:text-3xl font-black text-text-main tracking-tight">
+                Rp {dest.data.price.toLocaleString('id-ID')} <span class="text-sm text-text-light font-medium">/{dest.data.priceUnit === 'pax' ? t('dest.price.unit') : dest.data.priceUnit}</span>
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </header>
+
+      <!-- Main Glorious Image with Explicit Sizing -->
+      <div class="max-w-7xl mx-auto px-6 -mt-8 md:-mt-12 relative z-10">
+        <div class="aspect-[16/9] md:aspect-[21/9] w-full rounded-2xl overflow-hidden border border-border-color shadow-lg bg-slate-100">
+          <Image 
+            src={dest.data.image} 
+            alt={dest.data.title}
+            width={1280}
+            height={640}
+            class="w-full h-full object-cover object-center animate-image-load"
+          />
+        </div>
+      </div>
+
+      <!-- Content Layout Columns -->
+      <div class="max-w-7xl mx-auto px-6 mt-12 md:mt-16">
+        <div class="grid grid-cols-1 lg:grid-cols-[1.4fr_0.8fr] gap-10 items-start relative">
+          
+          <!-- Left Main Column (Detailed info) -->
+          <div class="space-y-12">
+            
+            <!-- Description Card -->
+            <section class="bg-white p-8 rounded-2xl border border-border-color shadow-sm text-left">
+              <h2 class="font-sans text-xl md:text-2xl font-black text-text-main mb-5 flex items-center gap-2.5 pb-4 border-b border-border-color">
+                <Compass class="w-5.5 h-5.5 text-primary" />
+                Tentang Destinasi Wisata
+              </h2>
+              <div class="prose-custom">
+                <p class="font-medium text-text-muted leading-relaxed text-base mb-6">
+                  {dest.data.description}
+                </p>
+                <Content />
+              </div>
+            </section>
+
+            <!-- Highlights Section -->
+            <section class="bg-white p-8 rounded-2xl border border-border-color shadow-sm text-left">
+              <h2 class="font-sans text-xl md:text-2xl font-black text-text-main mb-5 flex items-center gap-2.5 pb-4 border-b border-border-color">
+                <Star class="w-5.5 h-5.5 text-accent" />
+                Highlight Pengalaman Premium
+              </h2>
+              <ul class="space-y-4">
+                {details.highlights.map((highlight) => (
+                  <li class="flex items-start gap-3">
+                    <CheckCircle2 class="w-5 h-5 text-accent shrink-0 mt-0.5" />
+                    <span class="text-sm font-semibold text-text-muted leading-relaxed">{highlight}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+            <!-- Curated Brief Itinerary -->
+            <section class="bg-white p-8 rounded-2xl border border-border-color shadow-sm text-left">
+              <h2 class="font-sans text-xl md:text-2xl font-black text-text-main mb-6 flex items-center gap-2.5 pb-4 border-b border-border-color">
+                <Clock class="w-5.5 h-5.5 text-primary" />
+                Itinerary Perjalanan Standar
+              </h2>
+              <div class="relative border-l border-slate-200 ml-3 pl-6 space-y-8 py-2">
+                {details.itinerary.map((item) => (
+                  <div class="relative">
+                    <!-- Dot marker -->
+                    <div class="absolute -left-[31px] top-1.5 w-3 h-3 rounded-full bg-primary border-2 border-white ring-4 ring-primary-light"></div>
+                    <div class="flex flex-col sm:flex-row sm:items-start gap-1 sm:gap-6">
+                      <span class="text-xs font-black text-primary uppercase tracking-wider shrink-0 bg-primary-light px-2.5 py-1 rounded-md border border-primary/5">{item.time}</span>
+                      <p class="text-sm font-bold text-text-muted leading-relaxed">{item.activity}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <!-- Smart Traveler Tips -->
+            <section class="bg-white p-8 rounded-2xl border border-border-color shadow-sm text-left">
+              <h2 class="font-sans text-xl md:text-2xl font-black text-text-main mb-5 flex items-center gap-2.5 pb-4 border-b border-border-color">
+                <Info class="w-5.5 h-5.5 text-amber-500" />
+                Tips Persiapan Penting (Traveler Tips)
+              </h2>
+              <ul class="space-y-4">
+                {details.tips.map((tip) => (
+                  <li class="flex items-start gap-3.5">
+                    <div class="w-5 h-5 rounded-full bg-amber-50 border border-amber-200 flex items-center justify-center text-amber-600 shrink-0 text-xs font-bold mt-0.5">!</div>
+                    <span class="text-sm font-semibold text-text-muted leading-relaxed">{tip}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
+
+          </div>
+
+          <!-- Right Sidebar Column (Sticky Booking Spec Card) -->
+          <div class="space-y-6 lg:sticky lg:top-28">
+            <div class="bg-white p-8 rounded-2xl border border-border-color shadow-md flex flex-col">
+              <!-- Card Header title -->
+              <div class="border-b border-border-color pb-5 mb-5 select-none text-left">
+                <span class="text-[0.65rem] text-primary font-black uppercase tracking-wider block mb-1">Pemesanan Eksklusif</span>
+                <h3 class="text-lg font-black text-text-main">Lembar Reservasi</h3>
+              </div>
+
+              <!-- Price highlights inside card -->
+              <div class="flex justify-between items-end mb-6 text-left">
+                <div>
+                  <span class="text-[0.65rem] text-text-light font-bold uppercase tracking-wider block mb-0.5 select-none">{t('dest.price.from')}</span>
+                  <span class="text-2xl font-black text-text-main tracking-tight">Rp {dest.data.price.toLocaleString('id-ID')}</span>
+                </div>
+                <div class="text-right">
+                  <span class="text-xs text-text-light font-bold uppercase tracking-wider block mb-0.5 select-none">Per Orang</span>
+                  <span class="text-sm font-extrabold text-accent bg-accent-light px-2.5 py-1 rounded-md">100% {dest.data.priceUnit === 'pax' ? t('dest.price.unit') : dest.data.priceUnit}</span>
+                </div>
+              </div>
+
+              <!-- Trust bulletpoints list -->
+              <div class="border-t border-b border-dashed border-border-color py-5 my-5 space-y-3.5 text-left">
+                <div class="flex items-center gap-3 text-xs font-bold text-text-muted">
+                  <ShieldCheck class="w-4.5 h-4.5 text-accent shrink-0" />
+                  <span>Jaminan Harga Terbaik Tanpa Biaya Tersembunyi</span>
+                </div>
+                <div class="flex items-center gap-3 text-xs font-bold text-text-muted">
+                  <CheckCircle2 class="w-4.5 h-4.5 text-accent shrink-0" />
+                  <span>Pemandu Lokal Asli Suku Osing Berlisensi Resmi</span>
+                </div>
+                <div class="flex items-center gap-3 text-xs font-bold text-text-muted">
+                  <Briefcase class="w-4.5 h-4.5 text-accent shrink-0" />
+                  <span>Termasuk Asuransi Wisata & Transportasi AC Premium</span>
+                </div>
+              </div>
+
+              <!-- Booking Direct CTA -->
+              <a 
+                href={`https://wa.me/6281234567890?text=${waText}`} 
+                target="_blank"
+                class="w-full bg-accent hover:bg-accent-hover text-white font-extrabold text-center py-4 px-6 rounded-full block shadow-sm text-sm tracking-wide transition-all hover:-translate-y-0.5"
+              >
+                Pesan Paket Trip Sekarang
+              </a>
+
+              <!-- Bottom alternative link -->
+              <a 
+                href="/#rencana" 
+                class="text-xs text-primary hover:underline font-extrabold text-center mt-5 uppercase tracking-wider flex items-center justify-center gap-1"
+              >
+                Atur Itinerary Kustom <ArrowRight class="w-3.5 h-3.5" />
+              </a>
+            </div>
+
+            <!-- Share & Contact mini card -->
+            <div class="bg-bg-secondary p-5 rounded-2xl border border-border-color shadow-sm flex items-center justify-between">
+              <span class="text-xs font-bold text-text-muted">Bagikan Destinasi:</span>
+              <div class="flex items-center gap-2">
+                <button 
+                  type="button" 
+                  onclick="navigator.clipboard.writeText(window.location.href); alert('Tautan destinasi berhasil disalin!');"
+                  class="w-9 h-9 rounded-full border border-border-color hover:bg-white bg-slate-50 flex items-center justify-center text-text-muted hover:text-primary transition-all cursor-pointer shadow-subtle active:scale-95"
+                  title="Salin Tautan"
+                >
+                  <Share2 class="w-3.5 h-3.5" />
+                </button>
+                <a 
+                  href="#"
+                  id="whatsapp-dest-share"
+                  target="_blank"
+                  class="w-9 h-9 rounded-full border border-border-color hover:bg-white bg-slate-50 flex items-center justify-center text-text-muted hover:text-accent transition-all cursor-pointer shadow-subtle active:scale-95"
+                  title="Bagikan ke WhatsApp"
+                >
+                  <MessageCircle class="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </article>
+
+    <!-- Bottom Related / More Destinations Section -->
+    {otherDestinations.length > 0 && (
+      <section class="mt-24 py-16 bg-bg-secondary border-t border-b border-border-color px-6">
+        <div class="max-w-7xl mx-auto">
+          <div class="flex items-center justify-between mb-10 px-6">
+            <h3 class="font-sans text-xl md:text-2xl font-black text-text-main tracking-tight">Destinasi Banyuwangi Lainnya</h3>
+            <a href="/#destinasi" class="text-xs font-bold text-primary hover:underline flex items-center gap-1 uppercase tracking-wider">
+              Lihat semua destinasi <ArrowRight class="w-3.5 h-3.5" />
+            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {otherDestinations.map((od) => (
+              <a 
+                href={`/destinasi/${od.id.replace(/^id\//, '')}`}
+                class="group bg-white rounded-2xl overflow-hidden border border-border-color hover:border-slate-300 hover:shadow-md transition-all duration-300 flex flex-col text-left shadow-sm"
+              >
+                <div class="aspect-[4/3] w-full overflow-hidden bg-slate-100 border-b border-border-color">
+                  <Image 
+                    src={od.data.image} 
+                    alt={od.data.title}
+                    width={400}
+                    height={300}
+                    class="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-300"
+                  />
+                </div>
+                <div class="p-6 flex flex-col flex-grow">
+                  <span class="text-[0.65rem] font-bold text-primary uppercase tracking-wider mb-2">
+                    {od.data.category}
+                  </span>
+                  <h4 class="font-sans font-black text-text-main leading-snug group-hover:text-primary transition-colors text-lg mb-2">
+                    {od.data.title}
+                  </h4>
+                  <p class="text-text-muted text-xs leading-relaxed line-clamp-2 flex-grow">
+                    {od.data.description}
+                  </p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+  </main>
+
+  <!-- Footer Section -->
+  <Footer />
+
+  <!-- Floating WhatsApp Widget -->
+  <WhatsAppWidget />
+</Layout>
+
+<script define:vars={{ title: dest.data.title }}>
+  document.addEventListener('DOMContentLoaded', () => {
+    const waShare = document.getElementById('whatsapp-dest-share');
+    if (waShare) {
+      waShare.href = `https://api.whatsapp.com/send?text=${encodeURIComponent('Jelajahi keindahan ' + title + ' di Banyuwangi bersama Travel Osing: ' + window.location.href)}`;
+    }
+  });
+</script>
+
+<style is:global>
+  /* Premium Custom Typography variables styling for Markdown rendered articles */
+  .prose-custom h2 {
+    font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    font-size: 1.625rem;
+    font-weight: 800;
+    color: var(--color-text-main);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+  }
+  
+  .prose-custom h3 {
+    font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    margin-top: 2rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.3;
+  }
+
+  .prose-custom p {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  .prose-custom strong {
+    color: var(--color-text-main);
+    font-weight: 700;
+  }
+
+  .prose-custom ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+    margin-top: -0.5rem;
+  }
+
+  .prose-custom li {
+    font-size: 1.05rem;
+    color: var(--color-text-muted);
+    line-height: 1.6;
+    margin-bottom: 0.5rem;
+  }
+
+  .prose-custom blockquote {
+    border-left: 4px solid var(--color-primary);
+    background-color: var(--color-bg-secondary);
+    padding: 1.25rem 1.75rem;
+    border-radius: 0 0.75rem 0.75rem 0;
+    font-style: italic;
+    color: var(--color-text-muted);
+    margin: 2rem 0;
+  }
+  
+  .prose-custom em {
+    font-style: italic;
+  }
+</style>

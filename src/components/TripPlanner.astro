@@ -8,7 +8,26 @@ const locale = Astro.currentLocale || 'id';
 const t = useTranslations(locale);
 ---
 
-<section class="py-20 px-6 bg-bg-secondary border-t border-b border-border-color" id="rencana">
+<section 
+  class="py-20 px-6 bg-bg-secondary border-t border-b border-border-color" 
+  id="rencana"
+  data-locale={locale}
+  data-people-label={t('planner.people')}
+  data-inc-guide={locale === 'en' ? "Licensed Local Osing Guide" : "Pemandu Lokal Osing Berlisensi"}
+  data-inc-transport={locale === 'en' ? "Premium AC Transport & Fuel" : "Transport AC Premium & BBM"}
+  data-inc-nature1={locale === 'en' ? "Mount Ijen / Baluran Entrance Ticket" : "Tiket Masuk Kawah Ijen / Baluran"}
+  data-inc-nature2={locale === 'en' ? "Gas Respirator Mask & Headlamp" : "Masker Gas Respirator & Senter Kepala"}
+  data-inc-family1={locale === 'en' ? "Red Island Beach & Fruit Orchard Ticket" : "Tiket Pantai Pulau Merah & Kebun Buah"}
+  data-inc-family2={locale === 'en' ? "Beach Umbrella & Lounge Spot" : "Payung Pantai & Tempat Bersantai"}
+  data-inc-culture1={locale === 'en' ? "Gandrung Dance & Kemiren Angklung Ticket" : "Tiket Tari Gandrung & Angklung Kemiren"}
+  data-inc-culture2={locale === 'en' ? "Traditional Feast & Kopai Osing Coffee" : "Jamuan Makan Tradisional & Kopai Osing"}
+  data-wa-intro={locale === 'en' ? "Hello Travel Osing!\nI am interested in booking a custom package with the following details:\n\n" : "Halo Travel Osing!\nSaya tertarik memesan paket kustom dengan rincian berikut:\n\n"}
+  data-wa-dur={locale === 'en' ? "- Duration: " : "- Durasi: "}
+  data-wa-theme={locale === 'en' ? "- Trip Theme: " : "- Tema Wisata: "}
+  data-wa-members={locale === 'en' ? "- Number of Members: " : "- Jumlah Anggota: "}
+  data-wa-price={locale === 'en' ? "- Estimated Cost: " : "- Perkiraan Harga: "}
+  data-wa-footer={locale === 'en' ? "Please assist me with coordinating the schedule and local guide availability. Thank you!" : "Mohon dibantu untuk koordinasi jadwal dan ketersediaan pemandu lokalnya. Terima kasih!"}
+>
   <div class="max-w-7xl mx-auto px-6 relative">
     
     <!-- Section Header -->
@@ -33,35 +52,35 @@ const t = useTranslations(locale);
           <!-- Step 1: Duration -->
           <div>
             <label class="block text-xs font-black text-text-main uppercase tracking-wider mb-3">
-              Langkah 1: Pilih Durasi Perjalanan
+              {t('planner.step1')}
             </label>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="planner-duration-group">
               <button 
                 type="button" 
                 data-value="1" 
                 data-price="350000"
-                class="duration-btn active py-4 px-4 rounded-xl border-2 border-primary bg-primary-light/40 text-primary font-bold text-sm transition-all focus:outline-none flex flex-col items-center justify-center gap-1 cursor-pointer"
+                class="duration-btn active py-4 px-4 rounded-xl border-2 border-primary bg-primary-light/40 text-primary font-bold text-sm transition-all focus:outline-none flex flex-col items-center justify-center gap-1 cursor-pointer animate-duration-btn"
               >
-                <span>1 Hari (Midnight)</span>
-                <span class="text-xs font-semibold text-primary/70">Rp 350.000/pax</span>
+                <span>{t('planner.duration.1d')}</span>
+                <span class="text-xs font-semibold text-primary/70">{t('planner.duration.1d.desc')}</span>
               </button>
               <button 
                 type="button" 
                 data-value="2" 
                 data-price="750000"
-                class="duration-btn py-4 px-4 rounded-xl border-2 border-slate-100 bg-bg-secondary text-text-muted font-bold text-sm transition-all hover:border-slate-300 focus:outline-none flex flex-col items-center justify-center gap-1 cursor-pointer"
+                class="duration-btn py-4 px-4 rounded-xl border-2 border-slate-100 bg-bg-secondary text-text-muted font-bold text-sm transition-all hover:border-slate-300 focus:outline-none flex flex-col items-center justify-center gap-1 cursor-pointer animate-duration-btn"
               >
-                <span>2 Hari 1 Malam</span>
-                <span class="text-xs font-semibold text-text-light">Rp 750.000/pax</span>
+                <span>{t('planner.duration.2d')}</span>
+                <span class="text-xs font-semibold text-text-light">{t('planner.duration.2d.desc')}</span>
               </button>
               <button 
                 type="button" 
                 data-value="3" 
                 data-price="1200000"
-                class="duration-btn py-4 px-4 rounded-xl border-2 border-slate-100 bg-bg-secondary text-text-muted font-bold text-sm transition-all hover:border-slate-300 focus:outline-none flex flex-col items-center justify-center gap-1 cursor-pointer"
+                class="duration-btn py-4 px-4 rounded-xl border-2 border-slate-100 bg-bg-secondary text-text-muted font-bold text-sm transition-all hover:border-slate-300 focus:outline-none flex flex-col items-center justify-center gap-1 cursor-pointer animate-duration-btn"
               >
-                <span>3 Hari 2 Malam</span>
-                <span class="text-xs font-semibold text-text-light">Rp 1.200.000/pax</span>
+                <span>{t('planner.duration.3d')}</span>
+                <span class="text-xs font-semibold text-text-light">{t('planner.duration.3d.desc')}</span>
               </button>
             </div>
           </div>
@@ -69,35 +88,35 @@ const t = useTranslations(locale);
           <!-- Step 2: Theme -->
           <div>
             <label class="block text-xs font-black text-text-main uppercase tracking-wider mb-3">
-              Langkah 2: Pilih Tema Petualangan
+              {t('planner.step2')}
             </label>
             <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="planner-theme-group">
               <button 
                 type="button" 
-                data-value="Petualangan Alam" 
+                data-value={locale === 'en' ? 'Nature Adventure' : 'Petualangan Alam'} 
                 data-mod="0"
-                class="theme-btn active py-4 px-4 rounded-xl border-2 border-primary bg-primary-light/40 text-primary font-bold text-sm transition-all focus:outline-none flex flex-col items-center justify-center gap-2 cursor-pointer"
+                class="theme-btn active py-4 px-4 rounded-xl border-2 border-primary bg-primary-light/40 text-primary font-bold text-sm transition-all focus:outline-none flex flex-col items-center justify-center gap-2 cursor-pointer animate-theme-btn"
               >
                 <Mountain class="w-5 h-5 shrink-0" />
-                <span>Petualangan Alam</span>
+                <span>{t('planner.theme.nature')}</span>
               </button>
               <button 
                 type="button" 
-                data-value="Santai & Keluarga" 
+                data-value={locale === 'en' ? 'Leisure & Family' : 'Santai & Keluarga'} 
                 data-mod="-30000"
-                class="theme-btn py-4 px-4 rounded-xl border-2 border-slate-100 bg-bg-secondary text-text-muted font-bold text-sm transition-all hover:border-slate-300 focus:outline-none flex flex-col items-center justify-center gap-2 cursor-pointer"
+                class="theme-btn py-4 px-4 rounded-xl border-2 border-slate-100 bg-bg-secondary text-text-muted font-bold text-sm transition-all hover:border-slate-300 focus:outline-none flex flex-col items-center justify-center gap-2 cursor-pointer animate-theme-btn"
               >
                 <Palmtree class="w-5 h-5 shrink-0" />
-                <span>Santai & Keluarga</span>
+                <span>{t('planner.theme.family')}</span>
               </button>
               <button 
                 type="button" 
-                data-value="Eksplorasi Budaya" 
+                data-value={locale === 'en' ? 'Cultural Exploration' : 'Eksplorasi Budaya'} 
                 data-mod="50000"
-                class="theme-btn py-4 px-4 rounded-xl border-2 border-slate-100 bg-bg-secondary text-text-muted font-bold text-sm transition-all hover:border-slate-300 focus:outline-none flex flex-col items-center justify-center gap-2 cursor-pointer"
+                class="theme-btn py-4 px-4 rounded-xl border-2 border-slate-100 bg-bg-secondary text-text-muted font-bold text-sm transition-all hover:border-slate-300 focus:outline-none flex flex-col items-center justify-center gap-2 cursor-pointer animate-theme-btn"
               >
                 <Landmark class="w-5 h-5 shrink-0" />
-                <span>Eksplorasi Budaya</span>
+                <span>{t('planner.theme.culture')}</span>
               </button>
             </div>
           </div>
@@ -106,9 +125,9 @@ const t = useTranslations(locale);
           <div>
             <div class="flex justify-between items-center mb-3">
               <label class="block text-xs font-black text-text-main uppercase tracking-wider">
-                Langkah 3: Jumlah Peserta
+                {t('planner.step3')}
               </label>
-              <span class="text-primary font-extrabold text-base" id="participants-display">4 Orang</span>
+              <span class="text-primary font-extrabold text-base" id="participants-display">4 {t('planner.people')}</span>
             </div>
             <div class="flex items-center gap-4">
               <input 
@@ -122,7 +141,7 @@ const t = useTranslations(locale);
             </div>
             <p class="text-[0.75rem] text-text-light mt-2.5 font-semibold flex items-center gap-1.5 justify-center sm:justify-start">
               <Info class="w-3.5 h-3.5 text-primary shrink-0" />
-              <span>Dapatkan potongan rombongan sebesar 10% untuk pemesanan di atas 4 peserta!</span>
+              <span>{t('planner.discount.info')}</span>
             </p>
           </div>
         </div>
@@ -135,33 +154,33 @@ const t = useTranslations(locale);
           <!-- Header -->
           <div class="flex justify-between items-start border-b border-border-color pb-5 mb-5 select-none">
             <div>
-              <h4 class="text-lg font-black tracking-tight text-text-main">Spesifikasi Rencana</h4>
-              <p class="text-[0.65rem] text-text-light font-extrabold tracking-wider uppercase">Travel Osing Spec Sheet</p>
+              <h4 class="text-lg font-black tracking-tight text-text-main">{t('planner.spec.title')}</h4>
+              <p class="text-[0.65rem] text-text-light font-extrabold tracking-wider uppercase">{t('planner.spec.subtitle')}</p>
             </div>
             <div class="bg-bg-secondary border border-border-color px-3 py-1 rounded-md text-[0.65rem] font-bold text-text-muted uppercase tracking-wider">
-              Preview Instan
+              {t('planner.spec.badge')}
             </div>
           </div>
 
           <!-- Specifications -->
           <div class="space-y-4 text-left font-medium">
             <div class="flex justify-between items-center">
-              <span class="text-xs text-text-light font-bold uppercase tracking-wider select-none">Durasi Trip:</span>
-              <span class="text-sm font-black text-text-main" id="preview-duration">1 Hari (Midnight)</span>
+              <span class="text-xs text-text-light font-bold uppercase tracking-wider select-none">{t('planner.spec.duration')}</span>
+              <span class="text-sm font-black text-text-main" id="preview-duration">{t('planner.duration.1d')}</span>
             </div>
             
             <div class="flex justify-between items-center">
-              <span class="text-xs text-text-light font-bold uppercase tracking-wider select-none">Tema Kegiatan:</span>
-              <span class="text-sm font-black text-text-main" id="preview-theme">Petualangan Alam</span>
+              <span class="text-xs text-text-light font-bold uppercase tracking-wider select-none">{t('planner.spec.theme')}</span>
+              <span class="text-sm font-black text-text-main" id="preview-theme">{t('planner.theme.nature')}</span>
             </div>
 
             <div class="flex justify-between items-center">
-              <span class="text-xs text-text-light font-bold uppercase tracking-wider select-none">Jumlah Anggota:</span>
-              <span class="text-sm font-black text-text-main" id="preview-participants">4 Orang</span>
+              <span class="text-xs text-text-light font-bold uppercase tracking-wider select-none">{t('planner.spec.members')}</span>
+              <span class="text-sm font-black text-text-main" id="preview-participants">4 {t('planner.people')}</span>
             </div>
 
             <div class="border-t border-dashed border-border-color pt-4">
-              <span class="text-xs text-text-light block font-bold uppercase tracking-wider mb-2 select-none">Fasilitas Termasuk:</span>
+              <span class="text-xs text-text-light block font-bold uppercase tracking-wider mb-2 select-none">{t('planner.spec.inclusions')}</span>
               <ul class="text-xs text-text-muted font-bold space-y-2" id="preview-inclusions">
                 <!-- Will be dynamically loaded -->
               </ul>
@@ -173,12 +192,12 @@ const t = useTranslations(locale);
         <div class="mt-8 border-t border-border-color pt-5">
           <div class="flex justify-between items-end mb-6">
             <div class="text-left">
-              <span class="text-xs text-text-light block font-bold uppercase tracking-wider mb-0.5 select-none">Total Estimasi Biaya</span>
+              <span class="text-xs text-text-light block font-bold uppercase tracking-wider mb-0.5 select-none">{t('planner.spec.total')}</span>
               <span class="text-xs text-text-light line-through font-bold hidden mr-1" id="preview-original-price">Rp 1.400.000</span>
               <span class="text-2xl font-black text-text-main tracking-tight" id="preview-total-price">Rp 1.400.000</span>
             </div>
             <div class="text-right">
-              <span class="text-xs text-text-light block font-bold uppercase tracking-wider select-none">Per Orang</span>
+              <span class="text-xs text-text-light block font-bold uppercase tracking-wider select-none">{t('planner.spec.perPerson')}</span>
               <span class="text-base font-extrabold text-accent" id="preview-per-person">Rp 350.000</span>
             </div>
           </div>
@@ -189,7 +208,7 @@ const t = useTranslations(locale);
             class="w-full bg-accent hover:bg-accent-hover text-white font-extrabold text-center py-4 px-6 rounded-full block shadow-sm text-sm tracking-wide transition-all hover:-translate-y-0.5" 
             id="planner-booking-btn"
           >
-            Hubungi & Pesan Sekarang
+            {t('planner.spec.btn')}
           </a>
         </div>
       </div>
@@ -200,6 +219,28 @@ const t = useTranslations(locale);
 
 <!-- Dynamic calculations and interactivity -->
 <script>
+  const container = document.getElementById('rencana');
+  const locale = container?.getAttribute('data-locale') || 'id';
+  const peopleLabel = container?.getAttribute('data-people-label') || 'Orang';
+  
+  // Dynamic inclusions text read from container
+  const incGuide = container?.getAttribute('data-inc-guide') || '';
+  const incTransport = container?.getAttribute('data-inc-transport') || '';
+  const incNature1 = container?.getAttribute('data-inc-nature1') || '';
+  const incNature2 = container?.getAttribute('data-inc-nature2') || '';
+  const incFamily1 = container?.getAttribute('data-inc-family1') || '';
+  const incFamily2 = container?.getAttribute('data-inc-family2') || '';
+  const incCulture1 = container?.getAttribute('data-inc-culture1') || '';
+  const incCulture2 = container?.getAttribute('data-inc-culture2') || '';
+
+  // WhatsApp translation text read from container
+  const waIntro = container?.getAttribute('data-wa-intro') || '';
+  const waDur = container?.getAttribute('data-wa-dur') || '';
+  const waTheme = container?.getAttribute('data-wa-theme') || '';
+  const waMembers = container?.getAttribute('data-wa-members') || '';
+  const waPrice = container?.getAttribute('data-wa-price') || '';
+  const waFooter = container?.getAttribute('data-wa-footer') || '';
+
   const durationBtns = document.querySelectorAll('.duration-btn');
   const themeBtns = document.querySelectorAll('.theme-btn');
   const participantsInput = document.getElementById('planner-participants') as HTMLInputElement;
@@ -215,11 +256,15 @@ const t = useTranslations(locale);
   const previewPerPerson = document.getElementById('preview-per-person');
   const bookingBtn = document.getElementById('planner-booking-btn') as HTMLAnchorElement;
 
-  let selectedDurationText = "1 Hari (Midnight)";
-  let selectedDurationPrice = 350000;
-  let selectedThemeText = "Petualangan Alam";
-  let selectedThemeModifier = 0;
-  let selectedParticipants = 4;
+  // Set initial selected values based on active buttons
+  const initialDurationBtn = document.querySelector('.duration-btn.active') as HTMLElement;
+  const initialThemeBtn = document.querySelector('.theme-btn.active') as HTMLElement;
+
+  let selectedDurationText = initialDurationBtn?.querySelector('span:first-child')?.textContent || (locale === 'en' ? "1 Day (Midnight)" : "1 Hari (Midnight)");
+  let selectedDurationPrice = parseInt(initialDurationBtn?.getAttribute('data-price') || "350000");
+  let selectedThemeText = initialThemeBtn?.querySelector('span:last-child')?.textContent || (locale === 'en' ? "Nature Adventure" : "Petualangan Alam");
+  let selectedThemeModifier = parseInt(initialThemeBtn?.getAttribute('data-mod') || "0");
+  let selectedParticipants = participantsInput ? parseInt(participantsInput.value) : 4;
 
   // Initial update
   updatePlanner();
@@ -264,7 +309,7 @@ const t = useTranslations(locale);
       const target = e.target as HTMLInputElement;
       selectedParticipants = parseInt(target.value);
       if (participantsDisplay) {
-        participantsDisplay.textContent = `${selectedParticipants} Orang`;
+        participantsDisplay.textContent = `${selectedParticipants} ${peopleLabel}`;
       }
       updatePlanner();
     });
@@ -274,22 +319,26 @@ const t = useTranslations(locale);
     // 1. Text previews
     if (previewDuration) previewDuration.textContent = selectedDurationText;
     if (previewTheme) previewTheme.textContent = selectedThemeText;
-    if (previewParticipants) previewParticipants.textContent = `${selectedParticipants} Orang`;
+    if (previewParticipants) previewParticipants.textContent = `${selectedParticipants} ${peopleLabel}`;
 
     // 2. Load dynamic inclusions
     let inclusions: string[] = [];
-    inclusions.push("Pemandu Lokal Osing Berlisensi");
-    inclusions.push("Transport AC Premium & BBM");
+    inclusions.push(incGuide || "Pemandu Lokal Osing Berlisensi");
+    inclusions.push(incTransport || "Transport AC Premium & BBM");
     
-    if (selectedThemeText.includes("Alam")) {
-      inclusions.push("Tiket Masuk Kawah Ijen / Baluran");
-      inclusions.push("Masker Gas Respirator & Senter Kepala");
-    } else if (selectedThemeText.includes("Keluarga")) {
-      inclusions.push("Tiket Pantai Pulau Merah & Kebun Buah");
-      inclusions.push("Payung Pantai & Tempat Bersantai");
+    // Check if the theme is nature/alam (checking both English & Indonesian keys)
+    const isNature = selectedThemeText.includes("Alam") || selectedThemeText.includes("Nature");
+    const isFamily = selectedThemeText.includes("Keluarga") || selectedThemeText.includes("Family") || selectedThemeText.includes("Leisure");
+    
+    if (isNature) {
+      inclusions.push(incNature1 || "Tiket Masuk Kawah Ijen / Baluran");
+      inclusions.push(incNature2 || "Masker Gas Respirator & Senter Kepala");
+    } else if (isFamily) {
+      inclusions.push(incFamily1 || "Tiket Pantai Pulau Merah & Kebun Buah");
+      inclusions.push(incFamily2 || "Payung Pantai & Tempat Bersantai");
     } else {
-      inclusions.push("Tiket Tari Gandrung & Angklung Kemiren");
-      inclusions.push("Jamuan Makan Tradisional & Kopai Osing");
+      inclusions.push(incCulture1 || "Tiket Tari Gandrung & Angklung Kemiren");
+      inclusions.push(incCulture2 || "Jamuan Makan Tradisional & Kopai Osing");
     }
 
     const checkIconSvg = `<svg class="w-4 h-4 text-accent shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
@@ -337,12 +386,12 @@ const t = useTranslations(locale);
     // 4. Update WhatsApp booking href link
     const waBase = "https://wa.me/6281234567890";
     const waText = encodeURIComponent(
-      `Halo Travel Osing!\nSaya tertarik memesan paket kustom dengan rincian berikut:\n\n` +
-      `- Durasi: ${selectedDurationText}\n` +
-      `- Tema Wisata: ${selectedThemeText}\n` +
-      `- Jumlah Anggota: ${selectedParticipants} orang\n` +
-      `- Perkiraan Harga: ${formatRupiah(totalCost)} (${formatRupiah(costPerPerson)}/pax)\n\n` +
-      `Mohon dibantu untuk koordinasi jadwal dan ketersediaan pemandu lokalnya. Terima kasih!`
+      waIntro +
+      `${waDur}${selectedDurationText}\n` +
+      `${waTheme}${selectedThemeText}\n` +
+      `${waMembers}${selectedParticipants} ${peopleLabel.toLowerCase()}\n` +
+      `${waPrice}${formatRupiah(totalCost)} (${formatRupiah(costPerPerson)}/pax)\n\n` +
+      waFooter
     );
     if (bookingBtn) {
       bookingBtn.href = `${waBase}?text=${waText}`;

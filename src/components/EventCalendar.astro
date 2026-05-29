@@ -152,7 +152,8 @@ const getMonthAbbr = (date: Date) => {
     const cards = document.querySelectorAll('.event-card-item');
     const noEvents = document.getElementById('no-events-message');
 
-    let activeCategory = 'Semua';
+    const firstBtn = filterButtons[0];
+    let activeCategory = firstBtn ? firstBtn.getAttribute('data-category') || 'Semua' : 'Semua';
 
     // Initialize Active Button State
     updateFilterButtons();
@@ -176,7 +177,7 @@ const getMonthAbbr = (date: Date) => {
       cards.forEach(card => {
         const cardCat = card.getAttribute('data-cat') || '';
         
-        if (activeCategory === 'Semua' || cardCat === activeCategory) {
+        if (activeCategory === 'Semua' || activeCategory === 'All' || cardCat === activeCategory) {
           (card as HTMLElement).style.display = 'flex';
           visibleCount++;
         } else {
