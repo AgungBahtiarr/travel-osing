@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #36a7e2;
-  --color-primary-hover: #1b8ec9;
-  --color-primary-dark: #0f6c9c;
-  --color-primary-light: #f5fafd;
+  --color-primary: #0a73aa; /* High-contrast premium ocean blue (4.97:1 contrast on white) */
+  --color-primary-hover: #075f8c;
+  --color-primary-dark: #044b70;
+  --color-primary-light: #f0f7fc;
   
-  --color-accent: #00aa6c; /* TripAdvisor green accent for ratings/positive actions */
-  --color-accent-hover: #008f5a;
-  --color-accent-light: #e6f7f0;
+  --color-accent: #007a4d; /* High-contrast premium forest green (4.78:1 contrast on white) */
+  --color-accent-hover: #00633e;
+  --color-accent-light: #e6f6ef;
   
   --color-text-main: #0f1219; /* High-contrast off-black */
   --color-text-muted: #4a5264; /* Readable dark-gray */

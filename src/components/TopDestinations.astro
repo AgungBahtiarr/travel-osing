@@ -71,7 +71,7 @@ const sortedDestinations = filteredDestinations.sort((a, b) => a.data.sortOrder 
             <span class="absolute top-4 left-4 bg-text-main/90 backdrop-blur-md text-white px-3 py-1 rounded-lg font-bold text-[0.65rem] uppercase tracking-wider shadow-sm z-10 select-none">
               {dest.data.category}
             </span>
-            <Image class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103" src={dest.data.image} alt={dest.data.title} width={400} height={300} loading="lazy" />
+            <Image class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103" src={dest.data.image} alt={locale === 'en' ? `Landscape: ${dest.data.title}` : `Pemandangan: ${dest.data.title}`} width={400} height={300} loading="lazy" />
           </div>
           <div class="p-6 flex flex-col flex-grow text-left">
             <h3 class="text-lg font-black text-text-main mb-1 tracking-tight group-hover:text-primary transition-colors cursor-pointer leading-snug">

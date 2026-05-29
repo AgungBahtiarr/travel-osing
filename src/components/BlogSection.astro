@@ -63,7 +63,7 @@ const formatDate = (date: Date) => {
           <div class="relative aspect-[4/3] w-full overflow-hidden bg-slate-100 border-b border-border-color">
             <Image 
               src={post.data.image} 
-              alt={post.data.title}
+              alt={locale === 'en' ? `Cover for: ${post.data.title}` : `Foto cover: ${post.data.title}`}
               width={400}
               height={300}
               class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"

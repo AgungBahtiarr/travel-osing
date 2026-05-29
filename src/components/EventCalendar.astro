@@ -80,7 +80,7 @@ const getMonthAbbr = (date: Date) => {
             <div class="relative w-full sm:w-[220px] aspect-[4/3] sm:aspect-auto overflow-hidden shrink-0 bg-slate-100 border-b sm:border-b-0 sm:border-r border-border-color">
               <Image 
                 src={event.image} 
-                alt={event.title}
+                alt={locale === 'en' ? `Event photo: ${event.title}` : `Foto perayaan: ${event.title}`}
                 width={360}
                 height={270}
                 class="w-full h-full object-cover object-center group-hover:scale-103 transition-transform duration-500"
