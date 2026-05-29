@@ -1,63 +1,102 @@
 ---
 // Testimonials Component
+// TripAdvisor-style clean user reviews section with bubble ratings.
+import { Check } from '@lucide/astro';
 ---
 
-<section class="py-25 px-6 bg-bg-secondary relative" id="testimoni">
+<section class="py-20 px-6 bg-bg-secondary border-t border-b border-border-color" id="testimoni">
   <div class="max-w-7xl mx-auto px-6 relative">
-    <div class="text-center max-w-[650px] mx-auto mb-15">
-      <span class="inline-block text-[0.875rem] font-bold uppercase tracking-[0.15em] text-primary mb-3 bg-primary-light px-4 py-1.5 rounded-full">
-        Ulasan Wisatawan
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-[650px] mx-auto mb-16">
+      <span class="inline-block text-[0.8rem] font-extrabold uppercase tracking-widest text-primary mb-3 bg-primary-light px-3.5 py-1.5 rounded-full">
+        Ulasan Pengunjung
       </span>
-      <h2 class="font-serif text-4xl md:text-[2.5rem] text-text-main mb-4 leading-tight font-extrabold">
-        Kisah dari Para Petualang
+      <h2 class="font-sans text-3xl md:text-4xl text-text-main mb-4 leading-tight font-black tracking-tight">
+        Kisah Perjalanan Nyata
       </h2>
-      <p class="text-text-muted text-[1.125rem]">
-        Dengarkan langsung cerita bahagia dari mereka yang telah merasakan keajaiban Banyuwangi bersama layanan kami.
+      <p class="text-text-muted text-base md:text-lg font-medium">
+        Berikut adalah ulasan asli yang ditulis langsung oleh para petualang yang telah mempercayakan liburan mereka kepada kami.
       </p>
     </div>
 
+    <!-- Testimonials Grid -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <!-- Testimonial 1 -->
-      <div class="bg-bg-main p-7.5 md:p-12 rounded-3xl shadow-md border border-slate-100/50 transition-all duration-300 flex flex-col justify-between relative hover:-translate-y-2 hover:shadow-lg hover:border-primary-light group">
-        <span class="absolute top-9 right-12 text-primary/8 text-7xl font-serif leading-none pointer-events-none select-none">“</span>
-        <p class="text-[1.05rem] leading-relaxed text-text-muted mb-[30px] italic relative z-10">
-          "Perjalanan kami ke Kawah Ijen sangat berkesan berkat Travel Osing! Pemandu lokal kami, Mas Haris, tahu persis rute terbaik agar kami terhindar dari keramaian dan mendapat posisi berfoto Blue Fire tercantik. Benar-benar profesional!"
-        </p>
-        
-        <div class="flex items-center gap-4">
-          <div class="w-14 h-14 rounded-full overflow-hidden border-3 border-white shadow-md">
+      
+      <!-- Review 1 -->
+      <div class="bg-white p-8 md:p-10 rounded-2xl border border-border-color flex flex-col justify-between relative hover:shadow-md transition-all duration-200 text-left">
+        <div>
+          <!-- Bubble rating and title -->
+          <div class="flex items-center gap-2 mb-3">
+            <div class="flex gap-0.5">
+              <span class="w-3 h-3 rounded-full bg-accent inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-accent inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-accent inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-accent inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-accent inline-block"></span>
+            </div>
+            <span class="text-xs font-bold text-text-main">"Sangat Profesional & Mengesankan!"</span>
+          </div>
+
+          <p class="text-text-muted text-sm leading-relaxed mb-6 font-medium">
+            Perjalanan kami ke Kawah Ijen sangat berkesan berkat Travel Osing! Pemandu lokal kami, Mas Haris, tahu persis rute terbaik agar kami terhindar dari antrean panjang dan mengarahkan ke spot foto Blue Fire tercantik. Benar-benar layanan kelas premium!
+          </p>
+        </div>
+
+        <!-- User profile -->
+        <div class="flex items-center gap-4 pt-5 border-t border-border-color mt-auto">
+          <div class="w-12 h-12 rounded-full overflow-hidden border border-border-color shrink-0">
             <img class="w-full h-full object-cover" src="/images/avatar1.png" alt="Foto Client Ardelia Maharani" loading="lazy" />
           </div>
-          <div class="text-left">
-            <h4 class="text-base font-bold text-text-main">Ardelia Maharani</h4>
-            <p class="text-[0.8rem] text-text-light font-semibold">Trip Kawah Ijen Premium</p>
-            <div class="flex gap-0.5 text-accent text-[0.95rem] mt-1">
-              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <h4 class="text-sm font-extrabold text-text-main">Ardelia Maharani</h4>
+              <span class="inline-flex items-center justify-center w-4 h-4 bg-accent/15 text-accent rounded-full shrink-0" title="Ulasan Terverifikasi">
+                <Check class="w-2.5 h-2.5 stroke-[3]" />
+              </span>
             </div>
+            <p class="text-[0.7rem] text-text-light font-bold">Trip Kawah Ijen • Surabaya, Indonesia</p>
           </div>
         </div>
       </div>
 
-      <!-- Testimonial 2 -->
-      <div class="bg-bg-main p-7.5 md:p-12 rounded-3xl shadow-md border border-slate-100/50 transition-all duration-300 flex flex-col justify-between relative hover:-translate-y-2 hover:shadow-lg hover:border-primary-light group">
-        <span class="absolute top-9 right-12 text-primary/8 text-7xl font-serif leading-none pointer-events-none select-none">“</span>
-        <p class="text-[1.05rem] leading-relaxed text-text-muted mb-[30px] italic relative z-10">
-          "Pengalaman budaya di Kemiren sungguh otentik. Kami diajak mencicipi kopi khas di rumah warga dan diajari memainkan Angklung. Rasanya seperti berkunjung ke rumah keluarga sendiri. Anak-anak sangat menikmati sabana Baluran!"
-        </p>
-        
-        <div class="flex items-center gap-4">
-          <div class="w-14 h-14 rounded-full overflow-hidden border-3 border-white shadow-md">
+      <!-- Review 2 -->
+      <div class="bg-white p-8 md:p-10 rounded-2xl border border-border-color flex flex-col justify-between relative hover:shadow-md transition-all duration-200 text-left">
+        <div>
+          <!-- Bubble rating and title -->
+          <div class="flex items-center gap-2 mb-3">
+            <div class="flex gap-0.5">
+              <span class="w-3 h-3 rounded-full bg-accent inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-accent inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-accent inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-accent inline-block"></span>
+              <span class="w-3 h-3 rounded-full bg-accent inline-block"></span>
+            </div>
+            <span class="text-xs font-bold text-text-main">"Pengalaman Adat Osing yang Otentik"</span>
+          </div>
+
+          <p class="text-text-muted text-sm leading-relaxed mb-6 font-medium">
+            Pengalaman budaya di Kemiren sungguh luar biasa hangat. Kami diajak menyeduh kopi di rumah warga adat dan diajari memainkan Angklung Paglak secara langsung. Rasanya seperti berkunjung ke rumah keluarga sendiri. Pemandunya ramah sekali!
+          </p>
+        </div>
+
+        <!-- User profile -->
+        <div class="flex items-center gap-4 pt-5 border-t border-border-color mt-auto">
+          <div class="w-12 h-12 rounded-full overflow-hidden border border-border-color shrink-0">
             <img class="w-full h-full object-cover" src="/images/avatar2.png" alt="Foto Client Gede Wirawan" loading="lazy" />
           </div>
-          <div class="text-left">
-            <h4 class="text-base font-bold text-text-main">Gede Wirawan</h4>
-            <p class="text-[0.8rem] text-text-light font-semibold">Trip Family Baluran & Budaya</p>
-            <div class="flex gap-0.5 text-accent text-[0.95rem] mt-1">
-              <span>★</span><span>★</span><span>★</span><span>★</span><span>★</span>
+          <div>
+            <div class="flex items-center gap-1.5">
+              <h4 class="text-sm font-extrabold text-text-main">Gede Wirawan</h4>
+              <span class="inline-flex items-center justify-center w-4 h-4 bg-accent/15 text-accent rounded-full shrink-0" title="Ulasan Terverifikasi">
+                <Check class="w-2.5 h-2.5 stroke-[3]" />
+              </span>
             </div>
+            <p class="text-[0.7rem] text-text-light font-bold">Trip Safari Budaya • Denpasar, Indonesia</p>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </section>

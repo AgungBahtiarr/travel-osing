@@ -2,32 +2,32 @@
 
 @theme {
   --color-primary: #36a7e2;
-  --color-primary-hover: #1f94d1;
-  --color-primary-dark: #147dae;
-  --color-primary-light: #f0f8fd;
+  --color-primary-hover: #1b8ec9;
+  --color-primary-dark: #0f6c9c;
+  --color-primary-light: #f5fafd;
   
-  --color-accent: #d97706;
-  --color-accent-hover: #b45309;
-  --color-accent-light: #fef3c7;
+  --color-accent: #00aa6c; /* TripAdvisor green accent for ratings/positive actions */
+  --color-accent-hover: #008f5a;
+  --color-accent-light: #e6f7f0;
   
-  --color-text-main: #0f172a;
-  --color-text-muted: #475569;
-  --color-text-light: #64748b;
+  --color-text-main: #0f1219; /* High-contrast off-black */
+  --color-text-muted: #4a5264; /* Readable dark-gray */
+  --color-text-light: #6e7687;
   
   --color-bg-main: #ffffff;
-  --color-bg-secondary: #f8fafc;
-  --color-bg-dark: #090d16;
+  --color-bg-secondary: #f8f9fb; /* Super clean light-slate for section separation */
+  --color-bg-dark: #0f1219;
   
-  --color-border-color: #f1f5f9;
+  --color-border-color: #e5e8ed; /* Clean TripAdvisor style crisp borders */
   
   --font-serif: "Playfair Display", Georgia, serif;
   --font-sans: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   
-  --shadow-subtle: 0 4px 30px rgba(0, 0, 0, 0.02);
-  --shadow-md: 0 10px 30px -5px rgba(15, 23, 42, 0.05), 0 4px 12px -2px rgba(15, 23, 42, 0.02);
-  --shadow-lg: 0 20px 40px -10px rgba(15, 23, 42, 0.08), 0 8px 20px -6px rgba(15, 23, 42, 0.03);
-  --shadow-overlap-bg: 0 25px 60px -15px rgba(0, 0, 0, 0.12);
-  --shadow-overlap-fg: 0 30px 70px -10px rgba(0, 0, 0, 0.18);
+  --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-md: 0 4px 20px -2px rgba(15, 23, 42, 0.04), 0 2px 8px -1px rgba(15, 23, 42, 0.02);
+  --shadow-lg: 0 12px 30px -10px rgba(15, 23, 42, 0.08), 0 4px 12px -5px rgba(15, 23, 42, 0.03);
+  --shadow-overlap-bg: 0 15px 40px -10px rgba(0, 0, 0, 0.06);
+  --shadow-overlap-fg: 0 20px 45px -5px rgba(0, 0, 0, 0.1);
   
   --animate-float: float 6s ease-in-out infinite alternate;
   --animate-float-reverse: float-reverse 6s ease-in-out infinite alternate;
@@ -35,22 +35,32 @@
 
 @keyframes float {
   0% { transform: translateY(0px) rotate(0deg); }
-  100% { transform: translateY(-15px) rotate(2deg); }
+  100% { transform: translateY(-10px) rotate(1.5deg); }
 }
 
 @keyframes float-reverse {
   0% { transform: translateY(0px) rotate(0deg); }
-  100% { transform: translateY(15px) rotate(-2deg); }
+  100% { transform: translateY(10px) rotate(-1.5deg); }
 }
 
-/* Global resets & system basics */
+/* Global resets & TripAdvisor-clean styling principles */
 html {
   scroll-behavior: smooth;
   background-color: var(--color-bg-main);
   color: var(--color-text-main);
   font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
   overflow-x: hidden;
+}
+
+/* Hide scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

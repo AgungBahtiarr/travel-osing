@@ -1,105 +1,322 @@
 ---
 // TopDestinations Component
+// TripAdvisor-style premium horizontal carousel for travel destinations.
+import { Heart, ChevronLeft, ChevronRight } from '@lucide/astro';
 ---
 
-<section class="py-25 px-6 bg-bg-main" id="destinasi">
+<section class="py-20 px-6 bg-white overflow-hidden" id="destinasi">
   <div class="max-w-7xl mx-auto px-6 relative">
-    <div class="text-center max-w-[650px] mx-auto mb-15">
-      <span class="inline-block text-[0.875rem] font-bold uppercase tracking-[0.15em] text-primary mb-3 bg-primary-light px-4 py-1.5 rounded-full">
-        Eksplorasi Terbaik
-      </span>
-      <h2 class="font-serif text-4xl md:text-[2.5rem] text-text-main mb-4 leading-tight font-extrabold">
-        Destinasi Unggulan
-      </h2>
-      <p class="text-text-muted text-[1.125rem]">
-        Pilihan petualangan menakjubkan yang dirancang khusus untuk memenuhi impian perjalanan Anda di Banyuwangi.
-      </p>
+    
+    <!-- TripAdvisor-style Premium Section Header with Carousel Navigation on Right -->
+    <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
+      <div class="text-left max-w-[580px]">
+        <span class="inline-block text-[0.75rem] font-bold uppercase tracking-[0.2em] text-primary mb-2.5">
+          Destinasi Pilihan
+        </span>
+        <h2 class="font-sans text-3xl md:text-4xl text-text-main font-black tracking-tight leading-tight">
+          Eksplorasi Unggulan Banyuwangi
+        </h2>
+      </div>
+      
+      <!-- Navigation buttons placed in the header row for modern premium look -->
+      <div class="flex items-center gap-2.5 shrink-0 self-start md:self-end">
+        <button 
+          type="button" 
+          id="carousel-prev" 
+          class="w-11 h-11 rounded-full border border-border-color bg-white hover:bg-slate-50 flex items-center justify-center text-text-main transition-all cursor-pointer focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed"
+          aria-label="Previous slide"
+        >
+          <ChevronLeft class="w-5 h-5 shrink-0" />
+        </button>
+        <button 
+          type="button" 
+          id="carousel-next" 
+          class="w-11 h-11 rounded-full border border-border-color bg-white hover:bg-slate-50 flex items-center justify-center text-text-main transition-all cursor-pointer focus:outline-none disabled:opacity-40 disabled:cursor-not-allowed"
+          aria-label="Next slide"
+        >
+          <ChevronRight class="w-5 h-5 shrink-0" />
+        </button>
+      </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-[480px] md:max-w-none mx-auto">
+    <!-- Scrollable Track (Snap container) -->
+    <div 
+      id="carousel-track" 
+      class="flex gap-6 overflow-x-auto snap-x snap-mandatory scroll-smooth no-scrollbar py-4 px-1"
+    >
+      
       <!-- Destination 1: Kawah Ijen -->
-      <article class="group bg-bg-main rounded-3xl overflow-hidden shadow-md transition-all duration-300 border border-slate-100/80 flex flex-col h-full hover:-translate-y-2.5 hover:shadow-lg hover:border-primary-light">
-        <div class="relative h-[260px] overflow-hidden">
-          <span class="absolute top-5 left-5 bg-white/90 backdrop-blur-sm text-text-main px-3.5 py-1.5 rounded-full font-bold text-[0.8rem] shadow-subtle z-10 uppercase tracking-wider border border-white/50">
+      <article class="carousel-card w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 snap-start group bg-white rounded-2xl overflow-hidden border border-border-color flex flex-col h-full hover:shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:-translate-y-1.5 transition-all duration-300">
+        <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+          <!-- Floating Bookmark Heart Icon -->
+          <button 
+            type="button" 
+            class="absolute top-4 right-4 z-10 w-9 h-9 bg-white/90 backdrop-blur-md hover:bg-white border border-slate-200/50 rounded-full flex items-center justify-center text-text-light hover:text-red-500 shadow-sm transition-all cursor-pointer focus:outline-none"
+            aria-label="Simpan destinasi"
+          >
+            <Heart class="w-4 h-4 shrink-0 transition-colors" />
+          </button>
+          
+          <span class="absolute top-4 left-4 bg-text-main/90 backdrop-blur-md text-white px-3 py-1 rounded-lg font-bold text-[0.65rem] uppercase tracking-wider shadow-sm z-10 select-none">
             Petualangan
           </span>
-          <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108" src="/images/ijen_blue_fire.png" alt="Fenomena Alam Blue Fire di Kawah Ijen" loading="lazy" />
+          <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103" src="/images/ijen_blue_fire.png" alt="Fenomena Alam Blue Fire di Kawah Ijen" loading="lazy" />
         </div>
-        <div class="p-[30px] flex flex-col flex-grow">
-          <h3 class="font-serif text-2xl text-text-main mb-3 font-bold">Kawah Ijen (Blue Fire)</h3>
-          <p class="text-text-muted text-[0.95rem] leading-relaxed mb-6 flex-grow">
-            Saksikan keajaiban api biru elektrik yang langka di dunia di dalam kawah kawah asam terbesar. Nikmati keindahan danau toska berselimut kabut belerang emas saat matahari terbit.
+        <div class="p-6 flex flex-col flex-grow text-left">
+          <h3 class="text-lg font-black text-text-main mb-1 tracking-tight group-hover:text-primary transition-colors cursor-pointer leading-snug">
+            Kawah Ijen Midnight (Blue Fire)
+          </h3>
+          
+          <!-- TripAdvisor Bubble Rating -->
+          <div class="flex items-center gap-2 mb-3">
+            <div class="flex gap-0.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+            </div>
+            <span class="text-xs font-semibold text-text-light">4.9 (428 ulasan)</span>
+          </div>
+
+          <p class="text-text-muted text-xs md:text-[0.825rem] leading-relaxed mb-6 flex-grow font-medium line-clamp-3">
+            Saksikan keajaiban api biru elektrik yang langka di dunia di kawah asam terbesar. Nikmati keindahan danau toska berselimut kabut belerang saat matahari terbit.
           </p>
-          <div class="flex items-center justify-between pt-5 border-t border-border-color">
+          
+          <div class="flex items-center justify-between pt-4 border-t border-border-color mt-auto">
             <div class="flex flex-col">
-              <span class="text-[0.75rem] text-text-light uppercase font-bold tracking-wider">Mulai Dari</span>
-              <span class="text-[1.15rem] font-extrabold text-primary">
-                Rp 350.000 <small class="text-[0.7rem] text-text-light font-normal">/pax</small>
+              <span class="text-[0.6rem] text-text-light uppercase font-bold tracking-wider mb-0.5">Mulai Dari</span>
+              <span class="text-base font-black text-text-main">
+                Rp 350.000 <small class="text-[0.65rem] text-text-light font-normal">/pax</small>
               </span>
             </div>
-            <a href="#kontak" class="inline-flex items-center gap-2 text-primary font-bold text-[0.95rem] px-4.5 py-2.5 rounded-lg transition-all hover:bg-primary-light hover:translate-x-1 group/explore" id="explore-ijen-btn">
+            
+            <a 
+              href="#rencana" 
+              class="inline-flex items-center gap-1.5 bg-primary-light text-primary hover:bg-primary hover:text-white font-extrabold text-[0.7rem] uppercase tracking-wider px-4 py-2.5 rounded-full transition-all cursor-pointer"
+            >
               Explore
-              <svg class="transition-transform duration-300 group-hover/explore:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
           </div>
         </div>
       </article>
 
       <!-- Destination 2: Baluran -->
-      <article class="group bg-bg-main rounded-3xl overflow-hidden shadow-md transition-all duration-300 border border-slate-100/80 flex flex-col h-full hover:-translate-y-2.5 hover:shadow-lg hover:border-primary-light">
-        <div class="relative h-[260px] overflow-hidden">
-          <span class="absolute top-5 left-5 bg-white/90 backdrop-blur-sm text-text-main px-3.5 py-1.5 rounded-full font-bold text-[0.8rem] shadow-subtle z-10 uppercase tracking-wider border border-white/50">
-            Margasatwa
+      <article class="carousel-card w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 snap-start group bg-white rounded-2xl overflow-hidden border border-border-color flex flex-col h-full hover:shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:-translate-y-1.5 transition-all duration-300">
+        <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+          <!-- Floating Bookmark Heart Icon -->
+          <button 
+            type="button" 
+            class="absolute top-4 right-4 z-10 w-9 h-9 bg-white/90 backdrop-blur-md hover:bg-white border border-slate-200/50 rounded-full flex items-center justify-center text-text-light hover:text-red-500 shadow-sm transition-all cursor-pointer focus:outline-none"
+            aria-label="Simpan destinasi"
+          >
+            <Heart class="w-4 h-4 shrink-0 transition-colors" />
+          </button>
+
+          <span class="absolute top-4 left-4 bg-text-main/90 backdrop-blur-md text-white px-3 py-1 rounded-lg font-bold text-[0.65rem] uppercase tracking-wider shadow-sm z-10 select-none">
+            Safari & Alam
           </span>
-          <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108" src="/images/baluran.png" alt="Sabana Emas Taman Nasional Baluran" loading="lazy" />
+          <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103" src="/images/baluran.png" alt="Sabana Emas Taman Nasional Baluran" loading="lazy" />
         </div>
-        <div class="p-[30px] flex flex-col flex-grow">
-          <h3 class="font-serif text-2xl text-text-main mb-3 font-bold">Taman Nasional Baluran</h3>
-          <p class="text-text-muted text-[0.95rem] leading-relaxed mb-6 flex-grow">
-            Rasakan sensasi berkelana di tengah sabana emas luas yang dihuni kawanan rusa, banteng liar, dan merak eksotis, membentang megah di bawah bayang-bayang Gunung Baluran.
+        <div class="p-6 flex flex-col flex-grow text-left">
+          <h3 class="text-lg font-black text-text-main mb-1 tracking-tight group-hover:text-primary transition-colors cursor-pointer leading-snug">
+            Safari Taman Nasional Baluran
+          </h3>
+          
+          <!-- TripAdvisor Bubble Rating -->
+          <div class="flex items-center gap-2 mb-3">
+            <div class="flex gap-0.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c]/20 border border-[#00aa6c]/10 inline-block"></span>
+            </div>
+            <span class="text-xs font-semibold text-text-light">4.7 (312 ulasan)</span>
+          </div>
+
+          <p class="text-text-muted text-xs md:text-[0.825rem] leading-relaxed mb-6 flex-grow font-medium line-clamp-3">
+            Rasakan sensasi berkelana di tengah sabana luas yang dihuni kawanan rusa, banteng liar, dan merak eksotis, membentang megah di bawah kaki Gunung Baluran.
           </p>
-          <div class="flex items-center justify-between pt-5 border-t border-border-color">
+          
+          <div class="flex items-center justify-between pt-4 border-t border-border-color mt-auto">
             <div class="flex flex-col">
-              <span class="text-[0.75rem] text-text-light uppercase font-bold tracking-wider">Mulai Dari</span>
-              <span class="text-[1.15rem] font-extrabold text-primary">
-                Rp 450.000 <small class="text-[0.7rem] text-text-light font-normal">/pax</small>
+              <span class="text-[0.6rem] text-text-light uppercase font-bold tracking-wider mb-0.5">Mulai Dari</span>
+              <span class="text-base font-black text-text-main">
+                Rp 450.000 <small class="text-[0.65rem] text-text-light font-normal">/pax</small>
               </span>
             </div>
-            <a href="#kontak" class="inline-flex items-center gap-2 text-primary font-bold text-[0.95rem] px-4.5 py-2.5 rounded-lg transition-all hover:bg-primary-light hover:translate-x-1 group/explore" id="explore-baluran-btn">
+            
+            <a 
+              href="#rencana" 
+              class="inline-flex items-center gap-1.5 bg-primary-light text-primary hover:bg-primary hover:text-white font-extrabold text-[0.7rem] uppercase tracking-wider px-4 py-2.5 rounded-full transition-all cursor-pointer"
+            >
               Explore
-              <svg class="transition-transform duration-300 group-hover/explore:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
           </div>
         </div>
       </article>
 
       <!-- Destination 3: Pulau Merah -->
-      <article class="group bg-bg-main rounded-3xl overflow-hidden shadow-md transition-all duration-300 border border-slate-100/80 flex flex-col h-full hover:-translate-y-2.5 hover:shadow-lg hover:border-primary-light">
-        <div class="relative h-[260px] overflow-hidden">
-          <span class="absolute top-5 left-5 bg-white/90 backdrop-blur-sm text-text-main px-3.5 py-1.5 rounded-full font-bold text-[0.8rem] shadow-subtle z-10 uppercase tracking-wider border border-white/50">
-            Pantai & Relaksasi
+      <article class="carousel-card w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 snap-start group bg-white rounded-2xl overflow-hidden border border-border-color flex flex-col h-full hover:shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:-translate-y-1.5 transition-all duration-300">
+        <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+          <!-- Floating Bookmark Heart Icon -->
+          <button 
+            type="button" 
+            class="absolute top-4 right-4 z-10 w-9 h-9 bg-white/90 backdrop-blur-md hover:bg-white border border-slate-200/50 rounded-full flex items-center justify-center text-text-light hover:text-red-500 shadow-sm transition-all cursor-pointer focus:outline-none"
+            aria-label="Simpan destinasi"
+          >
+            <Heart class="w-4 h-4 shrink-0 transition-colors" />
+          </button>
+
+          <span class="absolute top-4 left-4 bg-text-main/90 backdrop-blur-md text-white px-3 py-1 rounded-lg font-bold text-[0.65rem] uppercase tracking-wider shadow-sm z-10 select-none">
+            Pantai
           </span>
-          <img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-108" src="/images/pulau_merah.png" alt="Sunset Indah di Pantai Pulau Merah" loading="lazy" />
+          <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103" src="/images/pulau_merah.png" alt="Sunset Indah di Pantai Pulau Merah" loading="lazy" />
         </div>
-        <div class="p-[30px] flex flex-col flex-grow">
-          <h3 class="font-serif text-2xl text-text-main mb-3 font-bold">Pantai Pulau Merah</h3>
-          <p class="text-text-muted text-[0.95rem] leading-relaxed mb-6 flex-grow">
-            Nikmati salah satu pemandangan matahari terbenam paling dramatis di Indonesia dengan bukit merah berselimut hijau di bibir samudra dan pasir pantai yang berkilau keemasan.
+        <div class="p-6 flex flex-col flex-grow text-left">
+          <h3 class="text-lg font-black text-text-main mb-1 tracking-tight group-hover:text-primary transition-colors cursor-pointer leading-snug">
+            Sunset Pantai Pulau Merah
+          </h3>
+          
+          <!-- TripAdvisor Bubble Rating -->
+          <div class="flex items-center gap-2 mb-3">
+            <div class="flex gap-0.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+            </div>
+            <span class="text-xs font-semibold text-text-light">4.8 (280 ulasan)</span>
+          </div>
+
+          <p class="text-text-muted text-xs md:text-[0.825rem] leading-relaxed mb-6 flex-grow font-medium line-clamp-3">
+            Nikmati salah satu pemandangan matahari terbenam paling dramatis di Indonesia dengan bukit merah berselimut hijau di bibir samudra dan pasir pantai yang keemasan.
           </p>
-          <div class="flex items-center justify-between pt-5 border-t border-border-color">
+          
+          <div class="flex items-center justify-between pt-4 border-t border-border-color mt-auto">
             <div class="flex flex-col">
-              <span class="text-[0.75rem] text-text-light uppercase font-bold tracking-wider">Mulai Dari</span>
-              <span class="text-[1.15rem] font-extrabold text-primary">
-                Rp 300.000 <small class="text-[0.7rem] text-text-light font-normal">/pax</small>
+              <span class="text-[0.6rem] text-text-light uppercase font-bold tracking-wider mb-0.5">Mulai Dari</span>
+              <span class="text-base font-black text-text-main">
+                Rp 300.000 <small class="text-[0.65rem] text-text-light font-normal">/pax</small>
               </span>
             </div>
-            <a href="#kontak" class="inline-flex items-center gap-2 text-primary font-bold text-[0.95rem] px-4.5 py-2.5 rounded-lg transition-all hover:bg-primary-light hover:translate-x-1 group/explore" id="explore-pm-btn">
+            
+            <a 
+              href="#rencana" 
+              class="inline-flex items-center gap-1.5 bg-primary-light text-primary hover:bg-primary hover:text-white font-extrabold text-[0.7rem] uppercase tracking-wider px-4 py-2.5 rounded-full transition-all cursor-pointer"
+            >
               Explore
-              <svg class="transition-transform duration-300 group-hover/explore:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
             </a>
           </div>
         </div>
       </article>
+
+      <!-- Destination 4: De Djawatan (Lord of the Rings Forest) -->
+      <article class="carousel-card w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] shrink-0 snap-start group bg-white rounded-2xl overflow-hidden border border-border-color flex flex-col h-full hover:shadow-[0_20px_40px_rgba(15,23,42,0.06)] hover:-translate-y-1.5 transition-all duration-300">
+        <div class="relative aspect-[4/3] overflow-hidden bg-slate-100">
+          <!-- Floating Bookmark Heart Icon -->
+          <button 
+            type="button" 
+            class="absolute top-4 right-4 z-10 w-9 h-9 bg-white/90 backdrop-blur-md hover:bg-white border border-slate-200/50 rounded-full flex items-center justify-center text-text-light hover:text-red-500 shadow-sm transition-all cursor-pointer focus:outline-none"
+            aria-label="Simpan destinasi"
+          >
+            <Heart class="w-4 h-4 shrink-0 transition-colors" />
+          </button>
+
+          <span class="absolute top-4 left-4 bg-text-main/90 backdrop-blur-md text-white px-3 py-1 rounded-lg font-bold text-[0.65rem] uppercase tracking-wider shadow-sm z-10 select-none">
+            Fotografi
+          </span>
+          <img class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-103" src="/images/traveler.png" alt="Hutan Trembesi De Djawatan" loading="lazy" />
+        </div>
+        <div class="p-6 flex flex-col flex-grow text-left">
+          <h3 class="text-lg font-black text-text-main mb-1 tracking-tight group-hover:text-primary transition-colors cursor-pointer leading-snug">
+            Hutan De Djawatan (Lord of the Rings)
+          </h3>
+          
+          <!-- TripAdvisor Bubble Rating -->
+          <div class="flex items-center gap-2 mb-3">
+            <div class="flex gap-0.5">
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+              <span class="w-2.5 h-2.5 rounded-full bg-[#00aa6c] inline-block"></span>
+            </div>
+            <span class="text-xs font-semibold text-text-light">4.8 (196 ulasan)</span>
+          </div>
+
+          <p class="text-text-muted text-xs md:text-[0.825rem] leading-relaxed mb-6 flex-grow font-medium line-clamp-3">
+            Nikmati ketakjuban berjalan di bawah naungan pohon trembesi raksasa berlumut yang eksotis dan magis, menyerupai suasana hutan fantasi yang sangat mempesona.
+          </p>
+          
+          <div class="flex items-center justify-between pt-4 border-t border-border-color mt-auto">
+            <div class="flex flex-col">
+              <span class="text-[0.6rem] text-text-light uppercase font-bold tracking-wider mb-0.5">Mulai Dari</span>
+              <span class="text-base font-black text-text-main">
+                Rp 250.000 <small class="text-[0.65rem] text-text-light font-normal">/pax</small>
+              </span>
+            </div>
+            
+            <a 
+              href="#rencana" 
+              class="inline-flex items-center gap-1.5 bg-primary-light text-primary hover:bg-primary hover:text-white font-extrabold text-[0.7rem] uppercase tracking-wider px-4 py-2.5 rounded-full transition-all cursor-pointer"
+            >
+              Explore
+            </a>
+          </div>
+        </div>
+      </article>
+
     </div>
   </div>
 </section>
+
+<!-- Hide Scrollbar Styles -->
+<style>
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>
+
+<!-- Carousel Script Interactivity -->
+<script>
+  const track = document.getElementById('carousel-track');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+
+  if (track && prevBtn && nextBtn) {
+    const getScrollAmount = () => {
+      const firstCard = track.querySelector('.carousel-card') as HTMLElement;
+      return firstCard ? firstCard.offsetWidth + 24 : 320; // 24 is gap-6
+    };
+
+    nextBtn.addEventListener('click', () => {
+      track.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+    });
+
+    prevBtn.addEventListener('click', () => {
+      track.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+    });
+
+    // Handle button disable states based on scroll position
+    const updateButtons = () => {
+      const scrollLeft = track.scrollLeft;
+      const maxScroll = track.scrollWidth - track.clientWidth;
+      
+      (prevBtn as HTMLButtonElement).disabled = scrollLeft <= 8;
+      (nextBtn as HTMLButtonElement).disabled = scrollLeft >= maxScroll - 8;
+    };
+
+    track.addEventListener('scroll', updateButtons);
+    
+    // Check initial state after load
+    setTimeout(updateButtons, 100);
+    window.addEventListener('resize', updateButtons);
+  }
+</script>

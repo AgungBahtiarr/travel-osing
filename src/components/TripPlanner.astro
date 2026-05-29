@@ -1,0 +1,351 @@
+---
+// TripPlanner Component
+// TripAdvisor-style extremely clean interactive planner form & ticket spec.
+import { Mountain, Palmtree, Landmark, Info } from '@lucide/astro';
+---
+
+<section class="py-20 px-6 bg-bg-secondary border-t border-b border-border-color" id="rencana">
+  <div class="max-w-7xl mx-auto px-6 relative">
+    
+    <!-- Section Header -->
+    <div class="text-center max-w-[650px] mx-auto mb-14">
+      <span class="inline-block text-[0.8rem] font-extrabold uppercase tracking-widest text-primary mb-3 bg-primary-light px-3.5 py-1.5 rounded-full">
+        Rencana Kustom
+      </span>
+      <h2 class="font-sans text-3xl md:text-4xl text-text-main mb-4 leading-tight font-black tracking-tight">
+        Rancang Paket Perjalanan Sendiri
+      </h2>
+      <p class="text-text-muted text-base md:text-lg font-medium">
+        Tentukan durasi tinggal, tema aktivitas, dan jumlah rombongan untuk mendapatkan rincian fasilitas dan estimasi harga kustom secara instan.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-10 items-stretch">
+      
+      <!-- Clean TripAdvisor style Form panel -->
+      <div class="bg-white p-8 md:p-10 rounded-2xl border border-border-color flex flex-col justify-between shadow-sm">
+        <div class="space-y-8">
+          
+          <!-- Step 1: Duration -->
+          <div>
+            <label class="block text-xs font-black text-text-main uppercase tracking-wider mb-3">
+              Langkah 1: Pilih Durasi Perjalanan
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="planner-duration-group">
+              <button 
+                type="button" 
+                data-value="1" 
+                data-price="350000"
+                class="duration-btn active py-4 px-4 rounded-xl border-2 border-primary bg-primary-light/40 text-primary font-bold text-sm transition-all focus:outline-none flex flex-col items-center justify-center gap-1 cursor-pointer"
+              >
+                <span>1 Hari (Midnight)</span>
+                <span class="text-xs font-semibold text-primary/70">Rp 350.000/pax</span>
+              </button>
+              <button 
+                type="button" 
+                data-value="2" 
+                data-price="750000"
+                class="duration-btn py-4 px-4 rounded-xl border-2 border-slate-100 bg-bg-secondary text-text-muted font-bold text-sm transition-all hover:border-slate-300 focus:outline-none flex flex-col items-center justify-center gap-1 cursor-pointer"
+              >
+                <span>2 Hari 1 Malam</span>
+                <span class="text-xs font-semibold text-text-light">Rp 750.000/pax</span>
+              </button>
+              <button 
+                type="button" 
+                data-value="3" 
+                data-price="1200000"
+                class="duration-btn py-4 px-4 rounded-xl border-2 border-slate-100 bg-bg-secondary text-text-muted font-bold text-sm transition-all hover:border-slate-300 focus:outline-none flex flex-col items-center justify-center gap-1 cursor-pointer"
+              >
+                <span>3 Hari 2 Malam</span>
+                <span class="text-xs font-semibold text-text-light">Rp 1.200.000/pax</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 2: Theme -->
+          <div>
+            <label class="block text-xs font-black text-text-main uppercase tracking-wider mb-3">
+              Langkah 2: Pilih Tema Petualangan
+            </label>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" id="planner-theme-group">
+              <button 
+                type="button" 
+                data-value="Petualangan Alam" 
+                data-mod="0"
+                class="theme-btn active py-4 px-4 rounded-xl border-2 border-primary bg-primary-light/40 text-primary font-bold text-sm transition-all focus:outline-none flex flex-col items-center justify-center gap-2 cursor-pointer"
+              >
+                <Mountain class="w-5 h-5 shrink-0" />
+                <span>Petualangan Alam</span>
+              </button>
+              <button 
+                type="button" 
+                data-value="Santai & Keluarga" 
+                data-mod="-30000"
+                class="theme-btn py-4 px-4 rounded-xl border-2 border-slate-100 bg-bg-secondary text-text-muted font-bold text-sm transition-all hover:border-slate-300 focus:outline-none flex flex-col items-center justify-center gap-2 cursor-pointer"
+              >
+                <Palmtree class="w-5 h-5 shrink-0" />
+                <span>Santai & Keluarga</span>
+              </button>
+              <button 
+                type="button" 
+                data-value="Eksplorasi Budaya" 
+                data-mod="50000"
+                class="theme-btn py-4 px-4 rounded-xl border-2 border-slate-100 bg-bg-secondary text-text-muted font-bold text-sm transition-all hover:border-slate-300 focus:outline-none flex flex-col items-center justify-center gap-2 cursor-pointer"
+              >
+                <Landmark class="w-5 h-5 shrink-0" />
+                <span>Eksplorasi Budaya</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Step 3: Participants -->
+          <div>
+            <div class="flex justify-between items-center mb-3">
+              <label class="block text-xs font-black text-text-main uppercase tracking-wider">
+                Langkah 3: Jumlah Peserta
+              </label>
+              <span class="text-primary font-extrabold text-base" id="participants-display">4 Orang</span>
+            </div>
+            <div class="flex items-center gap-4">
+              <input 
+                type="range" 
+                min="1" 
+                max="15" 
+                value="4" 
+                class="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-primary focus:outline-none" 
+                id="planner-participants"
+              />
+            </div>
+            <p class="text-[0.75rem] text-text-light mt-2.5 font-semibold flex items-center gap-1.5 justify-center sm:justify-start">
+              <Info class="w-3.5 h-3.5 text-primary shrink-0" />
+              <span>Dapatkan potongan rombongan sebesar 10% untuk pemesanan di atas 4 peserta!</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview Dynamic TripAdvisor Style Ticket (White-Clean card with dotted divider) -->
+      <div class="bg-white rounded-2xl p-8 md:p-10 text-text-main flex flex-col justify-between shadow-sm border border-border-color relative overflow-hidden">
+        
+        <div>
+          <!-- Header -->
+          <div class="flex justify-between items-start border-b border-border-color pb-5 mb-5 select-none">
+            <div>
+              <h4 class="text-lg font-black tracking-tight text-text-main">Spesifikasi Rencana</h4>
+              <p class="text-[0.65rem] text-text-light font-extrabold tracking-wider uppercase">Travel Osing Spec Sheet</p>
+            </div>
+            <div class="bg-bg-secondary border border-border-color px-3 py-1 rounded-md text-[0.65rem] font-bold text-text-muted uppercase tracking-wider">
+              Preview Instan
+            </div>
+          </div>
+
+          <!-- Specifications -->
+          <div class="space-y-4 text-left font-medium">
+            <div class="flex justify-between items-center">
+              <span class="text-xs text-text-light font-bold uppercase tracking-wider select-none">Durasi Trip:</span>
+              <span class="text-sm font-black text-text-main" id="preview-duration">1 Hari (Midnight)</span>
+            </div>
+            
+            <div class="flex justify-between items-center">
+              <span class="text-xs text-text-light font-bold uppercase tracking-wider select-none">Tema Kegiatan:</span>
+              <span class="text-sm font-black text-text-main" id="preview-theme">Petualangan Alam</span>
+            </div>
+
+            <div class="flex justify-between items-center">
+              <span class="text-xs text-text-light font-bold uppercase tracking-wider select-none">Jumlah Anggota:</span>
+              <span class="text-sm font-black text-text-main" id="preview-participants">4 Orang</span>
+            </div>
+
+            <div class="border-t border-dashed border-border-color pt-4">
+              <span class="text-xs text-text-light block font-bold uppercase tracking-wider mb-2 select-none">Fasilitas Termasuk:</span>
+              <ul class="text-xs text-text-muted font-bold space-y-2" id="preview-inclusions">
+                <!-- Will be dynamically loaded -->
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pricing and TripAdvisor Green Action Button -->
+        <div class="mt-8 border-t border-border-color pt-5">
+          <div class="flex justify-between items-end mb-6">
+            <div class="text-left">
+              <span class="text-xs text-text-light block font-bold uppercase tracking-wider mb-0.5 select-none">Total Estimasi Biaya</span>
+              <span class="text-xs text-text-light line-through font-bold hidden mr-1" id="preview-original-price">Rp 1.400.000</span>
+              <span class="text-2xl font-black text-text-main tracking-tight" id="preview-total-price">Rp 1.400.000</span>
+            </div>
+            <div class="text-right">
+              <span class="text-xs text-text-light block font-bold uppercase tracking-wider select-none">Per Orang</span>
+              <span class="text-base font-extrabold text-accent" id="preview-per-person">Rp 350.000</span>
+            </div>
+          </div>
+
+          <a 
+            href="#" 
+            target="_blank" 
+            class="w-full bg-accent hover:bg-accent-hover text-white font-extrabold text-center py-4 px-6 rounded-full block shadow-sm text-sm tracking-wide transition-all hover:-translate-y-0.5" 
+            id="planner-booking-btn"
+          >
+            Hubungi & Pesan Sekarang
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- Dynamic calculations and interactivity -->
+<script>
+  const durationBtns = document.querySelectorAll('.duration-btn');
+  const themeBtns = document.querySelectorAll('.theme-btn');
+  const participantsInput = document.getElementById('planner-participants') as HTMLInputElement;
+  const participantsDisplay = document.getElementById('participants-display');
+
+  // Preview elements
+  const previewDuration = document.getElementById('preview-duration');
+  const previewTheme = document.getElementById('preview-theme');
+  const previewParticipants = document.getElementById('preview-participants');
+  const previewInclusions = document.getElementById('preview-inclusions');
+  const previewOriginalPrice = document.getElementById('preview-original-price');
+  const previewTotalPrice = document.getElementById('preview-total-price');
+  const previewPerPerson = document.getElementById('preview-per-person');
+  const bookingBtn = document.getElementById('planner-booking-btn') as HTMLAnchorElement;
+
+  let selectedDurationText = "1 Hari (Midnight)";
+  let selectedDurationPrice = 350000;
+  let selectedThemeText = "Petualangan Alam";
+  let selectedThemeModifier = 0;
+  let selectedParticipants = 4;
+
+  // Initial update
+  updatePlanner();
+
+  // Duration event listeners
+  durationBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      durationBtns.forEach(b => {
+        b.classList.remove('active', 'border-primary', 'bg-primary-light/40', 'text-primary');
+        b.classList.add('border-slate-100', 'bg-bg-secondary', 'text-text-muted');
+      });
+      const target = e.currentTarget as HTMLElement;
+      target.classList.add('active', 'border-primary', 'bg-primary-light/40', 'text-primary');
+      target.classList.remove('border-slate-100', 'bg-bg-secondary', 'text-text-muted');
+
+      selectedDurationText = target.querySelector('span:first-child')?.textContent || "";
+      selectedDurationPrice = parseInt(target.getAttribute('data-price') || "0");
+      updatePlanner();
+    });
+  });
+
+  // Theme event listeners
+  themeBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      themeBtns.forEach(b => {
+        b.classList.remove('active', 'border-primary', 'bg-primary-light/40', 'text-primary');
+        b.classList.add('border-slate-100', 'bg-bg-secondary', 'text-text-muted');
+      });
+      const target = e.currentTarget as HTMLElement;
+      target.classList.add('active', 'border-primary', 'bg-primary-light/40', 'text-primary');
+      target.classList.remove('border-slate-100', 'bg-bg-secondary', 'text-text-muted');
+
+      selectedThemeText = target.querySelector('span:last-child')?.textContent || "";
+      selectedThemeModifier = parseInt(target.getAttribute('data-mod') || "0");
+      updatePlanner();
+    });
+  });
+
+  // Participants event listener
+  if (participantsInput) {
+    participantsInput.addEventListener('input', (e) => {
+      const target = e.target as HTMLInputElement;
+      selectedParticipants = parseInt(target.value);
+      if (participantsDisplay) {
+        participantsDisplay.textContent = `${selectedParticipants} Orang`;
+      }
+      updatePlanner();
+    });
+  }
+
+  function updatePlanner() {
+    // 1. Text previews
+    if (previewDuration) previewDuration.textContent = selectedDurationText;
+    if (previewTheme) previewTheme.textContent = selectedThemeText;
+    if (previewParticipants) previewParticipants.textContent = `${selectedParticipants} Orang`;
+
+    // 2. Load dynamic inclusions
+    let inclusions: string[] = [];
+    inclusions.push("Pemandu Lokal Osing Berlisensi");
+    inclusions.push("Transport AC Premium & BBM");
+    
+    if (selectedThemeText.includes("Alam")) {
+      inclusions.push("Tiket Masuk Kawah Ijen / Baluran");
+      inclusions.push("Masker Gas Respirator & Senter Kepala");
+    } else if (selectedThemeText.includes("Keluarga")) {
+      inclusions.push("Tiket Pantai Pulau Merah & Kebun Buah");
+      inclusions.push("Payung Pantai & Tempat Bersantai");
+    } else {
+      inclusions.push("Tiket Tari Gandrung & Angklung Kemiren");
+      inclusions.push("Jamuan Makan Tradisional & Kopai Osing");
+    }
+
+    const checkIconSvg = `<svg class="w-4 h-4 text-accent shrink-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`;
+
+    if (previewInclusions) {
+      previewInclusions.innerHTML = inclusions.map(inc => `
+        <li class="flex items-center gap-2.5">
+          ${checkIconSvg}
+          <span>${inc}</span>
+        </li>
+      `).join('');
+    }
+
+    // 3. Dynamic pricing calculation
+    const baseRatePerPerson = selectedDurationPrice + selectedThemeModifier;
+    let totalCost = baseRatePerPerson * selectedParticipants;
+
+    // Apply group discount if > 4 people
+    const originalCost = totalCost;
+    let hasDiscount = false;
+    if (selectedParticipants > 4) {
+      totalCost = totalCost * 0.9; // 10% discount
+      hasDiscount = true;
+    }
+
+    // Update display prices
+    const costPerPerson = Math.round(totalCost / selectedParticipants);
+
+    if (previewTotalPrice) {
+      previewTotalPrice.textContent = formatRupiah(totalCost);
+    }
+    if (previewPerPerson) {
+      previewPerPerson.textContent = formatRupiah(costPerPerson);
+    }
+
+    if (previewOriginalPrice) {
+      if (hasDiscount) {
+        previewOriginalPrice.textContent = formatRupiah(originalCost);
+        previewOriginalPrice.classList.remove('hidden');
+      } else {
+        previewOriginalPrice.classList.add('hidden');
+      }
+    }
+
+    // 4. Update WhatsApp booking href link
+    const waBase = "https://wa.me/6281234567890";
+    const waText = encodeURIComponent(
+      `Halo Travel Osing!\nSaya tertarik memesan paket kustom dengan rincian berikut:\n\n` +
+      `- Durasi: ${selectedDurationText}\n` +
+      `- Tema Wisata: ${selectedThemeText}\n` +
+      `- Jumlah Anggota: ${selectedParticipants} orang\n` +
+      `- Perkiraan Harga: ${formatRupiah(totalCost)} (${formatRupiah(costPerPerson)}/pax)\n\n` +
+      `Mohon dibantu untuk koordinasi jadwal dan ketersediaan pemandu lokalnya. Terima kasih!`
+    );
+    if (bookingBtn) {
+      bookingBtn.href = `${waBase}?text=${waText}`;
+    }
+  }
+
+  function formatRupiah(amount: number): string {
+    return 'Rp ' + Math.round(amount).toLocaleString('id-ID');
+  }
+</script>

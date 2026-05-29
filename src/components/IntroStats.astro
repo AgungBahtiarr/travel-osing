@@ -1,36 +1,55 @@
 ---
 // IntroStats Component
+// TripAdvisor-style clean editorial and statistics showcase.
+import { ShieldCheck, Compass, Heart } from '@lucide/astro';
 ---
 
-<section class="bg-bg-secondary py-25 px-6 border-t border-b border-border-color relative before:content-[''] before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_10%_20%,rgba(54,167,226,0.02)_0%,transparent_40%)] before:pointer-events-none">
-  <div class="max-w-7xl mx-auto px-6 relative grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-20 items-center">
+<section class="bg-bg-secondary py-20 border-b border-border-color relative">
+  <div class="max-w-7xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-[0.8fr_1.2fr] gap-12 lg:gap-16 items-center">
+    
+    <!-- Left text editorial -->
     <div class="text-center lg:text-left">
-      <h3 class="font-serif text-4xl md:text-[2.5rem] leading-tight text-text-main mb-5">
-        Perjalanan Anda,<br /><span class="text-primary">Kebanggaan Kami.</span>
+      <h3 class="font-sans text-3xl md:text-4xl text-text-main font-black tracking-tight mb-5">
+        Perjalanan Aman,<br />Kenangan Berharga.
       </h3>
-      <p class="text-text-muted text-[1.1rem] leading-relaxed">
-        Kami berkomitmen menyajikan keindahan otentik Banyuwangi dengan sentuhan personal yang mewah. Bersama pemandu lokal asli, setiap langkah petualangan Anda akan menjadi kisah hidup yang tak ternilai harganya.
+      <p class="text-text-muted text-base leading-relaxed font-medium">
+        Kami berkomitmen menyajikan keindahan otentik Banyuwangi dengan standar kualitas premium. Bersama pemandu lokal berlisensi dari suku adat Osing asli, setiap langkah petualangan Anda terjamin aman dan menyenangkan.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
-      <div class="bg-bg-main px-6 py-9 rounded-3xl shadow-subtle border border-slate-100/80 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:border-primary-light">
-        <span class="font-serif text-[3.5rem] font-extrabold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent mb-2 block">10+</span>
-        <span class="text-[0.95rem] font-bold text-text-main mb-1 block">Tahun Pengalaman</span>
-        <span class="text-[0.85rem] text-text-muted block">Mengantarkan kebahagiaan petualang</span>
+    <!-- Right flat grids -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <!-- Card 1 -->
+      <div class="bg-white p-7.5 rounded-2xl border border-border-color text-center transition-all hover:shadow-md">
+        <div class="w-12 h-12 rounded-full bg-primary-light flex items-center justify-center mx-auto mb-4 text-primary shrink-0">
+          <ShieldCheck class="w-6 h-6" />
+        </div>
+        <span class="text-3xl font-black text-text-main mb-1.5 block tracking-tight">10+</span>
+        <span class="text-xs font-extrabold text-text-main mb-1 block uppercase tracking-wider">Tahun Pengalaman</span>
+        <span class="text-xs text-text-muted font-medium">Mengantarkan kebahagiaan petualang</span>
       </div>
       
-      <div class="bg-bg-main px-6 py-9 rounded-3xl shadow-subtle border border-slate-100/80 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:border-primary-light">
-        <span class="font-serif text-[3.5rem] font-extrabold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent mb-2 block">50+</span>
-        <span class="text-[0.95rem] font-bold text-text-main mb-1 block">Pemandu Lokal Osing</span>
-        <span class="text-[0.85rem] text-text-muted block">Asli dari suku adat dan berlisensi</span>
+      <!-- Card 2 -->
+      <div class="bg-white p-7.5 rounded-2xl border border-border-color text-center transition-all hover:shadow-md">
+        <div class="w-12 h-12 rounded-full bg-accent-light flex items-center justify-center mx-auto mb-4 text-accent shrink-0">
+          <Compass class="w-6 h-6" />
+        </div>
+        <span class="text-3xl font-black text-accent mb-1.5 block tracking-tight">50+</span>
+        <span class="text-xs font-extrabold text-text-main mb-1 block uppercase tracking-wider">Pemandu Lokal</span>
+        <span class="text-xs text-text-muted font-medium">Asli suku Osing dan bersertifikat</span>
       </div>
 
-      <div class="bg-bg-main px-6 py-9 rounded-3xl shadow-subtle border border-slate-100/80 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-lg hover:border-primary-light">
-        <span class="font-serif text-[3.5rem] font-extrabold bg-gradient-to-br from-primary to-accent bg-clip-text text-transparent mb-2 block">15k+</span>
-        <span class="text-[0.95rem] font-bold text-text-main mb-1 block">Petualang Puas</span>
-        <span class="text-[0.85rem] text-text-muted block">Dari dalam negeri dan mancanegara</span>
+      <!-- Card 3 -->
+      <div class="bg-white p-7.5 rounded-2xl border border-border-color text-center transition-all hover:shadow-md">
+        <div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center mx-auto mb-4 text-red-500 shrink-0">
+          <Heart class="w-6 h-6 fill-current" />
+        </div>
+        <span class="text-3xl font-black text-red-500 mb-1.5 block tracking-tight">15k+</span>
+        <span class="text-xs font-extrabold text-text-main mb-1 block uppercase tracking-wider">Petualang Puas</span>
+        <span class="text-xs text-text-muted font-medium">Dari nusantara hingga mancanegara</span>
       </div>
+      
     </div>
   </div>
 </section>

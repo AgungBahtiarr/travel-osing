@@ -1,28 +1,52 @@
 ---
 // CulturalBanner Component
+// TripAdvisor-style clean magazine grid spread for cultural highlights.
+import { Sparkles, ArrowRight } from '@lucide/astro';
 ---
 
-<section class="py-15 px-5 bg-bg-main" id="budaya">
-  <div class="w-full max-w-7xl mx-auto h-auto min-h-[520px] md:h-[580px] rounded-[32px] relative overflow-hidden shadow-lg flex items-end md:items-center">
-    <div class="absolute inset-0 z-10 before:content-[''] before:absolute before:inset-0 before:bg-gradient-to-r before:from-[#090d16]/75 before:via-[#090d16]/40 before:to-transparent before:z-20">
-      <img class="w-full h-full object-cover object-[center_40%]" src="/images/kemiren.png" alt="Kehidupan Tradisional Desa Adat Kemiren Banyuwangi" loading="lazy" />
-    </div>
-    
-    <!-- Glass Overlay Card -->
-    <div class="relative md:absolute md:top-1/2 md:left-10 lg:left-20 md:-translate-y-1/2 z-30 w-full md:max-w-[520px] bg-white/95 md:bg-white/85 backdrop-blur-md border-t md:border border-white/40 p-7.5 md:p-12 rounded-none md:rounded-3xl shadow-[0_30px_60px_rgba(0,0,0,0.25)] transition-all duration-300 md:hover:-translate-y-[calc(50%+4px)] md:hover:scale-[1.01] hover:border-white/60 group">
-      <span class="inline-block text-[0.8rem] font-bold uppercase tracking-widest text-primary mb-4 bg-primary-light px-3 py-1 rounded-full">
-        Eksplorasi Budaya
-      </span>
-      <h2 class="font-serif text-3xl md:text-[2.25rem] leading-tight text-text-main mb-5 font-extrabold">
-        Rasakan Otentisitas<br />Budaya Osing
-      </h2>
-      <p class="text-text-muted text-base leading-relaxed mb-8">
-        Larutlah dalam kehangatan komunitas Desa Adat Kemiren. Rasakan petualangan mistis tarian Gandrung, dengarkan alunan angklung paglak dari sawah, dan nikmati tradisi menyeduh kopi khas "Kopai Osing".
-      </p>
-      <a href="#kontak" class="bg-gradient-to-br from-accent to-accent-hover text-white px-7.5 py-3.5 rounded-2xl font-bold text-base shadow-[0_10px_20px_rgba(217,119,6,0.3)] inline-flex items-center gap-2 transition-all hover:-translate-y-0.5 hover:shadow-[0_12px_25px_rgba(217,119,6,0.4)] group/btn" id="banner-pkg-btn">
-        Lihat Paket Budaya
-        <svg class="transition-transform duration-300 group-hover/btn:translate-x-1" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-      </a>
+<section class="py-20 px-6 bg-white" id="budaya">
+  <div class="max-w-7xl mx-auto px-6 relative">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      
+      <!-- Left Column: Image Spread with TripAdvisor borders -->
+      <div class="relative rounded-2xl overflow-hidden border border-border-color shadow-sm h-[360px] md:h-[450px] shrink-0">
+        <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent z-10"></div>
+        <img class="w-full h-full object-cover object-[center_40%] grayscale-[5%]" src="/images/kemiren.png" alt="Wisata Tradisional Desa Adat Kemiren Banyuwangi" loading="lazy" />
+        
+        <!-- Image overlay tagline -->
+        <div class="absolute bottom-6 left-6 z-20 text-white text-left select-none">
+          <span class="text-[0.65rem] font-extrabold uppercase tracking-wider bg-white/20 backdrop-blur-xs px-2.5 py-1 rounded">Desa Kemiren</span>
+          <h4 class="text-xl font-bold mt-1 tracking-tight">Otentisitas Suku Adat Osing</h4>
+        </div>
+      </div>
+
+      <!-- Right Column: Clean Editorial Content -->
+      <div class="text-left space-y-6 lg:pl-6">
+        <div class="inline-flex items-center gap-1 bg-accent-light text-accent-hover px-3.5 py-1.5 rounded-full font-bold text-[0.75rem] uppercase tracking-wider shadow-sm select-none">
+          <Sparkles class="w-3.5 h-3.5 shrink-0" />
+          Eksplorasi Budaya
+        </div>
+        
+        <h2 class="font-sans text-3xl md:text-4xl text-text-main font-black tracking-tight leading-tight">
+          Masuk Lebih Dalam ke Budaya Osing asli
+        </h2>
+        
+        <p class="text-text-muted text-base leading-relaxed font-medium">
+          Larutlah dalam kehangatan komunitas Desa Adat Kemiren. Rasakan petualangan mistis tarian Gandrung, dengarkan alunan angklung paglak dari sawah, dan nikmati tradisi menyeduh kopi khas "Kopai Osing" langsung bersama warga setempat.
+        </p>
+
+        <div class="pt-2">
+          <a 
+            href="#rencana" 
+            class="inline-flex items-center gap-2 bg-text-main hover:bg-text-muted text-white font-extrabold text-xs tracking-wider uppercase px-7 py-4 rounded-full shadow-sm transition-all duration-150 group" 
+            id="banner-pkg-btn"
+          >
+            <span>Lihat Paket Budaya</span>
+            <ArrowRight class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-1 shrink-0" />
+          </a>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>

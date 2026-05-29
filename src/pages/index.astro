@@ -5,10 +5,14 @@ import Layout from '../layouts/Layout.astro';
 import Navbar from '../components/Navbar.astro';
 import Hero from '../components/Hero.astro';
 import IntroStats from '../components/IntroStats.astro';
+import Interests from '../components/Interests.astro';
 import TopDestinations from '../components/TopDestinations.astro';
+import TripPlanner from '../components/TripPlanner.astro';
 import CulturalBanner from '../components/CulturalBanner.astro';
 import Testimonials from '../components/Testimonials.astro';
+import FAQ from '../components/FAQ.astro';
 import Footer from '../components/Footer.astro';
+import WhatsAppWidget from '../components/WhatsAppWidget.astro';
 ---
 
 <Layout>
@@ -22,16 +26,28 @@ import Footer from '../components/Footer.astro';
 		<!-- Intro & Statistik Section -->
 		<IntroStats />
 
+		<!-- Find Things to do by Interest Section -->
+		<Interests />
+
 		<!-- Top Destinasi Section -->
 		<TopDestinations />
+
+		<!-- Trip Planner (Custom Trip Spec Planner) -->
+		<TripPlanner />
 
 		<!-- Feature Banner (Cultural Experience) -->
 		<CulturalBanner />
 
 		<!-- Testimoni Section -->
 		<Testimonials />
+
+		<!-- FAQ Accordion Section -->
+		<FAQ />
 	</main>
 
 	<!-- Footer Section -->
 	<Footer />
+
+	<!-- Floating Live WhatsApp Booking Widget -->
+	<WhatsAppWidget />
 </Layout>
